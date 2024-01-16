@@ -1,0 +1,22 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.side{
+  height: 100%;
+  width: 20%;
+  background-color: blue;
+}
+
+.mainText{
+  width: 80%;
+  height: 100%;
+  background-color: red;
+}
+
+main{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
