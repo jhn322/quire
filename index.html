@@ -1,26 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quire</title>
+  </head>
+  <body id="modalWindowAttacher">
+    <main>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="./styles/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-</head>
+      <nav class="side">
+        <div class="logo-div">
+          <i class="logo fa-brands fa-quora"></i>
+        </div>
+        <i class="menu-icon fa-solid fa-magnifying-glass"></i>
+        <i class="menu-icon fa-solid fa-star"></i>
+        <i class="menu-icon fa-solid fa-chart-column"></i>
+        <i class="menu-icon fa-solid fa-gear"></i>
+        <i class="menu-icon fa-solid fa-question"></i>
+      </nav>
+      <div class="notes-column">
+        <ul class="note-list">
+          <li class="note-thumbnail">
+            <h3>Title</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt, dolor!</p>
+          </li>
+          <li class="note-thumbnail active-note">
+            <h3>Title</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt, dolor!</p>
+          </li>
+          <li class="note-thumbnail">
+            <h3>Title</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt, dolor!</p>
+          </li>
+        </ul>
+      </div>
 
-<body>
-  <main>
-    <div class="side"></div>
-    <div class="mainText">
+      <div class="mainText">
       <textarea name="note-field" id="note-field" cols="80" rows="40" spellcheck="false"
         placeholder="Skriv något..."></textarea>
       <button id="save-notes">Spara</button>
-    </div>
-  </main>
+      </div>
+      <div class="add-note">
+        <i class="fa-regular fa-pen-to-square"></i>
+      </div>
+    </main>
 
-  <script src="./js/main.js"></script>
-  <script src="./js/notes.js"></script>
-</body>
+    <!-- Script for icons -->
+    <script src="https://kit.fontawesome.com/dfb17be9bd.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script src="js/modalWindow.js"></script>
 
 
+
+  </body>
 </html>

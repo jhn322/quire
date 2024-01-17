@@ -3,22 +3,143 @@
   margin: 0;
 }
 
-.side {
-  height: 100%;
-  width: 20%;
-  background-color: blue;
-}
-
-.mainText {
-  width: 80%;
-  height: 100%;
-  background-color: red;
-}
-
 main {
   width: 100%;
   height: 100vh;
   display: flex;
+  position: relative;
+}
+
+/* side with nav icons */
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+  height: 100%;
+  width: 5%;
+  min-width: 70px;
+  background-color: #005392;
+  box-shadow: 10px 10px 10px #ccc;
+  z-index: 2;
+}
+
+.logo-div {
+  width: 100%;
+  color: white;
+  background-color: #1c354c;
+  text-align: center;
+  padding: 0.8em;
+}
+
+.logo {
+  font-size: 3rem;
+}
+
+.menu-icon {
+  font-size: 1.5rem;
+  color: white;
+  background-color: #005392;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+
+.menu-icon:hover {
+  background-color: #5ea7df;
+}
+
+/* column for note overview */
+.notes-column {
+  height: 100%;
+  width: 15%;
+  min-width: 150px;
+  background-color: #ebebeb;
+  box-shadow: 10px 0px 10px #ccc;
+}
+
+.note-list {
+  padding-left: 0;
+  margin-top: 0.5em;
+  border: 5px 5px solid;
+}
+
+/* Class to add in js when creating listelement */
+.note-thumbnail {
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  padding: 0.5em 1.7em;
+  margin-bottom: 1em;
+  list-style: none;
+}
+
+/* Class to display which listelement is viewed */
+.active-note {
+  background-color: #f9f8f8;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.mainText {
+  width: 78%;
+  height: 100%;
+}
+
+/* icon for adding a new note */
+.add-note {
+  background-color: #005392;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+}
+
+.add-note:hover {
+  transform: scale(1.2);
+  box-shadow: 3px 3px 5px #ccc;
+}
+
+.fa-pen-to-square {
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* info modal section */
+.modalWindow {
+  width: 50%;
+  height: 50%;
+  background-color: white;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.modalButton {
+  align-self: flex-end;
+  width: 1.5rem;
+  margin-bottom: 2rem;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 100%;
+}
+
+.modalButton:hover {
+  color: red;
+}
+
+.modalBackground {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 8;
 }
 
 /* NOTES */
