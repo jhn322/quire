@@ -1,22 +1,53 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
 }
 
-.side{
+.side {
   height: 100%;
   width: 20%;
   background-color: blue;
 }
 
-.mainText{
+.mainText {
   width: 80%;
   height: 100%;
   background-color: red;
 }
 
-main{
+main {
   width: 100%;
   height: 100vh;
   display: flex;
+}
+
+/* NOTES */
+.hide-btn {
+  display: none;
+}
+
+#note-field {
+  height: 90vh;
+  width: 40vw;
+  padding: 2em;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 1em;
+  resize: none;
+}
+
+#save-notes {
+  padding: 0.5em 1em;
+  margin-bottom: 0.3em;
+  background-color: rgba(234, 234, 234);
+  border-radius: 4px;
+  text-align: center;
+  color: rgb(67, 67, 67);
+  border: none;
+  cursor: pointer;
+}
+
+#save-notes:hover {
+  background-color: white;
 }
