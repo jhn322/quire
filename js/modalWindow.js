@@ -36,3 +36,12 @@ questionMarkIcon.addEventListener("click", openModal);
 function openModal() {
   document.body.appendChild(modalBackground);
 }
+
+modalBackground.style.display = 'none';
+
+(() => {
+    if(localStorage.firstVisit == undefined || localStorage.firstVisit == null){
+        localStorage.firstVisit = true;
+        modalBackground.style.display = 'flex';
+    }
+})();
