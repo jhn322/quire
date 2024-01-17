@@ -3,22 +3,87 @@
   margin: 0;
 }
 
-.side {
-  height: 100%;
-  width: 20%;
-  background-color: blue;
-}
 
-.mainText {
-  width: 80%;
-  height: 100%;
-  background-color: red;
-}
-
-main {
+main{
   width: 100%;
   height: 100vh;
   display: flex;
+  position: relative;
+}
+
+.side{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+  height: 100%;
+  width: 5%;
+  min-width: 70px;
+  background-color: #005392;
+  box-shadow: 10px 10px 10px #ccc;
+  z-index: 2;
+}
+
+.logo-div {
+  width: 100%;
+  color: white;
+  background-color:#1c354c;
+  text-align: center;
+  padding: 0.8em;
+}
+
+.logo {
+  font-size: 3rem; 
+}
+
+.menu-icon {
+  font-size: 1.5rem;
+  color: white;
+  background-color: #005392;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+
+.menu-icon:hover {
+  background-color: #5ea7df;
+}
+
+.notes-column {
+  height: 100%;
+  width: 15%;
+  min-width: 150px;
+  background-color: #ebebeb;
+  box-shadow: 10px 0px 10px #ccc;
+}
+
+
+.mainText{
+  width: 78%;
+  height: 100%;
+}
+
+
+.add-note {
+  background-color: #005392;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+}
+
+.add-note:hover {
+  transform: scale(1.2);
+  box-shadow: 3px 3px 5px  #ccc;
+}
+
+.fa-pen-to-square {
+  color: white;
+  font-size: 1.5rem;
 }
 
 .modalWindow {
@@ -39,3 +104,4 @@ main {
   align-items: center;
   z-index: 8;
 }
+
