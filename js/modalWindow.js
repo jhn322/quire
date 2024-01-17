@@ -4,10 +4,12 @@ modalWindow.className = "modalWindow";
 const modalBackground = document.createElement("div");
 modalBackground.className = "modalBackground";
 const modalButton = document.createElement("button");
+
 //Gives button an event listener to remove the modal
 modalButton.addEventListener("click", removeModal);
 modalButton.textContent = "X";
 modalButton.className = "modalButton";
+
 const modalText = document.createElement("p");
 modalText.textContent =
   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus quidem nesciunt commodi adipisci sapiente blanditiis facilis aliquid consectetur vero qui magnam, quia aliquam minus, molestias, dolor minima consequuntur sed modi!";
@@ -22,4 +24,15 @@ modalWindow.appendChild(modalText);
 //Function to remove the modal
 function removeModal() {
   modalBackground.remove();
+}
+
+// Grab the question mark icon class
+const questionMarkIcon = document.querySelector(".fa-question");
+
+// Event listener for question mark icon
+questionMarkIcon.addEventListener("click", openModal);
+
+// Function to open the modal
+function openModal() {
+  document.body.appendChild(modalBackground);
 }
