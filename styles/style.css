@@ -3,15 +3,14 @@
   margin: 0;
 }
 
-
-main{
+main {
   width: 100%;
   height: 100vh;
   display: flex;
   position: relative;
 }
 
-.side{
+.side {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,13 +26,13 @@ main{
 .logo-div {
   width: 100%;
   color: white;
-  background-color:#1c354c;
+  background-color: #1c354c;
   text-align: center;
   padding: 0.8em;
 }
 
 .logo {
-  font-size: 3rem; 
+  font-size: 3rem;
 }
 
 .menu-icon {
@@ -56,12 +55,10 @@ main{
   box-shadow: 10px 0px 10px #ccc;
 }
 
-
-.mainText{
+.mainText {
   width: 78%;
   height: 100%;
 }
-
 
 .add-note {
   background-color: #005392;
@@ -78,7 +75,7 @@ main{
 
 .add-note:hover {
   transform: scale(1.2);
-  box-shadow: 3px 3px 5px  #ccc;
+  box-shadow: 3px 3px 5px #ccc;
 }
 
 .fa-pen-to-square {
@@ -91,6 +88,22 @@ main{
   height: 50%;
   background-color: white;
   z-index: 9;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.modalButton {
+  align-self: flex-end;
+  width: 1.5rem;
+  margin-bottom: 2rem;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 100%;
+}
+
+.modalButton:hover {
+  color: red;
 }
 
 .modalBackground {
@@ -104,4 +117,3 @@ main{
   align-items: center;
   z-index: 8;
 }
-
