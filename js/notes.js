@@ -22,6 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const noteTitle = document.getElementById('noteTitle');
   const noteField = document.getElementById('note-field');
   const noteList = document.querySelector('.note-list');
+  const addNote = document.querySelector('.add-note');
+
+  addNote.addEventListener('click', () => {
+    noteTitle.value = "";
+    noteField.value = "";
+  });
 
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
@@ -39,3 +45,4 @@ document.addEventListener("DOMContentLoaded", function () {
     noteList.innerHTML += newNote;
   });
 });
+

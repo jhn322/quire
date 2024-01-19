@@ -95,6 +95,9 @@ main {
   bottom: 1em;
   right: 1em;
 }
+.add-note > i{
+  pointer-events: none;
+}
 
 .add-note:hover {
   transform: scale(1.2);
