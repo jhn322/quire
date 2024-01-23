@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const notes = document.getElementById("note-field");
   notes.textContent = storedNotes.noteText;
   const title = document.getElementById('title');
-  title.textContent = storedNotes.noteTitle;
+  title.value = storedNotes.noteTitle || "";
 
   // button to save
   const saveBtn = document.getElementById("save-notes");
@@ -32,3 +32,4 @@ document.addEventListener("DOMContentLoaded", function () {
     saveBtn.classList.add("hide-btn");
   });
 });
+
