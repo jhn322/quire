@@ -25,5 +25,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     localStorage.setItem("notes", newNotes);
     saveBtn.classList.add("hide-btn");
+    saveAllNotes(notes);
+
   });
 });
+
+let savedNotes=[];
+function saveAllNotes(notes){
+
+
+let testNote = {
+  title: "variable here" ,
+  content : localStorage.getItem("notes")
+}
+savedNotes.push(testNote)
+
+console.log(JSON.stringify(savedNotes))
+let test = JSON.stringify(savedNotes);
+console.log(JSON.parse(test));
+}
