@@ -95,6 +95,9 @@ main {
   bottom: 1em;
   right: 1em;
 }
+.add-note > i{
+  pointer-events: none;
+}
 
 .add-note:hover {
   transform: scale(1.2);
@@ -186,4 +189,27 @@ main {
 
 #save-notes:hover {
   background-color: white;
+}
+
+.newNotes{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 20px;
+  border: solid 1px #111;
+}
+.newNotes > button, .newNotes > input, .newNotes > textarea{
+  padding: 10px;
+  border-radius: 10px;
+  border: solid 1px #111;
+  outline: none;
+}
+.newNotes > button {
+  background-color: rgb(63, 140, 255);
+  color: #fff;
 }
