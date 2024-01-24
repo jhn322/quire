@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const addNote = document.querySelector('.add-note');
 
   addNote.addEventListener('click', () => {
+    const toolbar = document.getElementById('toolbar');
+    toolbar.classList.remove('toolbar-hidden');
+
     title.textContent = "Titel...";
     notes.textContent = "";
   });
