@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const notes = document.getElementById("note-field");
   notes.textContent = storedNotes.noteText;
   const title = document.getElementById('noteTitle');
-  title.value = storedNotes.noteTitle || "";
+  title.textContent = storedNotes.noteTitle || "";
 
   // button to save
   const saveBtn = document.getElementById("save-notes");
@@ -16,26 +16,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // show button when someone is typing
   notes.addEventListener("keyup", function () {
-    if (this.value.length) {
+    if (this.textContent.length) {
       saveBtn.classList.remove("hide-btn");
     }
   });
 
-  const noteTitle = document.getElementById('noteTitle');
-  const noteField = document.getElementById('note-field');
   const noteList = document.querySelector('.note-list');
   const addNote = document.querySelector('.add-note');
 
   addNote.addEventListener('click', () => {
-    noteTitle.value = "";
-    noteField.value = "";
+    title.textContent = "Titel...";
+    notes.textContent = "";
   });
 
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
     let newNotes = {
-      noteTitle: title.value, 
-      noteText: notes.value
+      noteTitle: title.textContent, 
+      noteText: notes.textContent
     }
     
     localStorage.setItem("notes", JSON.stringify(newNotes));
@@ -43,8 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let newNote = `
       <li class="note-thumbnail">
-        <h3>${noteTitle.value}</h3>
-        <p>${noteField.value}</p>
+        <h3>${title.textContent}</h3>
+        <p>${notes.textContent}</p>
       </li>
     `;
     noteList.innerHTML += newNote;
