@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // update notes
   const notes = document.getElementById("note-field");
   notes.textContent = storedNotes.noteText;
-  const title = document.getElementById('title');
+  const title = document.getElementById('noteTitle');
   title.value = storedNotes.noteTitle || "";
 
   // button to save
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
     let newNotes = {
-      noteTitle: title.value, //TODO - id Title????
+      noteTitle: title.value, 
       noteText: notes.value
     }
     
