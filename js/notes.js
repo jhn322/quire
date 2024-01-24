@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
   // check local storage for stored notes
-  const storedNotes = localStorage.getItem("notes");
+  const storedNotes = JSON.parse(localStorage.getItem('notes')) || {};
 
   // update notes
   const notes = document.getElementById("note-field");
-  notes.textContent = storedNotes;
+  notes.textContent = storedNotes.noteText;
+  const title = document.getElementById('noteTitle');
+  title.value = storedNotes.noteTitle || "";
 
   // button to save
   const saveBtn = document.getElementById("save-notes");
@@ -31,9 +33,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
-    const newNotes = notes.value;
-
-    localStorage.setItem("notes", newNotes);
+    let newNotes = {
+      noteTitle: title.value, 
+      noteText: notes.value
+    }
+    
+    localStorage.setItem("notes", JSON.stringify(newNotes));
     saveBtn.classList.add("hide-btn");
 
     let newNote = `
