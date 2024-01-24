@@ -80,6 +80,11 @@ main {
 .mainText {
   width: 78%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  margin-top: 2em;
 }
 
 /* icon for adding a new note */
@@ -165,8 +170,17 @@ main {
   display: none;
 }
 
+#noteTitle {
+  width: 40vw;
+  padding: 0.5em;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  color: #a1a0a0;
+}
+
 #note-field {
-  height: 90vh;
+  height: 80vh;
   width: 40vw;
   padding: 2em;
   border: 2px solid #ccc;
