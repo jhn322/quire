@@ -95,6 +95,9 @@ main {
   bottom: 1em;
   right: 1em;
 }
+.add-note > i{
+  pointer-events: none;
+}
 
 .add-note:hover {
   transform: scale(1.2);
@@ -114,20 +117,24 @@ main {
   z-index: 9;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 1rem;
+  border-radius: 8px;
 }
 
 .modalButton {
   align-self: flex-end;
   width: 1.5rem;
   margin-bottom: 2rem;
-  background-color: white;
-  border: 2px solid black;
-  border-radius: 100%;
+  background-color: #005392;
+  color: white;
+  border-radius: 8px;
 }
 
 .modalButton:hover {
-  color: red;
+  color: #005392;
+  background-color: #819eb5;
+  cursor: pointer;
 }
 
 .modalBackground {
@@ -140,6 +147,17 @@ main {
   justify-content: center;
   align-items: center;
   z-index: 8;
+}
+
+.modalText {
+  width: 40rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 2em;
+}
+
+.modalTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
 }
 
 /* NOTES */
@@ -171,4 +189,27 @@ main {
 
 #save-notes:hover {
   background-color: white;
+}
+
+.newNotes{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 20px;
+  border: solid 1px #111;
+}
+.newNotes > button, .newNotes > input, .newNotes > textarea{
+  padding: 10px;
+  border-radius: 10px;
+  border: solid 1px #111;
+  outline: none;
+}
+.newNotes > button {
+  background-color: rgb(63, 140, 255);
+  color: #fff;
 }

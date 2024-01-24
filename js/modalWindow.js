@@ -10,15 +10,21 @@ modalButton.addEventListener("click", removeModal);
 modalButton.textContent = "X";
 modalButton.className = "modalButton";
 
+const modalTitle = document.createElement("p");
+modalTitle.classList.add("modalTitle");
+modalTitle.textContent = "Välkommen till Quire!";
+
 const modalText = document.createElement("p");
+modalText.classList.add("modalText");
 modalText.textContent =
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus quidem nesciunt commodi adipisci sapiente blanditiis facilis aliquid consectetur vero qui magnam, quia aliquam minus, molestias, dolor minima consequuntur sed modi!";
+  "Quire är appen för att skapa och spara alla dina anteckningar på ett smidigt sätt. Klicka på knappen med pennan för att skapa en ny anteckning!";
 
 //Find the body to attach the modal
 const modalWindowAttacher = document.getElementById("modalWindowAttacher");
 modalWindowAttacher.appendChild(modalBackground);
 modalBackground.appendChild(modalWindow);
 modalWindow.appendChild(modalButton);
+modalWindow.appendChild(modalTitle);
 modalWindow.appendChild(modalText);
 
 //Function to remove the modal

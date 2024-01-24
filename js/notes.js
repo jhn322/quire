@@ -21,6 +21,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  const noteTitle = document.getElementById('noteTitle');
+  const noteField = document.getElementById('note-field');
+  const noteList = document.querySelector('.note-list');
+  const addNote = document.querySelector('.add-note');
+
+  addNote.addEventListener('click', () => {
+    noteTitle.value = "";
+    noteField.value = "";
+  });
+
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
     let newNotes = {
@@ -30,6 +40,14 @@ document.addEventListener("DOMContentLoaded", function () {
     
     localStorage.setItem("notes", JSON.stringify(newNotes));
     saveBtn.classList.add("hide-btn");
+
+    let newNote = `
+      <li class="note-thumbnail">
+        <h3>${noteTitle.value}</h3>
+        <p>${noteField.value}</p>
+      </li>
+    `;
+    noteList.innerHTML += newNote;
   });
 });
 
