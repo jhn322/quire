@@ -45,6 +45,12 @@
       </div>
 
       <div class="mainText">
+        <!-- title-section -->
+        <div class="title-section">
+          <h1 id="noteTitle" contenteditable="true" spellcheck="false">Titel...</h1>
+          <p id="noteDate">Här ska datumet in</p>
+        </div>
+        <!-- toolbar-section  -->
         <div id="toolbar" class="toolbar toolbar-hidden">
           <select name="text-type" id="text-type">
             <option class="h1-option" value="h1">Rubrik 1</option>
@@ -84,9 +90,8 @@
           <i class="fa-solid fa-list-ol tool-icon"></i>
           <i class="fa-regular fa-image tool-icon"></i>
         </div>
+        <!-- note section -->
         <div class="note-section">
-          <h1 id="noteTitle" contenteditable="true" spellcheck="false">Titel...</h1>
-          <p id="noteDate">Här ska datumet in</p>
           <p id="note-field" contenteditable="true" spellcheck="false"></p>
           <button id="save-notes">Spara</button>
         </div>
@@ -104,5 +109,6 @@
     <script src="js/main.js"></script>
     <script src="js/modalWindow.js"></script>
     <script src="js/notes.js"></script>
+    <script src="js/toolbar.js"></script>
   </body>
 </html>
