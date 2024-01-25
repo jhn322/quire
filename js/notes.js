@@ -1,9 +1,17 @@
 class Note {
-  constructor(title, content, date = Date.now(), isFavorite = false, img = []) {
+  constructor(
+    title,
+    content,
+    date = Date.now(),
+    id = Date.now(),
+    isFavorite = false,
+    img = []
+  ) {
     (this.title = title),
       (this.content = content),
       (this.isFavorite = isFavorite),
       (this.date = date),
+      (this.id = id),
       (this.img = img);
   }
 }
@@ -63,8 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("notes", JSON.stringify(activeNote));
     saveBtn.classList.add("hide-btn");
 
-    createTumbnail(activeNote);
-
     // let newNote = `
     //   <li class="note-thumbnail">
     //     <h3>${noteTitle.value}</h3>
@@ -75,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //check om id alrdy present
     //localStorage.getItem("notes")
     //setItem("allNotes")
-    saveAllNotes(newNotes);
+    saveAllNotes(activeNote);
   });
 });
 
@@ -84,16 +90,28 @@ function saveAllNotes(noteObject) {
   let allNotes = localStorage.getItem("allNotes") || "[]";
   allNotes = JSON.parse(allNotes);
 
-  //make localstorage an array again
-  //push new Object in
+  //Checks if the current note exists, if not adds it to "allnotes" local storage;
+  let checkNote = [];
+  checkNote = allNotes.filter((e) => noteObject.id === e.id);
+  if (checkNote.length === 0) {
+    allNotes.push(activeNote);
+    localStorage.setItem("allNotes", JSON.stringify(allNotes));
+    createTumbnail(activeNote);
+  } else {
+    updateNote(noteObject, allNotes);
+    renderAllTumbnails();
+  }
+}
 
-  //change to string and save in localstorage
-
-  allNotes.push(activeNote);
-
+//If there's no new note the existing note's updated with the new content
+function updateNote(noteObject, allNotes) {
+  allNotes.forEach((note) => {
+    if (note.id === noteObject.id) {
+      note.content = noteObject.content;
+      note.title = noteObject.title;
+    }
+  });
   localStorage.setItem("allNotes", JSON.stringify(allNotes));
-
-  console.log(allNotes);
 }
 
 function createTumbnail(noteObject) {
@@ -129,6 +147,8 @@ function createTumbnail(noteObject) {
 
 function renderAllTumbnails() {
   const allNotes = JSON.parse(localStorage.getItem("allNotes")) || "";
+  const noteList = document.querySelector(".note-list");
+  noteList.innerHTML = "";
   if (allNotes != "") {
     allNotes.forEach((noteObject) => {
       createTumbnail(noteObject);
