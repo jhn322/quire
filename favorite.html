@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        user-select: none;
+        font-family: "PT Sans Narrow", sans-serif;
+        font-weight: normal;
+    }
+    body{
+        background: linear-gradient(to right, #000000 60%, #295a8d 40%);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    p{
+        margin-top: 10px;
+        text-indent: 1rem;
+    }
+    main{
+        width: 90%;
+        height: 90%;
+        background: #578ec9;
+        border: solid 1px #333;
+        display: flex;
+        border-radius: 22px;
+    }
+    #leftSide{
+        width: 40%;
+        background: #1a1a1a;
+        border: solid 30px #1a1a1a;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 40px;
+        overflow-y: scroll;
+        border-radius: 20px;
+    }
+    #leftSide::-webkit-scrollbar{
+        background: #11111100;
+        width: 7px;
+    }
+    #leftSide::-webkit-scrollbar-thumb{
+        border-radius: 20px;
+        background: #707070;
+    }
+    #leftSide h2{
+        color: #f4de70;
+    }
+    #leftSide p{
+        color: #aaa;
+    }
+    #rightSide{
+        width: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .note{
+        position: relative;
+        background: #333;
+        padding: 20px;
+        min-height: 170px;
+        max-height: 170px;
+        overflow-y: hidden;
+        transition: 0.2s;
+        border-radius: 20px;
+    }
+    .note:hover{
+        transform: rotate(-1deg) translate(3px, 3px);
+    }
+    .note > h2, .note > p, .note > b{
+        pointer-events: none;
+    }
+    .note > b{
+        position: absolute;
+        top: 0;
+        right: 20px;
+        background: #000;
+        width: 35px;
+        height: 45px;
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 80%, 0% 100%);
+        text-align: center;
+        font-size: 25px;
+    }
+
+    #demo{
+        width: 90%;
+        height: 90%;
+        background: #cfcfcf;
+        padding: 50px;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .moveT{
+        animation: moveTop 0.5s;
+    }
+    .moveD{
+        animation: moveDown 0.5s;
+    }
+
+    @keyframes moveDown{
+        0%{
+            transform: translateY(0pY);
+            opacity: 1;
+        }
+        50%{
+            transform: translateY(50%);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes moveTop{
+        0%{
+            transform: translateY(0px);
+            opacity: 1;
+        }
+        50%{
+            transform: translateY(-50%);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* @media (max-width: 1024px){
+        body{
+            background: linear-gradient(#1a1a1a 60%, #ddd 40%);
+        }
+        main{
+            flex-direction: column;
+        }
+        #leftSide{
+            width: unset;
+            height: 40%;
+        }
+    } */
+</style>
+
+
+<body>
+    <main>
+        <div id="leftSide">
+            <div class="note" id="note1">
+                <b>⭐</b>
+                <h2>Title1</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt nisi consectetur repudiandae consequatur fuga animi ea nemo tenetur facere? Labore ipsam magnam saepe quas dolorum quos!</p>
+            </div>
+            <div class="note" id="note2">
+                <b>⭐</b>
+                <h2>Title2</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem deleniti perferendis dignissimos placeat, adipisci, aspernatur provident maiores maxime velit praesentium, dolores unde dicta? Ullam similique, odio aut enim hic molestias?
+                Sunt at ut laborum voluptatem ullam quo harum corrupti nam, quam molestias reiciendis. Reprehenderit aliquid doloribus rem minima porro ducimus ex eligendi necessitatibus iure aspernatur quia, nihil optio odio quidem.
+                Libero aliquid voluptas voluptatum aliquam magni optio fuga voluptate nobis nesciunt! Reprehenderit qui magnam maiores dignissimos tempore, nisi voluptates quasi architecto reiciendis, dolores error! Iusto deserunt deleniti mollitia ipsa repudiandae!</p>
+            </div>
+            <div class="note" id="note3">
+                <b>⭐</b>
+                <h2>Title3</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem deleniti perferendis dignissimos placeat, adipisci, aspernatur provident maiores maxime velit praesentium, dolores unde dicta? Ullam similique, odio aut enim hic molestias?
+                Sunt at ut laborum voluptatem ullam quo harum corrupti nam, quam molestias reiciendis. Reprehenderit aliquid doloribus rem minima porro ducimus ex eligendi necessitatibus iure aspernatur quia, nihil optio odio quidem.
+                Libero aliquid voluptas voluptatum aliptates quasi architecto reiciendis, dolores error! Iusto deserunt deleniti mollitia ipsa repudiandae!</p>
+            </div>
+            <div class="note" id="note4">
+                <b>⭐</b>
+                <h2>Title4</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem deleniti perferendis dignissimos placeat, adipisci, aspernatur provident maiores maxime velit praesentium, dolores unde dicta? Ullam similique, odio aut enim hic molestias?
+                Sunt at ut laborum voluptatem ullam quo htes quasi architecto reiciendis, dolores error! Iusto deserunt deleniti mollitia ipsa repudiandae!</p>
+            </div>
+        </div>
+
+        <div id="rightSide">
+            <div id="demo">
+                <h1 id="demoTitle">Title</h1>
+                <p id="demoText">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem deleniti perferendis dignissimos placeat, adipisci, aspernatur provident maiores maxime velit praesentium, dolores unde dicta? Ullam similique, odio aut enim hic molestias?
+                Sunt at ut laborum voluptatem ullam quo harum corrupti nam, quam molestias reiciendis. Reprehenderit aliquid doloribus rem minima porro ducimus ex eligendi necessitatibus iure aspernatur quia, nihil optio odio quidem.
+                Libero aliquid voluptas voluptatum aliquam magni optio fuga voluptate nobis nesciunt! Reprehenderit qui magnam maiores dignissimos tempore, nisi voluptates quasi architecto reiciendis, dolores error! Iusto deserunt deleniti mollitia ipsa repudiandae!</p>
+            </div>
+        </div>
+    </main>
+</body>
+
+
+<script>
+    const demoTitle = document.getElementById('demoTitle');
+    const demoText = document.getElementById('demoText');
+    const note = document.getElementsByClassName('note');
+    let currentNote = 'note1';
+
+    for(let i = 0; i < note.length; i++){
+        note[i].title = note[i].getElementsByTagName('h2')[0].textContent;
+        note[i].text = note[i].getElementsByTagName('p')[0].textContent;
+    }
+
+    document.addEventListener('click', (evt) => {
+        if(evt.target.className == 'note'){
+            if(evt.target.id != currentNote){
+               demoTitle.classList.add('moveT');
+                demoText.classList.add('moveD'); 
+            }
+            currentNote = evt.target.id;
+            setTimeout(() => {
+                demoTitle.textContent = document.getElementById(evt.target.id).title;
+                demoText.textContent = document.getElementById(evt.target.id).text;
+            }, 250);
+            setTimeout(() => {
+                demoTitle.classList.remove('moveT');
+                demoText.classList.remove('moveD');
+            }, 500);
+        }
+    });
+    
+</script>
+</html>
