@@ -87,11 +87,31 @@ main {
   margin-top: 2em;
 }
 
+/* --- title-section --- */
+.title-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.5em;
+}
+
+.title-section h1 {
+  font-size: 1.6rem;
+  width: 40vw;
+  padding: 0.2em;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  color: #a1a0a0;
+}
+
 /* --- toolbar-section ---  */
 .toolbar {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 1em;
   gap: 0.7em;
   padding: 0.8em 1.5em;
   border-radius: 40px;
@@ -149,6 +169,7 @@ main {
   font-family:'Times New Roman', serif;
 }
 
+/* --- note-section --- */
 .note-section {
   display: flex;
   flex-direction: column;
