@@ -10,7 +10,7 @@ class Note {
 
 let activeNote = new Note("", "");
 console.log(activeNote);
-
+renderAllTumbnails();
 document.addEventListener("DOMContentLoaded", function () {
   // check local storage for stored notes
   // const storedNotes = JSON.parse(localStorage.getItem("notes")) || {};
@@ -63,13 +63,15 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("notes", JSON.stringify(activeNote));
     saveBtn.classList.add("hide-btn");
 
-    let newNote = `
-      <li class="note-thumbnail">
-        <h3>${noteTitle.value}</h3>
-        <p>${noteField.value}</p>
-      </li>
-    `;
-    noteList.innerHTML += newNote;
+    createTumbnail(activeNote);
+
+    // let newNote = `
+    //   <li class="note-thumbnail">
+    //     <h3>${noteTitle.value}</h3>
+    //     <p>${noteField.value}</p>
+    //   </li>
+    // `;
+    // noteList.innerHTML += newNote;
     //check om id alrdy present
     //localStorage.getItem("notes")
     //setItem("allNotes")
@@ -92,4 +94,44 @@ function saveAllNotes(noteObject) {
   localStorage.setItem("allNotes", JSON.stringify(allNotes));
 
   console.log(allNotes);
+}
+
+function createTumbnail(noteObject) {
+  const noteList = document.querySelector(".note-list");
+  const newListItem = document.createElement("li");
+  const newTitle = document.createElement("h3");
+  const newContent = document.createElement("p");
+  const favorite = document.createElement("button");
+  const deletebtn = document.createElement("button");
+
+  newListItem.id = noteObject.date;
+  newListItem.classList.add("note-thumbnail");
+
+  newTitle.textContent = noteObject.title;
+  newContent.textContent = noteObject.content;
+
+  favorite.textContent = "favorite-star here";
+  favorite.addEventListener("click", () => {
+    console.log("now it is a favorite!");
+  });
+
+  deletebtn.textContent = "delete";
+  deletebtn.addEventListener("click", () => {
+    console.log("it is deleted");
+  });
+
+  newListItem.appendChild(newTitle);
+  newListItem.appendChild(newContent);
+  newListItem.appendChild(favorite);
+  newListItem.appendChild(deletebtn);
+  noteList.appendChild(newListItem);
+}
+
+function renderAllTumbnails() {
+  const allNotes = JSON.parse(localStorage.getItem("allNotes")) || "";
+  if (allNotes != "") {
+    allNotes.forEach((noteObject) => {
+      createTumbnail(noteObject);
+    });
+  }
 }
