@@ -36,6 +36,11 @@ main {
   font-size: 3rem;
 }
 
+a:visited {
+  text-decoration: none;
+  color: white;
+}
+
 .menu-icon {
   font-size: 1.5rem;
   color: white;
@@ -45,6 +50,10 @@ main {
 }
 
 .menu-icon:hover {
+  background-color: #5ea7df;
+}
+
+.active-icon {
   background-color: #5ea7df;
 }
 
@@ -95,7 +104,7 @@ main {
   bottom: 1em;
   right: 1em;
 }
-.add-note > i{
+.add-note > i {
   pointer-events: none;
 }
 
@@ -191,7 +200,7 @@ main {
   background-color: white;
 }
 
-.newNotes{
+.newNotes {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -203,7 +212,9 @@ main {
   border-radius: 20px;
   border: solid 1px #111;
 }
-.newNotes > button, .newNotes > input, .newNotes > textarea{
+.newNotes > button,
+.newNotes > input,
+.newNotes > textarea {
   padding: 10px;
   border-radius: 10px;
   border: solid 1px #111;

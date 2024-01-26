@@ -1,51 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./styles/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quire</title>
-  </head>
-  <body id="modalWindowAttacher">
-    <main>
-      <nav class="side">
-        <div class="logo-div">
-          <i class="logo fa-brands fa-quora"></i>
-        </div>
-        <i class="menu-icon fa-solid fa-magnifying-glass"></i>
-        <i class="menu-icon fa-solid fa-star"></i>
-        <i class="menu-icon fa-solid fa-chart-column"></i>
-        <i class="menu-icon fa-solid fa-gear"></i>
-        <i class="menu-icon fa-solid fa-question"></i>
-      </nav>
-      <div class="notes-column">
-        <ul class="note-list"></ul>
-      </div>
 
-      <div class="mainText">
-        <input type="text" placeholder="Titel" id="noteTitle" />
-        <textarea
-          name="note-field"
-          id="note-field"
-          cols="80"
-          rows="40"
-          spellcheck="false"
-          placeholder="Skriv något..."
-        ></textarea>
-        <button id="save-notes">Spara</button>
-      </div>
-      <div class="add-note">
-        <i class="fa-regular fa-pen-to-square"></i>
-      </div>
-    </main>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="./styles/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quire</title>
+</head>
 
-    <!-- Script for icons -->
-    <script
-      src="https://kit.fontawesome.com/dfb17be9bd.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/main.js"></script>
-    <script src="js/modalWindow.js"></script>
-    <script src="js/notes.js"></script>
-  </body>
+<body id="modalWindowAttacher">
+  <main>
+    <nav class="side">
+      <div class="logo-div">
+        <i class="logo fa-brands fa-quora"></i>
+      </div>
+      <a href="./search.html"><i class="menu-icon fa-solid fa-magnifying-glass"></i></a>
+      <i class="menu-icon fa-solid fa-star"></i>
+      <i class="menu-icon fa-solid fa-chart-column"></i>
+      <i class="menu-icon fa-solid fa-gear"></i>
+      <i class="menu-icon fa-solid fa-question"></i>
+    </nav>
+    <div class="notes-column">
+      <ul class="note-list"></ul>
+    </div>
+
+    <div class="mainText">
+      <input type="text" placeholder="Titel" id="noteTitle" />
+      <textarea name="note-field" id="note-field" cols="80" rows="40" spellcheck="false"
+        placeholder="Skriv något..."></textarea>
+      <button id="save-notes">Spara</button>
+    </div>
+    <div class="add-note">
+      <i class="fa-regular fa-pen-to-square"></i>
+    </div>
+  </main>
+
+  <!-- Script for icons -->
+  <script src="https://kit.fontawesome.com/dfb17be9bd.js" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+  <script src="js/modalWindow.js"></script>
+  <script src="js/notes.js"></script>
+</body>
+
 </html>
