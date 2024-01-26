@@ -41,8 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // show button when someone is typing
   notes.addEventListener("keyup", function () {
-    if (this.value.length) {
-      console.log(this.value.length);
+    if (this.textContent.length) {
       saveBtn.classList.remove("hide-btn");
     }
   });
@@ -53,8 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const addNote = document.querySelector(".add-note");
 
   addNote.addEventListener("click", () => {
-    noteTitle.value = "";
-    noteField.value = "";
+    const toolbar = document.getElementById('toolbar');
+    toolbar.classList.remove('toolbar-hidden');
+
+    title.textContent = "Titel...";
+    notes.textContent = "";
     activeNote = new Note(noteTitle.value, noteField.value);
     console.log(activeNote);
   });
