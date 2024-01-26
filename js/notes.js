@@ -1,4 +1,5 @@
 class Note {
+
   constructor(
     title,
     content,
@@ -16,20 +17,20 @@ class Note {
   }
 }
 
+let noteArray = [];
 let activeNote = new Note("", "");
-//console.log(activeNote);
 renderAllTumbnails();
 document.addEventListener("DOMContentLoaded", function () {
   // check local storage for stored notes
-  // const storedNotes = JSON.parse(localStorage.getItem("notes")) || {};
-  activeNote = JSON.parse(localStorage.getItem("notes")) || {};
+  activeNote = JSON.parse(localStorage.getItem("notes")) || new Note("","");
   // update notes
-  const notes = document.getElementById("note-field");
-  notes.textContent = activeNote.content;
-  // notes.textContent = storedNotes.noteText;
-  const title = document.getElementById("noteTitle");
-  // title.value = storedNotes.noteTitle || "";
+  const noteField = document.getElementById("note-field");
+  const title = document.getElementById("title");
+
+    noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
+
+  
 
   // button to save
   const saveBtn = document.getElementById("save-notes");
@@ -38,21 +39,23 @@ document.addEventListener("DOMContentLoaded", function () {
   saveBtn.classList.add("hide-btn");
 
   // show button when someone is typing
-  notes.addEventListener("keyup", function () {
-    if (this.value.length) {
-      console.log(this.value.length);
+  noteField.addEventListener("keyup", function () {
+    if (this.textContent.length) {
       saveBtn.classList.remove("hide-btn");
     }
   });
 
-  const noteTitle = document.getElementById("noteTitle");
-  const noteField = document.getElementById("note-field");
-  const noteList = document.querySelector(".note-list");
   const addNote = document.querySelector(".add-note");
   const noteSavedDate = document.querySelector(".savedDate");
   const noteEditedDate = document.querySelector(".editedDate");
 
   addNote.addEventListener("click", () => {
+    const toolbar = document.getElementById('toolbar');
+    toolbar.classList.remove('toolbar-hidden');
+
+    title.textContent = "Titel...";
+    noteField.textContent = "";
+    activeNote = new Note(title.value, noteField.value);
     noteTitle.value = "";
     noteField.value = "";
     noteSavedDate.innerHTML = getDate();
@@ -64,30 +67,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
-    let newNotes = {
-      noteTitle: title.value,
-      noteText: notes.value,
-      noteId: activeNote.date,
-      // noteDate: getDate(),
-
-    };
 
     activeNote.title = title.value;
-    activeNote.content = notes.value;
-    console.log(activeNote);
+    activeNote.content = noteField.innerHTML;
     localStorage.setItem("notes", JSON.stringify(activeNote));
     saveBtn.classList.add("hide-btn");
 
-    // let newNote = `
-    //   <li class="note-thumbnail">
-    //     <h3>${noteTitle.value}</h3>
-    //     <p>${noteField.value}</p>
-    //   </li>
-    // `;
-    // noteList.innerHTML += newNote;
-    //check om id alrdy present
-    //localStorage.getItem("notes")
-    //setItem("allNotes")
     saveAllNotes(activeNote);
   });
 });
@@ -121,6 +106,8 @@ function updateNote(noteObject, allNotes) {
   localStorage.setItem("allNotes", JSON.stringify(allNotes));
 }
 
+
+
 function createTumbnail(noteObject) {
   const noteList = document.querySelector(".note-list");
   const newListItem = document.createElement("li");
@@ -130,39 +117,41 @@ function createTumbnail(noteObject) {
   const favorite = document.createElement("button");
   const deletebtn = document.createElement("button");
 
-  newListItem.id = noteObject.date;
+  newListItem.id = noteObject.id + 'Wrapper';
   newListItem.classList.add("note-thumbnail");
+  newListItem.isFavorite = noteObject.isFavorite;
 
   newTitle.textContent = noteObject.title;
-  newContent.textContent = noteObject.content;
+  newContent.innerHTML = noteObject.content;
 
-  // newDate.textContent = `<div class="timeStamp">
-  //                           <div class="savedDate">${getDate()}</div>
-  //                           <div class="editedDate">${getDate()}</div>
-  //                       </div>` 
-  
+  favorite.textContent = "⭐";
+  favorite.id = noteObject.id;
+  favorite.className = 'star greyStar';
+  if(noteObject.isFavorite == false)
+    favorite.className = 'star greyStar';
+  else
+    favorite.className = 'star';
 
-  favorite.textContent = "favorite-star here";
-  favorite.addEventListener("click", () => {
-    console.log("now it is a favorite!");
-  });
-
-  deletebtn.textContent = "delete";
-  deletebtn.addEventListener("click", () => {
-    console.log("it is deleted");
-  });
+  deletebtn.textContent = "🗑";
+  deletebtn.className = 'deleteNote';
 
   newListItem.appendChild(newTitle);
   newListItem.appendChild(newContent);
   newListItem.appendChild(favorite);
   newListItem.appendChild(deletebtn);
   noteList.appendChild(newListItem);
+
+  noteArray= JSON.parse(localStorage.getItem("allNotes"))
 }
 
 function renderAllTumbnails() {
   const allNotes = JSON.parse(localStorage.getItem("allNotes")) || "";
+console.log(allNotes);
+  noteArray = allNotes;
+
   const noteList = document.querySelector(".note-list");
   noteList.innerHTML = "";
+
   if (allNotes != "") {
     allNotes.forEach((noteObject) => {
       createTumbnail(noteObject);
@@ -170,6 +159,34 @@ function renderAllTumbnails() {
   }
 }
 
+
+let currentNoteStarId = '';
+document.addEventListener('click', (evt) => {
+  if(evt.target.className.slice(0, 4) == 'star'){
+    currentNoteStarId = evt.target.id;
+    let noteId = document.getElementById(currentNoteStarId + 'Wrapper');
+    if(noteId.isFavorite == false){
+      noteId.isFavorite = true;
+      document.getElementById(currentNoteStarId).classList.remove('greyStar');
+      searchInNote(currentNoteStarId, true);
+    } else {
+      noteId.isFavorite = false;
+      document.getElementById(currentNoteStarId).classList.add('greyStar');
+      searchInNote(currentNoteStarId, false);
+    }
+  }
+  else if(evt.target.className == 'menu-icon fa-solid fa-star')
+    window.location.href = 'favorite.html';
+});
+
+function searchInNote(n, isFav){
+  noteArray.find(note => {
+    if(note.id == n){
+      note.isFavorite = isFav;
+      localStorage.setItem("allNotes", JSON.stringify(noteArray));
+    }
+  });
+}
 function getDate(){
   const date = new Date()
   return `${date.getFullYear()}-${((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1)}-${(date.getDate() < 10 ? '0' : '') + date.getDate()}`
