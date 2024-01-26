@@ -19,19 +19,18 @@ class Note {
 
 let noteArray = [];
 let activeNote = new Note("", "");
-console.log(activeNote);
 renderAllTumbnails();
 document.addEventListener("DOMContentLoaded", function () {
   // check local storage for stored notes
-  // const storedNotes = JSON.parse(localStorage.getItem("notes")) || {};
-  activeNote = JSON.parse(localStorage.getItem("notes")) || {};
+  activeNote = JSON.parse(localStorage.getItem("notes")) || new Note("","");
   // update notes
-  const notes = document.getElementById("note-field");
-  notes.textContent = activeNote.content;
-  // notes.textContent = storedNotes.noteText;
-  const title = document.getElementById("noteTitle");
-  // title.value = storedNotes.noteTitle || "";
+  const noteField = document.getElementById("note-field");
+  const title = document.getElementById("title");
+
+    noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
+
+  
 
   // button to save
   const saveBtn = document.getElementById("save-notes");
@@ -40,15 +39,12 @@ document.addEventListener("DOMContentLoaded", function () {
   saveBtn.classList.add("hide-btn");
 
   // show button when someone is typing
-  notes.addEventListener("keyup", function () {
+  noteField.addEventListener("keyup", function () {
     if (this.textContent.length) {
       saveBtn.classList.remove("hide-btn");
     }
   });
 
-  const noteTitle = document.getElementById("noteTitle");
-  const noteField = document.getElementById("note-field");
-  const noteList = document.querySelector(".note-list");
   const addNote = document.querySelector(".add-note");
 
   addNote.addEventListener("click", () => {
@@ -56,35 +52,18 @@ document.addEventListener("DOMContentLoaded", function () {
     toolbar.classList.remove('toolbar-hidden');
 
     title.textContent = "Titel...";
-    notes.textContent = "";
-    activeNote = new Note(noteTitle.value, noteField.value);
-    console.log(activeNote);
+    noteField.textContent = "";
+    activeNote = new Note(title.value, noteField.value);
   });
 
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
-    let newNotes = {
-      noteTitle: title.value,
-      noteText: notes.value,
-      noteId: activeNote.date,
-    };
 
     activeNote.title = title.value;
-    activeNote.content = notes.value;
-    console.log(activeNote);
+    activeNote.content = noteField.innerHTML;
     localStorage.setItem("notes", JSON.stringify(activeNote));
     saveBtn.classList.add("hide-btn");
 
-    // let newNote = `
-    //   <li class="note-thumbnail">
-    //     <h3>${noteTitle.value}</h3>
-    //     <p>${noteField.value}</p>
-    //   </li>
-    // `;
-    // noteList.innerHTML += newNote;
-    //check om id alrdy present
-    //localStorage.getItem("notes")
-    //setItem("allNotes")
     saveAllNotes(activeNote);
   });
 });
@@ -133,7 +112,7 @@ function createTumbnail(noteObject) {
   newListItem.isFavorite = noteObject.isFavorite;
 
   newTitle.textContent = noteObject.title;
-  newContent.textContent = noteObject.content;
+  newContent.innerHTML = noteObject.content;
 
   favorite.textContent = "⭐";
   favorite.id = noteObject.id;
@@ -151,11 +130,13 @@ function createTumbnail(noteObject) {
   newListItem.appendChild(favorite);
   newListItem.appendChild(deletebtn);
   noteList.appendChild(newListItem);
+
+  noteArray= JSON.parse(localStorage.getItem("allNotes"))
 }
 
 function renderAllTumbnails() {
   const allNotes = JSON.parse(localStorage.getItem("allNotes")) || "";
-
+console.log(allNotes);
   noteArray = allNotes;
 
   const noteList = document.querySelector(".note-list");
@@ -189,7 +170,6 @@ document.addEventListener('click', (evt) => {
 });
 
 function searchInNote(n, isFav){
-  console.log(n, isFav)
   noteArray.find(note => {
     if(note.id == n){
       note.isFavorite = isFav;
