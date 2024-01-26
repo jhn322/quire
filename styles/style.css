@@ -96,14 +96,12 @@ main {
   margin-top: 0.5em;
 }
 
-.title-section h1 {
+#title {
   font-size: 1.6rem;
   width: 40vw;
   padding: 0.2em;
   border: 2px solid #ccc;
   border-radius: 4px;
-  background-color: #f8f8f8;
-  color: #a1a0a0;
 }
 
 /* --- toolbar-section ---  */
