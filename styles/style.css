@@ -47,6 +47,7 @@ a:visited {
   background-color: #005392;
   padding: 0.5em;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .menu-icon:hover {
@@ -245,6 +246,7 @@ a:visited {
   position: absolute;
   bottom: 1em;
   right: 1em;
+  cursor: pointer;
 }
 .add-note > i {
   pointer-events: none;
