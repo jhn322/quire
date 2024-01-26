@@ -2,7 +2,7 @@ class Note {
   constructor(
     title,
     content,
-    date = Date.now(),
+    date = "",
     id = Date.now(),
     isFavorite = false,
     img = []
@@ -17,7 +17,7 @@ class Note {
 }
 
 let activeNote = new Note("", "");
-console.log(activeNote);
+//console.log(activeNote);
 renderAllTumbnails();
 document.addEventListener("DOMContentLoaded", function () {
   // check local storage for stored notes
@@ -49,12 +49,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const noteField = document.getElementById("note-field");
   const noteList = document.querySelector(".note-list");
   const addNote = document.querySelector(".add-note");
+  const noteSavedDate = document.querySelector(".savedDate");
+  const noteEditedDate = document.querySelector(".editedDate");
 
   addNote.addEventListener("click", () => {
     noteTitle.value = "";
     noteField.value = "";
-    activeNote = new Note(noteTitle.value, noteField.value);
+    noteSavedDate.innerHTML = getDate();
+    noteEditedDate.innerHTML = getDate();
+    activeNote = new Note(noteTitle.value, noteField.value, getDate());
     console.log(activeNote);
+    
   });
 
   // save to local storage when pressing button
@@ -63,6 +68,8 @@ document.addEventListener("DOMContentLoaded", function () {
       noteTitle: title.value,
       noteText: notes.value,
       noteId: activeNote.date,
+      // noteDate: getDate(),
+
     };
 
     activeNote.title = title.value;
@@ -119,6 +126,7 @@ function createTumbnail(noteObject) {
   const newListItem = document.createElement("li");
   const newTitle = document.createElement("h3");
   const newContent = document.createElement("p");
+  const newDate = document.createElement('div')
   const favorite = document.createElement("button");
   const deletebtn = document.createElement("button");
 
@@ -127,6 +135,12 @@ function createTumbnail(noteObject) {
 
   newTitle.textContent = noteObject.title;
   newContent.textContent = noteObject.content;
+
+  // newDate.textContent = `<div class="timeStamp">
+  //                           <div class="savedDate">${getDate()}</div>
+  //                           <div class="editedDate">${getDate()}</div>
+  //                       </div>` 
+  
 
   favorite.textContent = "favorite-star here";
   favorite.addEventListener("click", () => {
@@ -155,3 +169,10 @@ function renderAllTumbnails() {
     });
   }
 }
+
+function getDate(){
+  const date = new Date()
+  return `${date.getFullYear()}-${((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1)}-${(date.getDate() < 10 ? '0' : '') + date.getDate()}`
+}
+
+console.log(getDate())
