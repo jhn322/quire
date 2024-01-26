@@ -22,20 +22,20 @@ document.getElementById("add-image").addEventListener("click", function () {
         document.getElementById("note-field").appendChild(imgElement);
       } else {
         // If dimensions are zero show alert
-        alert("Ogiltig bildlänk. Skriv in en giltig adress.");
+        alert("Ogiltig bildlänk. Klistra in en giltig adress.");
       }
     };
 
     // Event handler for error showing temporary image
     tempImg.onerror = function () {
       // Show alert if invalid image URL
-      alert("Ogiltig bildlänk. Länken returnerar inte en giltig bild.");
+      alert("Ogiltig bildlänk. Inte en giltig bildlänk.");
     };
 
     // Set temp source to the provided URL
     tempImg.src = imageUrl;
   } else {
     // Show alert if no URL
-    alert("Ogiltig bildlänk. Skriv in en giltig adress.");
+    alert("Ogiltig bildlänk. Klistra in en giltig bildlänk.");
   }
 });
