@@ -3,7 +3,8 @@ class Note {
   constructor(
     title,
     content,
-    date = "",
+    savedDate = "",
+    editedDate = "",
     id = Date.now(),
     isFavorite = false,
     img = []
@@ -11,11 +12,16 @@ class Note {
     (this.title = title),
       (this.content = content),
       (this.isFavorite = isFavorite),
-      (this.date = date),
+      (this.savedDate = savedDate),
+      (this.editedDate = editedDate),
       (this.id = id),
       (this.img = img);
   }
 }
+
+//list of months
+let monthsList = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
+
 
 let noteArray = [];
 let activeNote = new Note("", "");
@@ -26,9 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // update notes
   const noteField = document.getElementById("note-field");
   const title = document.getElementById("title");
+  const noteDtae = document.querySelector('#noteDate');
 
-    noteField.innerHTML = activeNote.content;
+
+  noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
+  noteDtae.innerHTML = getDate();
 
   
 
@@ -46,8 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const addNote = document.querySelector(".add-note");
-  const noteSavedDate = document.querySelector(".savedDate");
-  const noteEditedDate = document.querySelector(".editedDate");
+ 
 
   addNote.addEventListener("click", () => {
     const toolbar = document.getElementById('toolbar');
@@ -58,9 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
     activeNote = new Note(title.value, noteField.value);
     noteTitle.value = "";
     noteField.value = "";
-    noteSavedDate.innerHTML = getDate();
-    noteEditedDate.innerHTML = getDate();
-    activeNote = new Note(noteTitle.value, noteField.value, getDate());
+    activeNote = new Note(noteTitle.value, noteField.value);
     console.log(activeNote);
     
   });
@@ -70,6 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     activeNote.title = title.value;
     activeNote.content = noteField.innerHTML;
+    activeNote.savedDate = noteDtae.innerHTML;
+    activeNote.editedDate = noteDtae.innerHTML;
     localStorage.setItem("notes", JSON.stringify(activeNote));
     saveBtn.classList.add("hide-btn");
 
@@ -113,7 +121,7 @@ function createTumbnail(noteObject) {
   const newListItem = document.createElement("li");
   const newTitle = document.createElement("h3");
   const newContent = document.createElement("p");
-  const newDate = document.createElement('div')
+  const newDate = document.createElement('div');
   const favorite = document.createElement("button");
   const deletebtn = document.createElement("button");
 
@@ -123,6 +131,14 @@ function createTumbnail(noteObject) {
 
   newTitle.textContent = noteObject.title;
   newContent.innerHTML = noteObject.content;
+
+  newDate.className = 'thumbnailDate';
+  const savedDate = document.createElement("span");
+  savedDate.textContent = `skapat ${noteObject.savedDate}`;
+  const editDate = document.createElement("span");
+  editDate.textContent = `senaste redigering ${noteObject.editedDate}`;
+  newDate.appendChild(savedDate);
+  newDate.appendChild(editDate);
 
   favorite.textContent = "⭐";
   favorite.id = noteObject.id;
@@ -137,6 +153,7 @@ function createTumbnail(noteObject) {
 
   newListItem.appendChild(newTitle);
   newListItem.appendChild(newContent);
+  newListItem.appendChild(newDate);
   newListItem.appendChild(favorite);
   newListItem.appendChild(deletebtn);
   noteList.appendChild(newListItem);
@@ -187,9 +204,13 @@ function searchInNote(n, isFav){
     }
   });
 }
+
+//get the date for notes
 function getDate(){
   const date = new Date()
-  return `${date.getFullYear()}-${((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1)}-${(date.getDate() < 10 ? '0' : '') + date.getDate()}`
+  //return `${date.getFullYear()}-${((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1)}-${(date.getDate() < 10 ? '0' : '') + date.getDate()}`
+  return `${monthsList[date.getMonth()]} ${(date.getDate() < 10 ? '0' : '') + date.getDate()}, ${date.getFullYear()}`
+
 }
 
 console.log(getDate())
