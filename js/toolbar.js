@@ -18,10 +18,12 @@ toolIcons.forEach(function(toolIcon){
         console.log(target);
         const toolIconId = target.id; 
         console.log(toolIconId);
+
+        event.preventDefault();
         
         switch(toolIconId) {
             case 'bold':
-                toggleBold();
+                applyBold();
                 break;
             case 'italic':
                 toggleItalic();
@@ -43,12 +45,16 @@ toolIcons.forEach(function(toolIcon){
 })
 
 //eventlistener on mouse up and key combination of shift and arrow
-noteField.addEventListener('mouseup', checkSelectedText);
+noteField.addEventListener('mouseup', function(event) {
+    event.preventDefault();
+    checkSelectedText();
+});
 noteField.addEventListener('keyup', function(event) {
     if(event.shiftKey && event.key.includes('Arrow')) {
+        event.preventDefault();
         checkSelectedText();
     }
-})
+});
 
 //function to check and save selected text
 function checkSelectedText() {
@@ -62,36 +68,50 @@ function checkSelectedText() {
     // return selection;
 
     let selection = document.getSelection();
-    console.log(selection);
+    return createSelectionInfo(selection, noteField);
+    // console.log(selection);
+}
+
+function createSelectionInfo(selection, noteField) {
 
     if(selection.toString().length > 0) {
         let range = selection.getRangeAt(0);
+        let startOffset = range.startOffset;
+        let endOffset = range.endOffset;
 
-        let selectionInfo = {
+        return {
             selectedText: selection.toString(),
-            range: range,
-            textBeforeSelection: noteField.textContent.substring(0, range.startOffset),
-            textAfterSelection: noteField.textContent.substring(range.endOffset)
-        }
-
-        console.log(selectionInfo);
-        return selectionInfo;
+            range,
+            startOffset, 
+            endOffset,
+            textBeforeSelection: noteField.textContent.substring(0, startOffset),
+            textAfterSelection: noteField.textContent.substring(endOffset)
+        };
     }
+    return null;
 };
 
 //function to switch between bold and normal text
-function toggleBold() {
-    const boldBtn = document.getElementById('bold');
+function applyBold() {
+    // const boldBtn = document.getElementById('bold');
 
-    selectionInfo = checkSelectedText();
+    let selectionInfo = checkSelectedText();
     
     if(!selectionInfo) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
     } else {
         console.log(selectionInfo);
-        //TODO lägg till ** på vardera sida om selctionInfo.selectedText
+
+        const start = selectionInfo.startOffset;
+        const end = selectionInfo.endOffset;
+
+        noteField.innerHTML = `${noteField.textContent.substring(0, start)} **${selectionInfo.selectedText}** ${noteField.textContent.substring(end)}`;
+        parseText();
+        selectionInfo = checkSelectedText();
     }
+
+    
 
     // if (selection.length < 1) {
     //     alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
@@ -120,6 +140,12 @@ function toggleBold() {
 
     // //toggle isBold
     // isBold = !isBold;
+}
+
+function parseText() {
+    console.log("hej!", noteField.innerHTML);
+    noteField.innerHTML = noteField.innerHTML.replace(/\*\*(.*?)\*\*/g, '<span class="bold-text">$1</span>');
+    console.log("text efter replace:", noteField.innerHTML);
 }
 
 //function to switch between italic and normal text

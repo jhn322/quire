@@ -357,3 +357,7 @@ main {
   background-color: rgb(63, 140, 255);
   color: #fff;
 }
+
+.bold-text {
+  font-weight: bold;
+}
