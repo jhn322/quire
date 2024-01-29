@@ -61,7 +61,8 @@ function checkSelectedText() {
     // }
     // return selection;
 
-    let selection = window.getSelection();
+    let selection = document.getSelection();
+    console.log(selection);
 
     if(selection.toString().length > 0) {
         let range = selection.getRangeAt(0);
@@ -73,6 +74,7 @@ function checkSelectedText() {
             textAfterSelection: noteField.textContent.substring(range.endOffset)
         }
 
+        console.log(selectionInfo);
         return selectionInfo;
     }
 };
