@@ -9,8 +9,8 @@ let isBold = false;
 let isItalic = false;
 let isUnderline= false;
 
-let selectedText = null;
-let range = null;
+// let selectedText = null;
+// let range = null;
 
 toolIcons.forEach(function(toolIcon){
     toolIcon.addEventListener('click', (event)=> {
@@ -52,49 +52,72 @@ noteField.addEventListener('keyup', function(event) {
 
 //function to check and save selected text
 function checkSelectedText() {
-    let selection = window.getSelection().toString();
+    // let selection = window.getSelection().toString();
     
-    if (selection.length > 0) {
-        selectedText = selection.toString();
-        range = window.getSelection().getRangeAt(0);
-        console.log('Markerad text: ' + selectedText);
+    // if (selection.length > 0) {
+    //     selectedText = selection.toString();
+    //     range = window.getSelection().getRangeAt(0);
+    //     console.log('Markerad text: ' + selectedText);
+    // }
+    // return selection;
+
+    let selection = window.getSelection();
+
+    if(selection.toString().length > 0) {
+        let range = selection.getRangeAt(0);
+
+        let selectionInfo = {
+            selectedText: selection.toString(),
+            range: range,
+            textBeforeSelection: noteField.textContent.substring(0, range.startOffset),
+            textAfterSelection: noteField.textContent.substring(range.endOffset)
+        }
+
+        return selectionInfo;
     }
-    return selection;
 };
 
 //function to switch between bold and normal text
 function toggleBold() {
     const boldBtn = document.getElementById('bold');
 
-    selection = checkSelectedText()
-
-    if (selection.length < 1) {
+    selectionInfo = checkSelectedText();
+    
+    if(!selectionInfo) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
-    }
-
-    //create a span element
-    const span = document.createElement('span');
-    console.log(span);
-
-    //check if bold is already applied
-    if(isBold) {
-        span.style.fontWeight = "normal";
-        boldBtn.classList.remove('tool-icon_active');
     } else {
-        span.style.fontWeight = "bold";
-        boldBtn.classList.add('tool-icon_active');
+        console.log(selectionInfo);
+        //TODO lägg till ** på vardera sida om selctionInfo.selectedText
     }
 
-    //add the selected text to span element
-    span.innerHTML = selectedText;
+    // if (selection.length < 1) {
+    //     alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
+    //     return;
+    // }
 
-    //replace range content
-    range.deleteContents();
-    range.insertNode(span);
+    // //create a span element
+    // const span = document.createElement('span');
+    // console.log(span);
 
-    //toggle isBold
-    isBold = !isBold;
+    // //check if bold is already applied
+    // if(isBold) {
+    //     span.style.fontWeight = "normal";
+    //     boldBtn.classList.remove('tool-icon_active');
+    // } else {
+    //     span.style.fontWeight = "bold";
+    //     boldBtn.classList.add('tool-icon_active');
+    // }
+
+    // //add the selected text to span element
+    // span.innerHTML = selectedText;
+
+    // //replace range content
+    // range.deleteContents();
+    // range.insertNode(span);
+
+    // //toggle isBold
+    // isBold = !isBold;
 }
 
 //function to switch between italic and normal text
