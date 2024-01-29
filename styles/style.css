@@ -102,6 +102,14 @@ main {
   list-style: none;
 }
 
+.note-thumbnail .thumbnailDate{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-size: 12px;
+  color: #a1a0a0;
+}
+
 /* Class to display which listelement is viewed */
 .active-note {
   background-color: #f9f8f8;
