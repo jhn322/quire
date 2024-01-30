@@ -9,7 +9,7 @@ let isBold = false;
 let isItalic = false;
 let isUnderline= false;
 
-// let selectedText = null;
+let selectedText = null;
 // let range = null;
 
 toolIcons.forEach(function(toolIcon){
@@ -58,57 +58,72 @@ noteField.addEventListener('keyup', function(event) {
 
 //function to check and save selected text
 function checkSelectedText() {
-    // let selection = window.getSelection().toString();
-    
-    // if (selection.length > 0) {
-    //     selectedText = selection.toString();
-    //     range = window.getSelection().getRangeAt(0);
-    //     console.log('Markerad text: ' + selectedText);
-    // }
-    // return selection;
-
     let selection = document.getSelection();
-    return createSelectionInfo(selection, noteField);
+    
+    if (selection.toString().length > 0) {
+        selectedText = selection.toString();
+        range = document.getSelection().getRangeAt(0);
+        console.log('Markerad text: ' + selectedText);
+    }
+    return selection;
+
+    // let selection = document.getSelection();
+    // return createSelectionInfo(selection, noteField);
     // console.log(selection);
 }
 
-function createSelectionInfo(selection, noteField) {
+// function createSelectionInfo(selection, noteField) {
 
-    if(selection.toString().length > 0) {
-        let range = selection.getRangeAt(0);
-        let startOffset = range.startOffset;
-        let endOffset = range.endOffset;
+//     if(selection.toString().length > 0) {
+//         let range = selection.getRangeAt(0);
+//         let startOffset = range.startOffset;
+//         let endOffset = range.endOffset;
 
-        return {
-            selectedText: selection.toString(),
-            range,
-            startOffset, 
-            endOffset,
-            textBeforeSelection: noteField.textContent.substring(0, startOffset),
-            textAfterSelection: noteField.textContent.substring(endOffset)
-        };
-    }
-    return null;
-};
+//         return {
+//             selectedText: selection.toString(),
+//             range,
+//             startOffset, 
+//             endOffset,
+//             textBeforeSelection: noteField.textContent.substring(0, startOffset),
+//             textAfterSelection: noteField.textContent.substring(endOffset)
+//         };
+//     }
+//     return null;
+// };
 
 //function to switch between bold and normal text
 function applyBold() {
     // const boldBtn = document.getElementById('bold');
 
-    let selectionInfo = checkSelectedText();
+    let selection = checkSelectedText();
     
-    if(!selectionInfo) {
+    if(selection.toString().length < 1) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
     } else {
-        console.log(selectionInfo);
+        let fullNoteText = noteField.textContent;
+        
+        let regexPattern = new RegExp(`\\*\\*${selectedText}\\*\\*`, "g");
 
-        const start = selectionInfo.startOffset;
-        const end = selectionInfo.endOffset;
+        if(fullNoteText.match(regexPattern)) {
+            console.log("Det finns stjärnor runt", selectedText);
+            let newFullText = fullNoteText.replace(regexPattern, selectedText);
+            // noteField.textContent = newFullText;
+            console.log("stjärnor borttagna"); 
+            parseToText(newFullText);
+        } else {
+            console.log("Det finns inga stjärnor runt", selectedText);
+            let newFullText = fullNoteText.replace(selectedText, `**${selectedText}**`);
+            console.log("Stjärnor tillagda", newFullText);
+            parseToText(newFullText, regexPattern);
+        }
 
-        noteField.innerHTML = `${noteField.textContent.substring(0, start)} **${selectionInfo.selectedText}** ${noteField.textContent.substring(end)}`;
-        parseText();
-        selectionInfo = checkSelectedText();
+        // const start = selectionInfo.startOffset;
+        // const end = selectionInfo.endOffset;
+
+        // noteField.innerHTML = `${noteField.textContent.substring(0, start)} **${selectionInfo.selectedText}** ${noteField.textContent.substring(end)}`;
+        // parseText();
+        // selectionInfo = checkSelectedText();
     }
 
     
@@ -142,10 +157,14 @@ function applyBold() {
     // isBold = !isBold;
 }
 
-function parseText() {
-    console.log("hej!", noteField.innerHTML);
-    noteField.innerHTML = noteField.innerHTML.replace(/\*\*(.*?)\*\*/g, '<span class="bold-text">$1</span>');
-    console.log("text efter replace:", noteField.innerHTML);
+function parseToText(text, pattern) {
+    console.log("hej!", text);
+    let formattedText = text.replace(pattern, `<span class="bold-text">${selectedText}</span>`);
+    noteField.innerHTML = formattedText;
+}
+
+function parseToMarkup() {
+
 }
 
 //function to switch between italic and normal text
