@@ -9,8 +9,7 @@ let isBold = false;
 let isItalic = false;
 let isUnderline= false;
 
-let selectedText = null;
-// let range = null;
+let markupText = noteField.textContent;
 
 toolIcons.forEach(function(toolIcon){
     toolIcon.addEventListener('click', (event)=> {
@@ -61,8 +60,7 @@ function checkSelectedText() {
     let selection = document.getSelection();
     
     if (selection.toString().length > 0) {
-        selectedText = selection.toString();
-        range = document.getSelection().getRangeAt(0);
+        selectedText = selection.getRangeAt(0).toString();
         console.log('Markerad text: ' + selectedText);
     }
     return selection;
@@ -100,23 +98,50 @@ function applyBold() {
     if(selection.toString().length < 1) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
-    } else {
-        let fullNoteText = noteField.textContent;
-        
-        let regexPattern = new RegExp(`\\*\\*${selectedText}\\*\\*`, "g");
+    }
 
-        if(fullNoteText.match(regexPattern)) {
+    let range = selection.getRangeAt(0);
+    let startOffset = range.startOffset;
+    let endOffset = range.endOffset;
+
+    let selectedText = range.toString();
+
+    markupText = noteField.textContent;
+
+    let textBeforeSelection = markupText.substring(0, startOffset);
+    let textAfterSelection = markupText.substring(endOffset);
+
+    let selectedTextIndex = textBeforeSelection.length;
+    console.log(selectedTextIndex);
+
+    console.log("innan:" + textBeforeSelection + ", markering:" + selectedText + ", efter:" + textAfterSelection);
+    
+    let regexPattern = new RegExp(`\\*\\*${selectedText}\\*\\*`, "g");
+    let regexPatternBold = new RegExp(`<span class="bold-text">${selectedText}</span>`, "g");
+
+    //&& selectedTextIndex === textBeforeSelection.length
+
+    if(markupText.match(regexPattern)) {
+        let matchIndex = markupText.search(regexPattern);
+
+        if((matchIndex + 2) === selectedTextIndex) {
             console.log("Det finns stjärnor runt", selectedText);
-            let newFullText = fullNoteText.replace(regexPattern, selectedText);
-            // noteField.textContent = newFullText;
-            console.log("stjärnor borttagna"); 
-            parseToText(newFullText);
+            console.log("inne i funktionen: " + textBeforeSelection + "index för selectedText:" + textBeforeSelection.length);
+            markupText = `${textBeforeSelection.slice(0, -2)} ${selectedText} ${textAfterSelection.slice(2)}`; 
         } else {
             console.log("Det finns inga stjärnor runt", selectedText);
-            let newFullText = fullNoteText.replace(selectedText, `**${selectedText}**`);
-            console.log("Stjärnor tillagda", newFullText);
-            parseToText(newFullText, regexPattern);
-        }
+            markupText = `${textBeforeSelection}**${selectedText}**${textAfterSelection}`;
+            console.log("Stjärnor tillagda", markupText);
+            noteField.textContent = markupText;
+        }  
+    } else {
+        console.log("Det finns inga stjärnor runt", selectedText);
+        markupText = `${textBeforeSelection}**${selectedText}**${textAfterSelection}`;
+        console.log("Stjärnor tillagda", markupText);
+    }
+
+    // parseToText(markupText, regexPattern);
+    noteField.textContent = markupText;
 
         // const start = selectionInfo.startOffset;
         // const end = selectionInfo.endOffset;
@@ -155,12 +180,14 @@ function applyBold() {
 
     // //toggle isBold
     // isBold = !isBold;
-}
+// }
 
 function parseToText(text, pattern) {
     console.log("hej!", text);
     let formattedText = text.replace(pattern, `<span class="bold-text">${selectedText}</span>`);
+    console.log(formattedText);
     noteField.innerHTML = formattedText;
+    selection = null;
 }
 
 function parseToMarkup() {
