@@ -51,14 +51,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const toolbar = document.getElementById('toolbar');
     toolbar.classList.remove('toolbar-hidden');
 
-    title.textContent = "Titel...";
+    title.value = "";
     noteField.textContent = "";
     activeNote = new Note(title.value, noteField.value);
   });
 
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
-
+    let image = noteField.getElementsByTagName('img');
+    let imageArray = [];
+    for(let i = 0; i < image.length; i++)
+      imageArray.push(image[i].src);
+    activeNote.img = imageArray;
     activeNote.title = title.value;
     activeNote.content = noteField.innerHTML;
     localStorage.setItem("notes", JSON.stringify(activeNote));
@@ -114,7 +118,7 @@ function createTumbnail(noteObject) {
   newTitle.textContent = noteObject.title;
   newContent.innerHTML = noteObject.content;
 
-  favorite.textContent = "⭐";
+  favorite.innerHTML = '<i class="fas fa-star"></i>';
   favorite.id = noteObject.id;
   favorite.className = 'star greyStar';
   if(noteObject.isFavorite == false)
@@ -122,13 +126,34 @@ function createTumbnail(noteObject) {
   else
     favorite.className = 'star';
 
-  deletebtn.textContent = "🗑";
+  deletebtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
   deletebtn.className = 'deleteNote';
+  // Delete notes
+  deletebtn.onclick = () => {
+    document.getElementById(newListItem.id).classList.add('noteDeleted');
+    setTimeout(() => {
+      document.getElementById(newListItem.id).remove();
+    }, 300);
+    let tempArray = noteArray;
+    noteArray = tempArray.filter((n) => n.id != noteObject.id);
+    localStorage.setItem("allNotes", JSON.stringify(noteArray));
+  }
+
+  // Put images in container
+  const imageWrapper = document.createElement('div');
+  imageWrapper.className = 'imageWrapper';
+  noteObject.img.forEach((img) => {
+    const image = document.createElement('img');
+    image.src = img;
+    imageWrapper.appendChild(image);
+  });
+
 
   newListItem.appendChild(newTitle);
   newListItem.appendChild(newContent);
   newListItem.appendChild(favorite);
   newListItem.appendChild(deletebtn);
+  newListItem.appendChild(imageWrapper);
   noteList.appendChild(newListItem);
 
   noteArray= JSON.parse(localStorage.getItem("allNotes"))

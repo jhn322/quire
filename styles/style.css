@@ -61,6 +61,7 @@ main {
   min-width: 150px;
   background-color: #ebebeb;
   box-shadow: 10px 0px 10px #ccc;
+  overflow-y: scroll;
 }
 
 .note-list {
@@ -71,6 +72,27 @@ main {
 .note-thumbnail {
   position: relative;
 }
+.note-thumbnail > p > img{
+  display: none;
+}
+.note-thumbnail > p{
+  max-height: 50px;
+  overflow-y: scroll;
+}
+.note-thumbnail > p::-webkit-scrollbar{
+  display: none;
+}
+.imageWrapper{
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.imageWrapper > img{
+  width: 39px;
+  height: 39px;
+  object-fit: cover;
+}
 .greyStar {
   filter: saturate(0%);
 }
@@ -78,14 +100,26 @@ main {
 .deleteNote {
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 8px;
   cursor: pointer;
   user-select: none;
+  font-size: 20px;
+  color: #fa0;
+}
+.star > i, .deleteNote > i{
+  pointer-events: none;
 }
 .deleteNote {
-  top: 30px;
+  top: 35px;
   right: 10px;
+  font-size: 20px;
+  font-weight: normal;
+  color: #d01;
   display: none;
+}
+.noteDeleted{
+  transform: translateX(-100%);
+  transition: 0.3s;
 }
 .note-thumbnail:hover > .deleteNote {
   display: block;
@@ -110,7 +144,6 @@ main {
 
 .mainText {
   width: 78%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -212,6 +245,7 @@ main {
   align-items: center;
   gap: 1em;
   margin-top: 0.5em;
+  overflow-y: hidden;
 }
 
 .note-section h1 {
@@ -308,7 +342,7 @@ main {
 }
 
 #note-field {
-  height: 70vh;
+  height: 65vh;
   width: 40vw;
   padding: 2em;
   border: 2px solid #ccc;
@@ -316,17 +350,23 @@ main {
   background-color: #f8f8f8;
   font-size: 1em;
   resize: none;
+  overflow-y: scroll;
 }
 
 #save-notes {
   padding: 0.5em 1em;
-  margin-bottom: 0.3em;
+  transform: translateY(-30%);
   background-color: rgba(234, 234, 234);
   border-radius: 4px;
   text-align: center;
   color: rgb(67, 67, 67);
   border: none;
   cursor: pointer;
+}
+
+#note-field img {
+  margin: 10px 0;
+  min-width: 100%
 }
 
 #save-notes:hover {
