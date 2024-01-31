@@ -2,7 +2,8 @@ class Note {
   constructor(
     title,
     content,
-    date = Date.now(),
+    savedDate = "",
+    editedDate = "",
     id = Date.now(),
     isFavorite = false,
     img = []
@@ -10,11 +11,16 @@ class Note {
     (this.title = title),
       (this.content = content),
       (this.isFavorite = isFavorite),
-      (this.date = date),
+      (this.savedDate = savedDate),
+      (this.editedDate = editedDate),
       (this.id = id),
       (this.img = img);
   }
 }
+
+//list of months
+let monthsList = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
+
 
 let noteArray = [];
 let activeNote = new Note("", "");
@@ -25,9 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // update notes
   const noteField = document.getElementById("note-field");
   const title = document.getElementById("title");
+  const noteDtae = document.querySelector('#noteDate');
+
 
   noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
+  noteDtae.innerHTML = getDate();
 
   // button to save
   const saveBtn = document.getElementById("save-notes");
@@ -43,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const addNote = document.querySelector(".add-note");
+ 
 
   addNote.addEventListener("click", () => {
     const toolbar = document.getElementById("toolbar");
@@ -51,12 +61,19 @@ document.addEventListener("DOMContentLoaded", function () {
     title.textContent = "Titel...";
     noteField.textContent = "";
     activeNote = new Note(title.value, noteField.value);
+    noteTitle.value = "";
+    noteField.value = "";
+    activeNote = new Note(noteTitle.value, noteField.value);
+    console.log(activeNote);
+    
   });
 
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
     activeNote.title = title.value;
     activeNote.content = noteField.innerHTML;
+    activeNote.savedDate = noteDtae.innerHTML;
+    activeNote.editedDate = noteDtae.innerHTML;
     localStorage.setItem("notes", JSON.stringify(activeNote));
     saveBtn.classList.add("hide-btn");
 
@@ -98,8 +115,9 @@ function createTumbnail(noteObject) {
   const newListItem = document.createElement("li");
   const newTitle = document.createElement("h3");
   const newContent = document.createElement("p");
-  const favorite = document.createElement("b");
-  const deletebtn = document.createElement("b");
+  const newDate = document.createElement('div');
+  const favorite = document.createElement("button");
+  const deletebtn = document.createElement("button");
 
   newListItem.id = noteObject.id + "Wrapper";
   newListItem.classList.add("note-thumbnail");
@@ -107,6 +125,14 @@ function createTumbnail(noteObject) {
 
   newTitle.textContent = noteObject.title;
   newContent.innerHTML = noteObject.content;
+
+  newDate.className = 'thumbnailDate';
+  const savedDate = document.createElement("span");
+  savedDate.textContent = `skapat ${noteObject.savedDate}`;
+  const editDate = document.createElement("span");
+  editDate.textContent = `senaste ändring ${noteObject.editedDate}`;
+  newDate.appendChild(savedDate);
+  newDate.appendChild(editDate);
 
   favorite.textContent = "⭐";
   favorite.id = noteObject.id;
@@ -119,6 +145,7 @@ function createTumbnail(noteObject) {
 
   newListItem.appendChild(newTitle);
   newListItem.appendChild(newContent);
+  newListItem.appendChild(newDate);
   newListItem.appendChild(favorite);
   newListItem.appendChild(deletebtn);
   noteList.appendChild(newListItem);
@@ -167,3 +194,15 @@ function searchInNote(n, isFav) {
     }
   });
 }
+
+
+//get the date for notes
+function getDate(){
+  const date = new Date()
+  //return `${date.getFullYear()}-${((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1)}-${(date.getDate() < 10 ? '0' : '') + date.getDate()}`
+  return `${monthsList[date.getMonth()]} ${(date.getDate() < 10 ? '0' : '') + date.getDate()}, ${date.getFullYear()}`
+
+}
+
+console.log(getDate())
+
