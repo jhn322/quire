@@ -10,7 +10,7 @@ modalContent.classList.add("img-modal-content");
 
 // Added class to X button
 const closeBtn = document.createElement("span");
-closeBtn.classList.add("img-modal-close");
+closeBtn.classList.add("img-modal-button");
 closeBtn.innerHTML = "&times;";
 
 // Set label text
