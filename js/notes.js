@@ -136,7 +136,7 @@ function createTumbnail(noteObject) {
   const savedDate = document.createElement("span");
   savedDate.textContent = `skapat ${noteObject.savedDate}`;
   const editDate = document.createElement("span");
-  editDate.textContent = `senaste redigering ${noteObject.editedDate}`;
+  editDate.textContent = `senaste ändring ${noteObject.editedDate}`;
   newDate.appendChild(savedDate);
   newDate.appendChild(editDate);
 
