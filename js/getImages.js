@@ -1,22 +1,23 @@
-// Create and append modal HTML elements
+// Create modal
 const imgModal = document.createElement("div");
 imgModal.id = "image-modal";
 imgModal.classList.add("img-modal");
 imgModal.style.display = "none";
 
-// Added modal conent class
+// Added modal content class
 const modalContent = document.createElement("div");
-modalContent.classList.add("img-modal-content");
+modalContent.classList.add("img-modal-window");
 
 // Added class to X button
 const closeBtn = document.createElement("span");
-closeBtn.classList.add("img-modal-button");
+closeBtn.classList.add("img-modal-close-btn");
 closeBtn.innerHTML = "&times;";
 
 // Set label text
 const label = document.createElement("label");
 label.setAttribute("for", "image-url");
-label.textContent = "Klistra in bildlänk:";
+label.textContent = "Klistra in en bildlänk";
+label.classList.add("img-modal-label");
 
 // Set input type to text
 const input = document.createElement("input");
@@ -25,6 +26,7 @@ input.id = "image-url";
 
 // Set id for button
 const addButton = document.createElement("button");
+addButton.classList.add("img-modal-add-btn");
 addButton.id = "add-image-btn";
 addButton.textContent = "Lägg till bild";
 
@@ -33,6 +35,9 @@ const errorMsg = document.createElement("div");
 errorMsg.classList.add("error-message");
 modalContent.appendChild(errorMsg);
 
+const addButtonContainer = document.createElement("div");
+addButtonContainer.classList.add("img-modal-btn-container");
+
 // Append every element
 modalContent.appendChild(closeBtn);
 modalContent.appendChild(label);
@@ -40,6 +45,9 @@ modalContent.appendChild(input);
 modalContent.appendChild(addButton);
 imgModal.appendChild(modalContent);
 document.body.appendChild(imgModal);
+addButtonContainer.appendChild(addButton);
+modalContent.appendChild(addButtonContainer);
+modalContent.appendChild(errorMsg);
 
 // Event listener for add-image id from HTML
 document.getElementById("add-image").addEventListener("click", function () {
@@ -82,16 +90,14 @@ addButton.addEventListener("click", function () {
         document.getElementById("note-field").appendChild(imgElement);
       } else {
         // If dimensions are zero show alert
-        displayError("Ogiltig bildlänk. Klistra in en giltig adress.");
+        displayError("Fel på bild, prova annan bildlänk.");
       }
     };
 
     // Event handler for error showing temporary image
     tempImg.onerror = function () {
       // Show alert if invalid image URL
-      displayError(
-        "Ogiltig bildlänk angiven. Prova högerklicka på en bild och kopiera bildlänken."
-      );
+      displayError("Ogiltig bildlänk angiven.");
     };
 
     // Set temp source to the provided URL
@@ -99,8 +105,15 @@ addButton.addEventListener("click", function () {
   }
 });
 
+// Display error message in modal
 function displayError(message) {
   const errorParagraph = document.createElement("p");
   errorParagraph.textContent = message;
   errorMsg.appendChild(errorParagraph);
+
+  // Screen shake
+  imgModal.classList.add("img-modal-shake");
+  setTimeout(() => {
+    imgModal.classList.remove("img-modal-shake");
+  }, 500);
 }
