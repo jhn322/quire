@@ -1,4 +1,4 @@
-// Create modal
+// Creates modal div class
 const imgModal = document.createElement("div");
 imgModal.id = "image-modal";
 imgModal.classList.add("img-modal");

@@ -112,7 +112,7 @@ a:visited {
   list-style: none;
 }
 
-.note-thumbnail .thumbnailDate{
+.note-thumbnail .thumbnailDate {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -410,6 +410,7 @@ a:visited {
   font-size: 1.4rem;
 }
 
+/* Input styling */
 .img-modal-window input {
   width: 90%;
   height: 25%;
