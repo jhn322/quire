@@ -15,11 +15,11 @@ function filterNotes(searchTerm) {
 
   allStoredNotes.forEach(function (note) {
     const title = (note.title || "").toLowerCase(); // check if note.title is defined
-    const text = (note.text || "").toLowerCase(); // check if note.text is defined
+    const content = (note.content || "").toLowerCase(); // check if note.text is defined
 
-    if (title.includes(searchTerm) || text.includes(searchTerm)) {
+    if (title.includes(searchTerm) || content.includes(searchTerm)) {
       // display matching notes
-      const searchedNote = createNoteElement(note.title, note.text);
+      const searchedNote = createNoteElement(note.title, note.content);
       noteList.appendChild(searchedNote);
     }
   });
