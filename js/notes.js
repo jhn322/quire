@@ -70,14 +70,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
-<<<<<<< HEAD
     let image = noteField.getElementsByTagName('img');
     let imageArray = [];
     for(let i = 0; i < image.length; i++)
       imageArray.push(image[i].src);
     activeNote.img = imageArray;
-=======
->>>>>>> main
     activeNote.title = title.value;
     activeNote.content = noteField.innerHTML;
     activeNote.savedDate = noteDtae.innerHTML;
@@ -134,9 +131,7 @@ function createTumbnail(noteObject) {
   newTitle.textContent = noteObject.title;
   newContent.innerHTML = noteObject.content;
 
-<<<<<<< HEAD
   favorite.innerHTML = '<i class="fas fa-star"></i>';
-=======
   newDate.className = 'thumbnailDate';
   const savedDate = document.createElement("span");
   savedDate.textContent = `skapat ${noteObject.savedDate}`;
@@ -145,14 +140,11 @@ function createTumbnail(noteObject) {
   newDate.appendChild(savedDate);
   newDate.appendChild(editDate);
 
-  favorite.textContent = "⭐";
->>>>>>> main
   favorite.id = noteObject.id;
   favorite.className = "star greyStar";
   if (noteObject.isFavorite == false) favorite.className = "star greyStar";
   else favorite.className = "star";
 
-<<<<<<< HEAD
   deletebtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
   deletebtn.className = 'deleteNote';
   // Delete notes
@@ -175,10 +167,6 @@ function createTumbnail(noteObject) {
     imageWrapper.appendChild(image);
   });
 
-=======
-  deletebtn.textContent = "🗑";
-  deletebtn.className = "deleteNote";
->>>>>>> main
 
   newListItem.appendChild(newTitle);
   newListItem.appendChild(newContent);
