@@ -368,3 +368,113 @@ a:visited {
   background-color: rgb(63, 140, 255);
   color: #fff;
 }
+
+/* Image link modal container */
+.img-modal {
+  font-family: Arial, Helvetica, sans-serif;
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Image link modal styling */
+.img-modal-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  margin: 9.2% auto;
+  padding: 1rem;
+  width: 25%;
+  height: 200px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.img-modal-label {
+  font-size: 1.4rem;
+}
+
+.img-modal-window input {
+  width: 90%;
+  height: 25%;
+  border: 2px solid #ccc;
+  margin-bottom: 0.5rem;
+}
+
+/* Exit button */
+.img-modal-close-btn {
+  font-size: 35px;
+  width: 1.5rem;
+  padding: 0.5rem;
+  color: #005392;
+  border: none;
+  position: absolute;
+  top: -12px;
+  right: 10px;
+}
+
+.img-modal-close-btn:hover,
+.img-modal-close-btn:focus {
+  text-decoration: none;
+  color: red;
+  cursor: pointer;
+}
+
+/* Add link button */
+.img-modal-add-btn {
+  background-color: #005392;
+  color: white;
+  padding: 15px 15px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 0.3rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.img-modal-add-btn:hover {
+  background-color: #819eb5;
+  color: #005392;
+}
+
+.error-message {
+  color: red;
+  position: absolute;
+  bottom: 10px;
+}
+
+/* Error message shake */
+.img-modal-shake {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate(-1px, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate(2px, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate(-4px, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate(4px, 0);
+  }
+}
