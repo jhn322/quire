@@ -1,5 +1,4 @@
 class Note {
-
   constructor(
     title,
     content,
@@ -28,7 +27,7 @@ let activeNote = new Note("", "");
 renderAllTumbnails();
 document.addEventListener("DOMContentLoaded", function () {
   // check local storage for stored notes
-  activeNote = JSON.parse(localStorage.getItem("notes")) || new Note("","");
+  activeNote = JSON.parse(localStorage.getItem("notes")) || new Note("", "");
   // update notes
   const noteField = document.getElementById("note-field");
   const title = document.getElementById("title");
@@ -38,8 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
   noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
   noteDtae.innerHTML = getDate();
-
-  
 
   // button to save
   const saveBtn = document.getElementById("save-notes");
@@ -58,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
  
 
   addNote.addEventListener("click", () => {
-    const toolbar = document.getElementById('toolbar');
-    toolbar.classList.remove('toolbar-hidden');
+    const toolbar = document.getElementById("toolbar");
+    toolbar.classList.remove("toolbar-hidden");
 
     title.textContent = "Titel...";
     noteField.textContent = "";
@@ -73,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
-
     activeNote.title = title.value;
     activeNote.content = noteField.innerHTML;
     activeNote.savedDate = noteDtae.innerHTML;
@@ -114,8 +110,6 @@ function updateNote(noteObject, allNotes) {
   localStorage.setItem("allNotes", JSON.stringify(allNotes));
 }
 
-
-
 function createTumbnail(noteObject) {
   const noteList = document.querySelector(".note-list");
   const newListItem = document.createElement("li");
@@ -125,7 +119,7 @@ function createTumbnail(noteObject) {
   const favorite = document.createElement("button");
   const deletebtn = document.createElement("button");
 
-  newListItem.id = noteObject.id + 'Wrapper';
+  newListItem.id = noteObject.id + "Wrapper";
   newListItem.classList.add("note-thumbnail");
   newListItem.isFavorite = noteObject.isFavorite;
 
@@ -142,14 +136,12 @@ function createTumbnail(noteObject) {
 
   favorite.textContent = "⭐";
   favorite.id = noteObject.id;
-  favorite.className = 'star greyStar';
-  if(noteObject.isFavorite == false)
-    favorite.className = 'star greyStar';
-  else
-    favorite.className = 'star';
+  favorite.className = "star greyStar";
+  if (noteObject.isFavorite == false) favorite.className = "star greyStar";
+  else favorite.className = "star";
 
   deletebtn.textContent = "🗑";
-  deletebtn.className = 'deleteNote';
+  deletebtn.className = "deleteNote";
 
   newListItem.appendChild(newTitle);
   newListItem.appendChild(newContent);
@@ -158,12 +150,12 @@ function createTumbnail(noteObject) {
   newListItem.appendChild(deletebtn);
   noteList.appendChild(newListItem);
 
-  noteArray= JSON.parse(localStorage.getItem("allNotes"))
+  noteArray = JSON.parse(localStorage.getItem("allNotes"));
 }
 
 function renderAllTumbnails() {
   const allNotes = JSON.parse(localStorage.getItem("allNotes")) || "";
-console.log(allNotes);
+  console.log(allNotes);
   noteArray = allNotes;
 
   const noteList = document.querySelector(".note-list");
@@ -176,34 +168,33 @@ console.log(allNotes);
   }
 }
 
-
-let currentNoteStarId = '';
-document.addEventListener('click', (evt) => {
-  if(evt.target.className.slice(0, 4) == 'star'){
+let currentNoteStarId = "";
+document.addEventListener("click", (evt) => {
+  if (evt.target.className.slice(0, 4) == "star") {
     currentNoteStarId = evt.target.id;
-    let noteId = document.getElementById(currentNoteStarId + 'Wrapper');
-    if(noteId.isFavorite == false){
+    let noteId = document.getElementById(currentNoteStarId + "Wrapper");
+    if (noteId.isFavorite == false) {
       noteId.isFavorite = true;
-      document.getElementById(currentNoteStarId).classList.remove('greyStar');
+      document.getElementById(currentNoteStarId).classList.remove("greyStar");
       searchInNote(currentNoteStarId, true);
     } else {
       noteId.isFavorite = false;
-      document.getElementById(currentNoteStarId).classList.add('greyStar');
+      document.getElementById(currentNoteStarId).classList.add("greyStar");
       searchInNote(currentNoteStarId, false);
     }
-  }
-  else if(evt.target.className == 'menu-icon fa-solid fa-star')
-    window.location.href = 'favorite.html';
+  } else if (evt.target.className == "menu-icon fa-solid fa-star")
+    window.location.href = "favorite.html";
 });
 
-function searchInNote(n, isFav){
-  noteArray.find(note => {
-    if(note.id == n){
+function searchInNote(n, isFav) {
+  noteArray.find((note) => {
+    if (note.id == n) {
       note.isFavorite = isFav;
       localStorage.setItem("allNotes", JSON.stringify(noteArray));
     }
   });
 }
+
 
 //get the date for notes
 function getDate(){
@@ -214,3 +205,4 @@ function getDate(){
 }
 
 console.log(getDate())
+

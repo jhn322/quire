@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.search-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#search-field {
+  width: 30vw;
+  height: 2rem;
+}
+
+.search-icon {
+  font-size: 3rem;
+  margin-bottom: 1em;
+}
