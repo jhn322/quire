@@ -21,6 +21,7 @@ document.getElementById("add-image").addEventListener("click", function () {
         // Append the image to the note field
         document.getElementById("note-field").appendChild(imgElement);
         setNewObject();
+        document.getElementById("note-field").scrollTop = document.getElementById("note-field").scrollHeight;
       } else {
         // If dimensions are zero show alert
         alert("Ogiltig bildlänk. Klistra in en giltig adress.");
