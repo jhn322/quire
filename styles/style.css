@@ -224,7 +224,8 @@ a:visited {
   margin-top: 0.5em;
 }
 
-.note-section h1 {
+/* Kan vi ta bort den här??? */
+/* .note-section h1 {
   font-size: 1.6rem;
   width: 40vw;
   padding: 0.2em;
@@ -232,7 +233,7 @@ a:visited {
   border-radius: 4px;
   background-color: #f8f8f8;
   color: #a1a0a0;
-}
+} */
 
 /* icon for adding a new note */
 .add-note {
@@ -367,4 +368,8 @@ a:visited {
 .newNotes > button {
   background-color: rgb(63, 140, 255);
   color: #fff;
+}
+
+.bold-text {
+  font-weight: bold;
 }
