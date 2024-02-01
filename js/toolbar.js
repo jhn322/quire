@@ -13,7 +13,7 @@ toolIcons.forEach(function(toolIcon){
 
         event.preventDefault();
 
-        const selectionInfo = checkSelectedText();
+        let selectionInfo = checkSelectedText();
         
         switch(toolIconId) {
             case 'bold':
@@ -55,7 +55,6 @@ function checkSelectedText() {
             textBeforeSelection: noteField.textContent.substring(0, startOffset),
             textAfterSelection: noteField.textContent.substring(endOffset)
         };
-        
     }
 }
 
@@ -275,41 +274,44 @@ function createRangeAtCursor() {
 
 
 
-// -----------------------------------------------------------------------------------
-// ------   Font-family Section -----------------------------------------------------
-// -----------------------------------------------------------------------------------
-const selectFont = document.getElementById('font-family');
+// // -----------------------------------------------------------------------------------
+// // ------   Font-family Section -----------------------------------------------------
+// // -----------------------------------------------------------------------------------
+// const selectFont = document.getElementById('font-family');
 
-selectFont.addEventListener('change', function(event){
-    event.preventDefault();
-    changeFont(event);
-});
+// selectFont.addEventListener('change', function(event){
+//     event.preventDefault();
+//     changeFont(event);
+// });
 
-function changeFont(event) {
+// function changeFont(event) {
 
-    let selectionInfo = checkSelectedText();
+//     let selectionInfo = checkSelectedText();
 
-    if(!selectionInfo) {
-        alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
-        return;
-    }
+//     if(!selectionInfo) {
+//         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
+//         return;
+//     }
     
-    let { target } = event;
-    let { value } = target;
+//     let { target } = event;
+//     let { value } = target;
     
-    console.log(value);
+//     console.log(value);
 
-    const regexPatternFont = /<span\s+style\s*=\s*['"]([^'"]*\bfont-family\s*:\s*[^'"]*\b)['"][^>]*>*${selectionInfo.selectedText}<\/span>/gi;
+//     const regexPatternFont = new RegExp(
+//         `<span\\s+style\\s*=\\s*['"]([^'"]*\\bfont-family\\s*:\\s*[^'"]*\\b)['"][^>]*>${selectionInfo.selectedText}<\\/span>`,
+//     "gi"
+//     );
    
-    if(noteField.innerHTML.match(regexPatternFont)) {
-        noteField.innerHTML = noteField.innerHTML.replace(regexPatternFont, (match, styleAttr, content) => {
-            const updatedStyleAttr = styleAttr.replace(/font-family\s*:\s*[^;]*;/, `font-family: ${value};`);
-            return `<span style='${updatedStyleAttr}'>${content}</span>`;
-          }); 
-    } else {
-        noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<span style="font-family: '${value}'">${selectionInfo.selectedText}</span>`);
-        console.log(noteField.innerHTML);
-    };
-}
+//     if(noteField.innerHTML.match(regexPatternFont)) {
+//         noteField.innerHTML = noteField.innerHTML.replace(regexPatternFont, selectionInfo.selectedText);
+//         });
+//     } else {
+//         noteField.innerHTML = noteField.innerHTML.replace(
+//             selectionInfo.selectedText, 
+//             `<span style="font-family:'${value}'">${selectionInfo.selectedText}</span>`);
+//         console.log(noteField.innerHTML);
+//     };
+// }
 
 
