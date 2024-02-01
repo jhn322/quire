@@ -235,11 +235,11 @@ function getDate(){
 
 console.log(getDate())
 
-let currentNote;
+let editedNote = JSON.parse(localStorage.getItem("notes")) || '';
+let currentNote = editedNote.id;
 let newNoteArray = [];
-let editedNote;
-let isEditingNote = false;
 
+let isEditingNote = false;
 document.addEventListener('click', (evt) => {
   if(evt.target.className == 'note-thumbnail'){
     currentNote = evt.target.idAddress;
@@ -258,6 +258,7 @@ document.addEventListener('click', (evt) => {
     isEditingNote = true;
   } else {
     noteField.classList.remove('updateModeBorder');
+    noteField.setAttribute("contenteditable", false);
     title.style.border = 'none';
     document.getElementById('save-notes').classList.add("hide-btn");
     document.querySelector('.toolbar').classList.remove('showToolbar');
@@ -268,6 +269,7 @@ document.addEventListener('click', (evt) => {
 });
 
 function addOrEditMode(){
+  noteField.setAttribute("contenteditable", true);
   noteField.classList.add('updateModeBorder');
   title.style.border = 'solid 2px #aaa';
   document.getElementById('save-notes').classList.remove("hide-btn");
@@ -290,7 +292,6 @@ function setNewObject(){
     editedDate: getDate()
   }
   editedNote = newObj;
-  localStorage.setItem("notes", JSON.stringify(editedNote));
 }
 
 document.addEventListener('input', (evt) => {
@@ -316,6 +317,7 @@ function saveChanges(){
 
   newNoteArray = [];
   noteArray = JSON.parse(localStorage.getItem("allNotes"));
+  localStorage.setItem("notes", JSON.stringify(editedNote));
 
   noteArray.forEach(notes => {
     if(notes.id !== currentNote)
