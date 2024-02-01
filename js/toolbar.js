@@ -125,6 +125,42 @@ function toggleUnderline(selectionInfo) {
     selectionInfo = {};
 }
 
+//* Alternativ med DOMParser
+// function toggleUnderline(selectionInfo) {
+//     if (!selectionInfo) {
+//         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
+//         return;
+//     }
+
+//     const parser = new DOMParser();
+//     const doc = parser.parseFromString(noteField.innerHTML, 'text/html');
+
+//     const elementsToToggle = Array.from(doc.querySelectorAll('u')).filter((element) =>
+//         element.textContent.includes(selectionInfo.selectedText)
+//     );
+
+//     if (elementsToToggle.length > 0) {
+//         elementsToToggle.forEach((element) => {
+//             const parent = element.parentNode;
+//             parent.replaceChild(document.createTextNode(element.textContent), element);
+//         });
+//     } else {
+//         const uElement = document.createElement('u');
+//         uElement.appendChild(document.createTextNode(selectionInfo.selectedText));
+
+//         console.log(uElement);
+        
+//         selectionInfo.range.deleteContents();
+//         selectionInfo.range.insertNode(uElement);
+//         console.log(noteField.innerHTML);
+
+//         noteField.innerHTML = noteField.innerHTML;
+//     }
+
+//     selectionInfo = {};
+// }
+
+
 // -----------------------------------------------------------------------------------
 // ------   Type of Text Section -----------------------------------------------------
 // -----------------------------------------------------------------------------------
