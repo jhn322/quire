@@ -1,7 +1,7 @@
 const demoTitle = document.getElementById('demoTitle');
 const demoText = document.getElementById('demoText');
 const note = document.getElementsByClassName('note');
-const leftSide = document.getElementById('leftSide');
+const noteList = document.getElementById('noteList');
 const navButton = document.getElementById('navButton');
 let navClicked = false;
 let noteArray = [];
@@ -22,10 +22,10 @@ if(allNotes !== null){
                 <b><i class="fas fa-star"></i></b>
                 <h3>${note.title}</h3>
                 <p class='content' id="${note.id}Text">${note.content}</p>
-                <p class='noteDate'>${note.date}</p>
+                <p class='noteDate'>${note.savedDate}</p>
             </div>
             `;
-            leftSide.innerHTML += newNote;
+            noteList.innerHTML += newNote;
             document.getElementById(note.id).text = note.content;
             
             const imageWrapper = document.createElement('div');

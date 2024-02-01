@@ -20,6 +20,7 @@ document.getElementById("add-image").addEventListener("click", function () {
 
         // Append the image to the note field
         document.getElementById("note-field").appendChild(imgElement);
+        setNewObject();
       } else {
         // If dimensions are zero show alert
         alert("Ogiltig bildlänk. Klistra in en giltig adress.");
