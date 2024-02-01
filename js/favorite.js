@@ -1,3 +1,4 @@
+const demo = document.getElementById('demo');
 const demoTitle = document.getElementById('demoTitle');
 const demoText = document.getElementById('demoText');
 const note = document.getElementsByClassName('note');
@@ -49,6 +50,7 @@ document.addEventListener('click', (evt) => {
     if(evt.target.className == 'note'){
         demoTitle.textContent = document.getElementById(evt.target.id).noteTitle;
         demoText.innerHTML = document.getElementById(evt.target.id).text;
+        demo.scrollTop = 0;
     }
     else if(evt.target.className == 'content'){
         let wrapperName = evt.target.id.slice(0, evt.target.id.length - 4);
