@@ -19,8 +19,20 @@ class Note {
 }
 
 //list of months
-let monthsList = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
-
+let monthsList = [
+  "januari",
+  "februari",
+  "mars",
+  "april",
+  "maj",
+  "juni",
+  "juli",
+  "augusti",
+  "september",
+  "oktober",
+  "november",
+  "december",
+];
 
 let noteArray = [];
 let activeNote = new Note("", "");
@@ -31,8 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // update notes
   const noteField = document.getElementById("note-field");
   const title = document.getElementById("title");
-  const noteDtae = document.querySelector('#noteDate');
-
+  const noteDtae = document.querySelector("#noteDate");
 
   noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
@@ -52,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const addNote = document.querySelector(".add-note");
- 
 
   addNote.addEventListener("click", () => {
     const toolbar = document.getElementById("toolbar");
@@ -65,16 +75,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // noteField.value = "";
     activeNote = new Note(title.value, noteField.value);
     console.log(activeNote);
-    
   });
 
   // save to local storage when pressing button
   saveBtn.addEventListener("click", function () {
-    let image = noteField.getElementsByTagName('img');
+    let image = noteField.getElementsByTagName("img");
     let imageArray = [];
-    for(let i = 0; i < image.length; i++)
-      imageArray.push(image[i].src);
-    if(isEditingNote == false){
+    for (let i = 0; i < image.length; i++) imageArray.push(image[i].src);
+    if (isEditingNote == false) {
       activeNote.img = imageArray;
       activeNote.title = title.value;
       activeNote.content = noteField.innerHTML;
@@ -85,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       saveAllNotes(activeNote);
     } else {
-      saveChanges()
+      saveChanges();
     }
   });
 });
@@ -120,16 +128,16 @@ function updateNote(noteObject, allNotes) {
 }
 
 function createTumbnail(noteObject) {
-  const noteList = document.querySelector(".note-list");
-  const newListItem = document.createElement("li");
+  const noteList = document.querySelector(".notes-column");
+  const newListItem = document.createElement("div");
   const newTitle = document.createElement("h3");
   const newContent = document.createElement("p");
-  const newDate = document.createElement('div');
+  const newDate = document.createElement("div");
   const favorite = document.createElement("p");
   const deletebtn = document.createElement("p");
 
   newListItem.id = noteObject.id + "Wrapper";
-  newListItem.classList.add("note-thumbnail");
+  newListItem.classList.add("note");
   newListItem.isFavorite = noteObject.isFavorite;
 
   newListItem.noteTitle = noteObject.title;
@@ -139,12 +147,12 @@ function createTumbnail(noteObject) {
   newListItem.images = noteObject.img;
 
   newTitle.textContent = noteObject.title;
-  newTitle.className = 'noteTitle';
+  newTitle.className = "noteTitle";
   newContent.innerHTML = noteObject.content;
-  newContent.className = 'noteContent';
+  newContent.className = "noteContent";
 
   favorite.innerHTML = '<i class="fas fa-star"></i>';
-  newDate.className = 'thumbnailDate';
+  newDate.className = "thumbnailDate";
   const savedDate = document.createElement("span");
   savedDate.textContent = `skapat ${noteObject.savedDate}`;
   const editDate = document.createElement("span");
@@ -158,27 +166,26 @@ function createTumbnail(noteObject) {
   else favorite.className = "star";
 
   deletebtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
-  deletebtn.className = 'deleteNote';
+  deletebtn.className = "deleteNote";
   // Delete notes
   deletebtn.onclick = () => {
-    document.getElementById(newListItem.id).classList.add('noteDeleted');
+    document.getElementById(newListItem.id).classList.add("noteDeleted");
     setTimeout(() => {
       document.getElementById(newListItem.id).remove();
     }, 300);
     let tempArray = noteArray;
     noteArray = tempArray.filter((n) => n.id != noteObject.id);
     localStorage.setItem("allNotes", JSON.stringify(noteArray));
-  }
+  };
 
   // Put images in container
-  const imageWrapper = document.createElement('div');
-  imageWrapper.className = 'imageWrapper';
+  const imageWrapper = document.createElement("div");
+  imageWrapper.className = "imageWrapper";
   noteObject.img.forEach((img) => {
-    const image = document.createElement('img');
+    const image = document.createElement("img");
     image.src = img;
     imageWrapper.appendChild(image);
   });
-
 
   newListItem.appendChild(newTitle);
   newListItem.appendChild(newContent);
@@ -196,7 +203,7 @@ function renderAllTumbnails() {
   console.log(allNotes);
   noteArray = allNotes;
 
-  const noteList = document.querySelector(".note-list");
+  const noteList = document.querySelector(".notes-column");
   noteList.innerHTML = "";
 
   if (allNotes != "") {
@@ -233,24 +240,24 @@ function searchInNote(n, isFav) {
   });
 }
 
-
 //get the date for notes
-function getDate(){
-  const date = new Date()
+function getDate() {
+  const date = new Date();
   //return `${date.getFullYear()}-${((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1)}-${(date.getDate() < 10 ? '0' : '') + date.getDate()}`
-  return `${monthsList[date.getMonth()]} ${(date.getDate() < 10 ? '0' : '') + date.getDate()}, ${date.getFullYear()}`
-
+  return `${monthsList[date.getMonth()]} ${
+    (date.getDate() < 10 ? "0" : "") + date.getDate()
+  }, ${date.getFullYear()}`;
 }
 
-console.log(getDate())
+console.log(getDate());
 
 let currentNote;
 let newNoteArray = [];
 let editedNote;
 let isEditingNote = false;
 
-document.addEventListener('click', (evt) => {
-  if(evt.target.className == 'note-thumbnail'){
+document.addEventListener("click", (evt) => {
+  if (evt.target.className == "note") {
     currentNote = evt.target.idAddress;
     title.value = evt.target.noteTitle;
     noteField.innerHTML = evt.target.content;
@@ -259,12 +266,11 @@ document.addEventListener('click', (evt) => {
   }
 });
 
-function setNewObject(){
-  let thisNote = document.getElementById(currentNote + 'Wrapper');
-  let image = noteField.getElementsByTagName('img');
+function setNewObject() {
+  let thisNote = document.getElementById(currentNote + "Wrapper");
+  let image = noteField.getElementsByTagName("img");
   let imageArray = [];
-  for(let i = 0; i < image.length; i++)
-    imageArray.push(image[i].src);
+  for (let i = 0; i < image.length; i++) imageArray.push(image[i].src);
   let newObj = {
     id: thisNote.idAddress,
     isFavorite: thisNote.isFavorite,
@@ -272,38 +278,35 @@ function setNewObject(){
     content: noteField.innerHTML,
     savedDate: thisNote.savedDate,
     img: imageArray,
-    editedDate: getDate()
-  }
+    editedDate: getDate(),
+  };
   editedNote = newObj;
 }
 
-document.addEventListener('input', (evt) => {
-  if(isEditingNote == true)
-  if(evt.target.id == 'title' || evt.target.id == 'note-field'){
-    setNewObject();
-  }
+document.addEventListener("input", (evt) => {
+  if (isEditingNote == true)
+    if (evt.target.id == "title" || evt.target.id == "note-field") {
+      setNewObject();
+    }
 });
 
-function saveChanges(){
+function saveChanges() {
   // newNoteArray = noteArray.filter(notes => notes.id != currentNote);
-  let thisNote = document.getElementById(currentNote + 'Wrapper');
-  thisNote.getElementsByTagName('h3')[0].textContent = editedNote.title;
-  thisNote.getElementsByTagName('p')[0].innerHTML = editedNote.content;
-  thisNote.getElementsByTagName('p')[0].innerHTML = editedNote.content;
-  let images = thisNote.querySelector('.imageWrapper');
-  while(images.lastElementChild)
-  images.removeChild(images.lastElementChild);
+  let thisNote = document.getElementById(currentNote + "Wrapper");
+  thisNote.getElementsByTagName("h3")[0].textContent = editedNote.title;
+  thisNote.getElementsByTagName("p")[0].innerHTML = editedNote.content;
+  thisNote.getElementsByTagName("p")[0].innerHTML = editedNote.content;
+  let images = thisNote.querySelector(".imageWrapper");
+  while (images.lastElementChild) images.removeChild(images.lastElementChild);
   editedNote.img.forEach((img) => {
-    const image = document.createElement('img');
+    const image = document.createElement("img");
     image.src = img;
     images.appendChild(image);
   });
 
-  noteArray.forEach(notes => {
-    if(notes.id !== currentNote)
-      newNoteArray.push(notes);
-    else
-      newNoteArray.push(editedNote);
+  noteArray.forEach((notes) => {
+    if (notes.id !== currentNote) newNoteArray.push(notes);
+    else newNoteArray.push(editedNote);
   });
   localStorage.setItem("allNotes", JSON.stringify(newNoteArray));
 }

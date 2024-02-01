@@ -1,173 +1,172 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    user-select: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
 }
-p{
-    margin-top: 10px;
+p {
+  margin-top: 10px;
 }
-main{
-    display: flex;
+main {
+  display: flex;
 }
-a{
-    color: #fff;
-    text-decoration: none;
+a {
+  color: #fff;
+  text-decoration: none;
 }
-.menu-icon{
+.menu-icon {
+  width: 100%;
+  text-align: center;
+  border-radius: 0;
+  padding: 25px;
+  cursor: pointer;
+}
+#noteList {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow-y: scroll;
+  padding: 10px 10px 0 10px;
+}
+#resultWrapper {
+  width: 78%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 150px;
+  background: #ddd;
+}
+.note {
+  position: relative;
+  padding: 20px 20px 30px 20px;
+  background: #eee;
+  border: solid 1px #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.note > h3,
+.note > b,
+.imageWrapper,
+.noteDate,
+span {
+  pointer-events: none;
+}
+.note > h3 {
+  white-space: nowrap;
+}
+.content {
+  overflow: hidden;
+  max-height: 50px;
+  overflow-y: scroll;
+}
+.content::-webkit-scrollbar {
+  display: none;
+}
+.note > b {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #fa0;
+  font-size: 25px;
+}
+.content > img {
+  display: none;
+}
+.noteDate {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  display: none;
+  font-size: 12px;
+  color: #555;
+}
+.note:hover > .noteDate {
+  display: block;
+}
+
+#demo {
+  height: 100%;
+  width: 100%;
+  border: solid 30px #fff;
+  border-right: solid 10px #fff;
+  box-shadow: 0 0 10px #00000033;
+  background: #fff;
+  border-radius: 15px;
+  overflow-y: scroll;
+  padding-right: 5px;
+}
+
+#demoText > img {
+  display: block;
+  margin: 10px 0;
+  min-width: 100%;
+}
+
+#navButton {
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  top: 25%;
+  padding: 30px 15px 30px 30px;
+  display: none;
+  justify-content: center;
+  gap: 4px;
+  flex-direction: column;
+}
+#navButton > div {
+  width: 25px;
+  height: 4px;
+  background: #000;
+  pointer-events: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+@media (max-width: 1024px) {
+  .side {
+    position: absolute;
+    width: 100%;
+    height: fit-content;
+    display: none;
+  }
+  .logo {
+    font-size: 2rem;
+    width: 100%;
+  }
+  .menu-icon {
     width: 100%;
     text-align: center;
-    border-radius: 0;
-    padding: 25px;
-    cursor: pointer;
-}
-.side{
-    width: 5%;
-    gap: 0;
-    box-shadow: none;
-}
-#noteList{
-    width: 20%;
-    display: flex;
+  }
+  main {
     flex-direction: column;
-    gap: 5px;
-    overflow-y: scroll;
-    padding: 10px 10px 0 10px;
-}
-#resultWrapper{
-    width: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 150px;
-    background: #ddd;
-}
-.note{
-    position: relative;
-    padding: 20px 20px 30px 20px;
-    background: #eee;
-    border: solid 1px #ccc;
-    border-radius: 10px;
-    cursor: pointer;
-}
-.note > h3, .note > b, .imageWrapper, .noteDate, span{
-    pointer-events: none;
-}
-.note > h3{
-    white-space: nowrap;
-}
-.content{
-    overflow: hidden;
-    max-height: 50px;
-    overflow-y: scroll;
-}
-.content::-webkit-scrollbar{
-    display: none;
-}
-.note > b{
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    color: #fa0;
-    font-size: 25px;
-}
-.content > img{
-    display: none;
-}
-.noteDate{
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
-    display: none;
-    font-size: 12px;
-    color: #555;
-}
-.note:hover > .noteDate{
-    display: block;
-}
-
-#demo{
-    height: 100%;
+  }
+  #noteList {
     width: 100%;
-    border: solid 30px #fff;
-    border-right: solid 10px #fff;
-    box-shadow: 0 0 10px #00000033;
-    background: #fff;
-    border-radius: 15px;
+    height: 25%;
+    display: flex;
+    flex-direction: row;
     overflow-y: scroll;
-    padding-right: 5px;
-}
-
-#demoText > img{
-    display: block;
-    margin: 10px 0;
-    min-width: 100%;
-}
-
-#navButton{
-    z-index: 100;
-    position: absolute;
-    right: 0;
-    top: 25%;
-    padding: 30px 15px 30px 30px;
-    display: none;
+  }
+  #resultWrapper {
+    width: 100%;
+    height: 75%;
+    padding: 0;
+  }
+  .note {
+    min-width: 150px;
+    text-align: center;
+    box-shadow: unset;
+  }
+  .note > b {
+    top: 10px;
+    right: 10px;
+  }
+  #navButton {
+    display: flex;
+  }
+  .imageWrapper {
     justify-content: center;
-    gap: 4px;
-    flex-direction: column;
-}
-#navButton > div{
-    width: 25px;
-    height: 4px;
-    background: #000;
-    pointer-events: none;
-    transition: transform 0.3s ease-in-out;
-}
-
-@media (max-width: 1024px){
-    .side {
-        position: absolute;
-        width: 100%;
-        height: fit-content;
-        display: none;
-    }
-    .logo {
-        font-size: 2rem;
-        width: 100%;
-    }
-    .menu-icon {
-        width: 100%;
-        text-align: center;
-    }
-    main{
-        flex-direction: column;
-    }
-    #noteList{
-        width: 100%;
-        height: 25%;
-        display: flex;
-        flex-direction: row;
-        overflow-y: scroll;
-    }
-    #resultWrapper{
-        width: 100%;
-        height: 75%;
-        padding: 0;
-    }
-    .note{
-        min-width: 150px;
-        text-align: center;
-        box-shadow: unset;
-    }
-    .note > b{
-        top: 10px;
-        right: 10px;
-    }
-    #navButton{
-        display: flex;
-    }
-    .imageWrapper{
-        justify-content: center;
-        max-height: 70px;
-        overflow-y: hidden;
-    }
+    max-height: 70px;
+    overflow-y: hidden;
+  }
 }

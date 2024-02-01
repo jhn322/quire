@@ -1,94 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="styles/favorite.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quire</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="./styles/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quire</title>
-</head>
+  <body id="modalWindowAttacher">
+    <main>
+      <nav class="side">
+        <div class="logo-div">
+          <i class="logo fa-brands fa-quora"></i>
+        </div>
+        <a
+          href="search.html"
+          class="menu-icon fa-solid fa-magnifying-glass"
+        ></a>
+        <i class="menu-icon fa-solid fa-star"></i>
+        <i class="menu-icon fa-solid fa-chart-column"></i>
+        <i class="menu-icon fa-solid fa-gear"></i>
+        <i class="menu-icon fa-solid fa-question"></i>
+      </nav>
+      <div class="notes-column"></div>
 
-<body id="modalWindowAttacher">
-  <main>
-    <nav class="side">
-      <div class="logo-div">
-        <i class="logo fa-brands fa-quora"></i>
+      <div class="mainText">
+        <!-- title-section -->
+        <div class="title-section">
+          <input type="text" name="title" id="title" placeholder="Titel..." />
+          <p id="noteDate"></p>
+        </div>
+        <!-- toolbar-section  -->
+        <div id="toolbar" class="toolbar toolbar-hidden">
+          <select name="text-type" id="text-type">
+            <option class="h1-option" value="h1">Rubrik 1</option>
+            <option class="h2-option" value="h2">Rubrik 2</option>
+            <option class="h3-option" value="h3">Rubrik 3</option>
+            <option class="h4-option" value="h4">Rubrik 4</option>
+            <option class="h5-option" value="h5">Rubrik 5</option>
+            <option class="h6-option" value="h5">Rubrik 6</option>
+            <option value="p" selected>Vanlig text</option>
+          </select>
+          <select name="font-family" id="font-family">
+            <option class="font-arial" value="" selected>Arial</option>
+            <option class="font-timesNewRoman" value="">Times New Roman</option>
+            <option value="">Font 3</option>
+            <option value="">Font 4</option>
+            <option value="">Font 5</option>
+            <option value="">Font 6</option>
+            <option value="">Font 7</option>
+          </select>
+          <select name="font-size" id="font-size">
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12" selected>12</option>
+            <option value="14">14</option>
+            <option value="18">18</option>
+            <option value="24">24</option>
+            <option value="30">30</option>
+            <option value="36">36</option>
+            <option value="48">48</option>
+          </select>
+          <i id="bold" class="fa-solid fa-bold tool-icon"></i>
+          <i id="italic" class="fa-solid fa-italic tool-icon"></i>
+          <i id="underline" class="fa-solid fa-underline tool-icon"></i>
+          <i id="ul-list" class="fa-solid fa-list-ul tool-icon"></i>
+          <i id="ol-list" class="fa-solid fa-list-ol tool-icon"></i>
+          <i id="add-image" class="fa-regular fa-image tool-icon"></i>
+        </div>
+
+        <!-- note section -->
+        <div class="note-section">
+          <div id="note-field" contenteditable="true" spellcheck="false">
+            Text för testning
+          </div>
+          <button id="save-notes">Spara</button>
+        </div>
       </div>
-      <a href="./search.html"><i class="menu-icon fa-solid fa-magnifying-glass"></i></a>
-      <i class="menu-icon fa-solid fa-star"></i>
-      <i class="menu-icon fa-solid fa-chart-column"></i>
-      <i class="menu-icon fa-solid fa-gear"></i>
-      <i class="menu-icon fa-solid fa-question"></i>
-    </nav>
-    <div class="notes-column">
-      <ul class="note-list"></ul>
-    </div>
-
-    <div class="mainText">
-      <!-- title-section -->
-      <div class="title-section">
-        <input type="text" name="title" id="title" placeholder="Titel...">
-        <p id="noteDate"></p>
+      <div class="add-note">
+        <i class="fa-regular fa-pen-to-square"></i>
       </div>
-      <!-- toolbar-section  -->
-      <div id="toolbar" class="toolbar toolbar-hidden">
-        <select name="text-type" id="text-type">
-          <option class="h1-option" value="h1">Rubrik 1</option>
-          <option class="h2-option" value="h2">Rubrik 2</option>
-          <option class="h3-option" value="h3">Rubrik 3</option>
-          <option class="h4-option" value="h4">Rubrik 4</option>
-          <option class="h5-option" value="h5">Rubrik 5</option>
-          <option class="h6-option" value="h5">Rubrik 6</option>
-          <option value="p" selected>Vanlig text</option>
-        </select>
-        <select name="font-family" id="font-family">
-          <option class="font-arial" value="" selected>Arial</option>
-          <option class="font-timesNewRoman" value="">Times New Roman</option>
-          <option value="">Font 3</option>
-          <option value="">Font 4</option>
-          <option value="">Font 5</option>
-          <option value="">Font 6</option>
-          <option value="">Font 7</option>
-        </select>
-        <select name="font-size" id="font-size">
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12" selected>12</option>
-          <option value="14">14</option>
-          <option value="18">18</option>
-          <option value="24">24</option>
-          <option value="30">30</option>
-          <option value="36">36</option>
-          <option value="48">48</option>
-        </select>
-        <i id="bold" class="fa-solid fa-bold tool-icon"></i>
-        <i id="italic" class="fa-solid fa-italic tool-icon"></i>
-        <i id="underline" class="fa-solid fa-underline tool-icon"></i>
-        <i id="ul-list" class="fa-solid fa-list-ul tool-icon"></i>
-        <i id="ol-list" class="fa-solid fa-list-ol tool-icon"></i>
-        <i id="add-image" class="fa-regular fa-image tool-icon"></i>
-      </div>
+    </main>
 
-      <!-- note section -->
-      <div class="note-section">
-        <div id="note-field" contenteditable="true" spellcheck="false">Text för testning</div>
-        <button id="save-notes">Spara</button>
-      </div>
-    </div>
-    <div class="add-note">
-      <i class="fa-regular fa-pen-to-square"></i>
-    </div>
-  </main>
-
-  <!-- Script for icons -->
-  <script src="https://kit.fontawesome.com/dfb17be9bd.js" crossorigin="anonymous"></script>
-  <script src="js/main.js"></script>
-  <script src="js/modalWindow.js"></script>
-  <script src="js/notes.js"></script>
-  <script src="js/toolbar.js"></script>
-  <script src="js/getImages.js"></script>
-</body>
-
+    <!-- Script for icons -->
+    <script
+      src="https://kit.fontawesome.com/dfb17be9bd.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/main.js"></script>
+    <script src="js/modalWindow.js"></script>
+    <script src="js/notes.js"></script>
+    <script src="js/toolbar.js"></script>
+    <script src="js/getImages.js"></script>
+  </body>
 </html>
