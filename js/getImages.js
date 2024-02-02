@@ -88,6 +88,8 @@ addButton.addEventListener("click", function () {
 
         // Append the image to the note field
         document.getElementById("note-field").appendChild(imgElement);
+        setNewObject();
+        document.getElementById("note-field").scrollTop = document.getElementById("note-field").scrollHeight;
       } else {
         // If dimensions are zero show alert
         displayError("Fel på bild, prova annan bildlänk.");
