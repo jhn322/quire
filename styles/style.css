@@ -36,15 +36,25 @@ main {
   font-size: 3rem;
 }
 
+a:visited {
+  text-decoration: none;
+  color: white;
+}
+
 .menu-icon {
   font-size: 1.5rem;
   color: white;
   background-color: #005392;
   padding: 0.5em;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .menu-icon:hover {
+  background-color: #5ea7df;
+}
+
+.active-icon {
   background-color: #5ea7df;
 }
 
@@ -57,19 +67,44 @@ main {
 /* column for note overview */
 .notes-column {
   height: 100%;
-  width: 15%;
+  width: 20%;
   min-width: 150px;
   background-color: #ebebeb;
   box-shadow: 10px 0px 10px #ccc;
+  overflow-y: scroll;
 }
 
 .note-list {
   padding-left: 0;
   margin-top: 0.5em;
   border: 5px 5px solid;
+  display: flex;
+  flex-direction: column;
 }
-.note-thumbnail {
-  position: relative;
+.noteTitle, .noteContent, .note-thumbnail > div{
+  pointer-events: none;
+}
+.note-thumbnail > p > img{
+  display: none;
+}
+.note-thumbnail > p{
+  max-height: 50px;
+  overflow-y: scroll;
+  margin-top: 10px;
+}
+.note-thumbnail > p::-webkit-scrollbar{
+  display: none;
+}
+.imageWrapper{
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.imageWrapper > img{
+  width: 39px;
+  height: 39px;
+  object-fit: cover;
 }
 .greyStar {
   filter: saturate(0%);
@@ -78,28 +113,52 @@ main {
 .deleteNote {
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 8px;
   cursor: pointer;
   user-select: none;
+  font-size: 20px;
+  color: #fa0;
+}
+.star > i, .deleteNote > i{
+  pointer-events: none;
 }
 .deleteNote {
-  top: 30px;
+  top: 35px;
   right: 10px;
+  font-size: 20px;
+  font-weight: normal;
+  color: #d01;
   display: none;
+}
+.noteDeleted{
+  transform: translateX(-100%);
+  transition: 0.3s;
 }
 .note-thumbnail:hover > .deleteNote {
   display: block;
 }
-.note-thumbnail > p {
-  margin-top: 10px;
-}
 
 /* Class to add in js when creating listelement */
 .note-thumbnail {
+  position: relative;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   padding: 0.5em 1.7em;
-  margin-bottom: 1em;
   list-style: none;
+}
+
+.note-thumbnail .thumbnailDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-size: 12px;
+  color: #a1a0a0;
+}
+
+.thumbnailDate{
+  opacity: 0;
+}
+.note-thumbnail:hover > .thumbnailDate{
+  opacity: 1;
 }
 
 /* Class to display which listelement is viewed */
@@ -110,12 +169,11 @@ main {
 
 .mainText {
   width: 78%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1em;
-  margin-top: 2em;
+  padding: 2em 2em 0 2em;
 }
 
 /* --- title-section --- */
@@ -130,22 +188,29 @@ main {
 #title {
   font-size: 1.6rem;
   width: 40vw;
-  padding: 0.2em;
-  border: 2px solid #ccc;
+  padding: 0.2em 1em;
+  outline: none;
+  border: none;
   border-radius: 4px;
+}
+#noteDate{
+  color: #aaa;
+  margin-top: 10px;
 }
 
 /* --- toolbar-section ---  */
 .toolbar {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  margin-top: 1em;
   gap: 0.7em;
   padding: 0.8em 1.5em;
   border-radius: 40px;
   background-color: rgba(94, 167, 223, 0.3);
   font-size: 1.2rem;
+}
+.showToolbar{
+  display: flex;
 }
 
 .toolbar select {
@@ -210,6 +275,7 @@ main {
   align-items: center;
   gap: 1em;
   margin-top: 0.5em;
+  overflow-y: hidden;
 }
 
 /* Kan vi ta bort den här??? */
@@ -235,6 +301,7 @@ main {
   position: absolute;
   bottom: 1em;
   right: 1em;
+  cursor: pointer;
 }
 .add-note > i {
   pointer-events: none;
@@ -307,29 +374,40 @@ main {
 }
 
 #note-field {
-  height: 70vh;
   width: 40vw;
   padding: 2em;
-  border: 2px solid #ccc;
   border-radius: 4px;
-  background-color: #f8f8f8;
   font-size: 1em;
   resize: none;
+  overflow-y: scroll;
+  outline: none;
+  min-height: 58vh;
+}
+#note-field::-webkit-scrollbar{
+  display: none;
+}
+.updateModeBorder{
+  border: solid 2px #aaa;
 }
 
 #save-notes {
-  padding: 0.5em 1em;
-  margin-bottom: 0.3em;
-  background-color: rgba(234, 234, 234);
+  padding: 0.5em 5em;
+  background-color: #005392;
   border-radius: 4px;
-  text-align: center;
-  color: rgb(67, 67, 67);
+  color: rgb(255, 255, 255);
   border: none;
   cursor: pointer;
+  transform: translateY(-20%);
+}
+
+#note-field img {
+  margin: 10px 0;
+  min-width: 100%;
+  display: block;
 }
 
 #save-notes:hover {
-  background-color: white;
+  background-color: #0f77c7;
 }
 
 .newNotes {
@@ -355,6 +433,117 @@ main {
 .newNotes > button {
   background-color: rgb(63, 140, 255);
   color: #fff;
+}
+
+/* Image link modal container */
+.img-modal {
+  font-family: Arial, Helvetica, sans-serif;
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Image link modal styling */
+.img-modal-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  margin: 9.2% auto;
+  padding: 1rem;
+  width: 25%;
+  height: 200px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.img-modal-label {
+  font-size: 1.4rem;
+}
+
+/* Input styling */
+.img-modal-window input {
+  width: 90%;
+  height: 25%;
+  border: 2px solid #ccc;
+  margin-bottom: 0.5rem;
+}
+
+/* Exit button */
+.img-modal-close-btn {
+  font-size: 35px;
+  width: 1.5rem;
+  padding: 0.5rem;
+  color: #005392;
+  border: none;
+  position: absolute;
+  top: -12px;
+  right: 10px;
+}
+
+.img-modal-close-btn:hover,
+.img-modal-close-btn:focus {
+  text-decoration: none;
+  color: red;
+  cursor: pointer;
+}
+
+/* Add link button */
+.img-modal-add-btn {
+  background-color: #005392;
+  color: white;
+  padding: 15px 15px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 0.3rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.img-modal-add-btn:hover {
+  background-color: #819eb5;
+  color: #005392;
+}
+
+.error-message {
+  color: red;
+  position: absolute;
+  bottom: 10px;
+}
+
+/* Error message shake */
+.img-modal-shake {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate(-1px, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate(2px, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate(-4px, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate(4px, 0);
+  }
 }
 
 .bold-text {
