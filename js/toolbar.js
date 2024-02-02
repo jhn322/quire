@@ -57,6 +57,9 @@ function checkSelectedText() {
     }
 }
 
+// -----------------------------------------------------------------------------------
+// ------  Bold section -----------------------------------------------------
+// -----------------------------------------------------------------------------------
 //function to switch between bold and normal text
 function toggleBold(selectionInfo) {
     
@@ -79,6 +82,9 @@ function toggleBold(selectionInfo) {
     // selectionInfo = {};
 }
 
+// -----------------------------------------------------------------------------------
+// ------  Italic section -----------------------------------------------------
+// -----------------------------------------------------------------------------------
 //function to switch between italic and normal text
 function toggleItalic(selectionInfo) {
     
@@ -124,6 +130,9 @@ function toggleItalic(selectionInfo) {
     // selectionInfo = checkSelectedText();
 }
 
+// -----------------------------------------------------------------------------------
+// ------  Underline section -----------------------------------------------------
+// -----------------------------------------------------------------------------------
 //function to switch between underlined and normal text
 function toggleUnderline(selectionInfo) {
     
