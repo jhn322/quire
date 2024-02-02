@@ -122,6 +122,19 @@ function toggleUnderline(selectionInfo) {
         noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<u>${selectionInfo.selectedText}</u>`);
     }
 
+    // const matchWithTagsBold = new RegExp(`^<u>(<strong>|<i>)*${selectionInfo.selectedText}(<\/strong>|<\/i>)*<\/u>|<u>${selectionInfo.selectedText}<\/u>`, "gi");
+    // regexPatternUnderline.lastIndex = selectionInfo.startOffset;
+    // const matchWithTags = regexPatternUnderline.exec(selectionInfo.selectedText);
+
+    // if(matchWithTags) {
+    //     noteField.innerHTML = noteField.innerHTML.replace(regexPatternUnderline, (match) => {
+    //     return match.replace(/<\/?u>/g, '');
+    //     });
+    // } 
+    // else {
+    //     noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<u>${selectionInfo.selectedText}</u>`);
+    // }
+
     selectionInfo = {};
 }
 
@@ -217,67 +230,73 @@ function changeTextType(event) {
 // -----------------------------------------------------------------------------------
 // ------  List section -----------------------------------------------------
 // -----------------------------------------------------------------------------------
-const unorderedListButton = document.getElementById('ul-list');
-const orderedListButton = document.getElementById('ol-list');
-
-function toggleUnorderedlist (selectionInfo){
-    const listStart = "<ul><li>";
-    const listEnd = "</ul></li>"
-
-    const range = selectionInfo.range || createRangeAtCursor();
-
-    if (selectionInfo.selectedText) {
-        const newList = listStart + selectionInfo.selectedText + listEnd
-        insertTextAtCursor(newList, range);
-    } else {
-        insertTextAtCursor(listStart + '<br>' + listEnd, range)
-
-    }
+// list buttons
+const unorderedListButton = document.getElementById("ul-list");
+const orderedListButton = document.getElementById("ol-list");
+// toggle unordered list
+function toggleUnorderedlist(selectionInfo) {
+  const listStart = "<ul><li>";
+  const listEnd = "</ul></li>";
+  // determine the range to work with based on user selection or cursor position
+  const range =
+    selectionInfo && selectionInfo.range
+      ? selectionInfo.range
+      : createRangeAtCursor();
+  // check if there is selected text, if yes, wrap in tags
+  if (selectionInfo && selectionInfo.selectedText) {
+    const newList = listStart + selectionInfo.selectedText + listEnd;
+    insertTextAtCursor(newList, range);
+  } else {
+    // if not, start empty list and set focus
+    insertTextAtCursor(listStart + "<br>" + listEnd, range);
+    noteField.focus();
+  }
 }
-
-function toggleOrderedlist (selectionInfo){
-    const listStart = "<ol><li>";
-    const listEnd = "</ol></li>"
-
-    const range = selectionInfo.range || createRangeAtCursor();
-    
-
-    if (selectionInfo.selectedText) {
-        const newList = listStart + selectionInfo.selectedText + listEnd
-        insertTextAtCursor(newList, range);
-    } else {
-        insertTextAtCursor(listStart + '<br>' + listEnd, range)
-
-    }
+// toggle ordered list
+function toggleOrderedlist(selectionInfo) {
+  const listStart = "<ol><li>";
+  const listEnd = "</ol></li>";
+  // determine the range to work with based on user selection or cursor position
+  const range =
+    selectionInfo && selectionInfo.range
+      ? selectionInfo.range
+      : createRangeAtCursor();
+  // check if there is selected text, if yes, wrap in tags
+  if (selectionInfo && selectionInfo.selectedText) {
+    const newList = listStart + selectionInfo.selectedText + listEnd;
+    insertTextAtCursor(newList, range);
+    // if not, start empty list and set focus
+  } else {
+    insertTextAtCursor(listStart + "<br>" + listEnd, range);
+    noteField.focus();
+  }
 }
-
-function insertTextAtCursor (newText, range){
-    const selection = window.getSelection();
-    let currentRange = range || selection.getRangeAt(0);
-
-    if (!currentRange) {
-        currentRange = createRangeAtCursor();
-    }
-
-// Delete the selected text, if any
-range.deleteContents();
-
-// Insert the new text at the cursor position
-const fragment = range.createContextualFragment(newText);
-range.insertNode(fragment);
-
+// function to insert ext at the cursor position
+function insertTextAtCursor(newText, range) {
+  // get current selection and range
+  const selection = window.getSelection();
+  let currentRange = range || selection.getRangeAt(0);
+  // if no range is available, create new one at cursor position
+  if (!currentRange) {
+    currentRange = createRangeAtCursor();
+  }
+  // delete the selected text, if any
+  range.deleteContents();
+  // insert the new text at the cursor position
+  const fragment = range.createContextualFragment(newText);
+  range.insertNode(fragment);
 }
-
+// function to create a range at cursor position
 function createRangeAtCursor() {
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const currentOffset = range.startOffset;
-
-    const newRange = document.createRange();
-    newRange.setStart(range.startContainer, currentOffset);
-    newRange.setEnd(range.startContainer, currentOffset);
-
-    return newRange;
+  // get the current selection and range
+  const selection = window.getSelection();
+  const range = selection.getRangeAt(0);
+  const currentOffset = range.startOffset;
+  // create a new range at the cursor position
+  const newRange = document.createRange();
+  newRange.setStart(range.startContainer, currentOffset);
+  newRange.setEnd(range.startContainer, currentOffset);
+  return newRange;
 }
 
 
@@ -349,5 +368,3 @@ function createRangeAtCursor() {
 //         console.log(noteField.innerHTML);
 //     };
 // }
-
-
