@@ -376,3 +376,22 @@ a:visited {
   background-color: rgb(63, 140, 255);
   color: #fff;
 }
+
+
+/* print media */
+@media print {
+  body *{
+    display: none;
+  }
+
+  .title-section, .title-section *{
+    display: block;
+  }
+  #note-field, #note-field *{
+    display: block;
+  }
+
+  .note-section, .note-section *{
+    display: block;
+  }
+}
