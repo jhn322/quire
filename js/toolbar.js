@@ -4,36 +4,32 @@ const toolIcons = document.querySelectorAll('.tool-icon');
 //variable for note field
 const noteField = document.getElementById('note-field');
 
-//variable to check if icon is already selected
-let isBold = false;
-let isItalic = false;
-let isUnderline= false;
-
-let selectedText = null;
-let range = null;
-
 toolIcons.forEach(function(toolIcon){
     toolIcon.addEventListener('click', (event)=> {
         const { target } = event;
         console.log(target);
         const toolIconId = target.id; 
         console.log(toolIconId);
+
+        event.preventDefault();
+
+        let selectionInfo = checkSelectedText();
         
         switch(toolIconId) {
             case 'bold':
-                toggleBold();
+                toggleBold(selectionInfo);
                 break;
             case 'italic':
-                toggleItalic();
+                toggleItalic(selectionInfo);
                 break;
             case 'underline':
-                toggleUnderline();
+                toggleUnderline(selectionInfo);
                 break;
             case 'ul-list':
-                console.log("Nu ska vi skapa en ul-list");
+                toggleUnorderedlist(selectionInfo);
                 break;
             case 'ol-list':
-                console.log("Nu ska vi skapa en ol-list");
+                toggleOrderedlist(selectionInfo);
                 break;
             case 'add-image':
                 console.log("Nu ska vi lägga till en bild");
@@ -42,129 +38,333 @@ toolIcons.forEach(function(toolIcon){
     })
 })
 
-//eventlistener on mouse up and key combination of shift and arrow
-noteField.addEventListener('mouseup', checkSelectedText);
-noteField.addEventListener('keyup', function(event) {
-    if(event.shiftKey && event.key.includes('Arrow')) {
-        checkSelectedText();
-    }
-})
-
 //function to check and save selected text
 function checkSelectedText() {
-    let selection = window.getSelection().toString();
+    let selection = window.getSelection();
     
-    if (selection.length > 0) {
-        selectedText = selection.toString();
-        range = window.getSelection().getRangeAt(0);
-        console.log('Markerad text: ' + selectedText);
+    if (selection && selection.toString().length > 0) {
+        let range = selection.getRangeAt(0);
+        let startOffset = range.startOffset;
+        let endOffset = range.endOffset;
+
+        return {
+            selectedText: selection.toString(),
+            range: range,
+            startOffset: startOffset,
+            endOffset: endOffset,
+            textBeforeSelection: noteField.textContent.substring(0, startOffset),
+            textAfterSelection: noteField.textContent.substring(endOffset)
+        };
     }
-    return selection;
-};
+}
 
 //function to switch between bold and normal text
-function toggleBold() {
-    const boldBtn = document.getElementById('bold');
-
-    selection = checkSelectedText()
-
-    if (selection.length < 1) {
+function toggleBold(selectionInfo) {
+    
+    if(!selectionInfo) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
     }
+    
+    const regexPatternBold= new RegExp(`<strong>(<u>|<i>)*${selectionInfo.selectedText}(<\/u>|<\/i>)*<\/strong>|<strong>${selectionInfo.selectedText}<\/strong>`, "gi");
 
-    //create a span element
-    const span = document.createElement('span');
-    console.log(span);
-
-    //check if bold is already applied
-    if(isBold) {
-        span.style.fontWeight = "normal";
-        boldBtn.classList.remove('tool-icon_active');
+    if(noteField.innerHTML.match(regexPatternBold)) {
+        noteField.innerHTML = noteField.innerHTML.replace(regexPatternBold, (match) => {
+            return match.replace(/<\/?strong>/g, '');
+          }); 
     } else {
-        span.style.fontWeight = "bold";
-        boldBtn.classList.add('tool-icon_active');
+        noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<strong>${selectionInfo.selectedText}</strong>`);
     }
 
-    //add the selected text to span element
-    span.innerHTML = selectedText;
+    selectionInfo = {};
+}
 
-    //replace range content
-    range.deleteContents();
-    range.insertNode(span);
-
-    //toggle isBold
-    isBold = !isBold;
+function replaceAt(originalString, rangeIndex, replacement) {
+    return originalString.substr(0, rangeIndex) + replacement + originalString.substr(rangeIndex + replacement.length);
 }
 
 //function to switch between italic and normal text
-function toggleItalic() {
-    const italicBtn = document.getElementById('italic');
-
-    selection = checkSelectedText()
-
-    if (selection.length < 1) {
+function toggleItalic(selectionInfo) {
+    
+    if(!selectionInfo) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
     }
 
-    //create a span element
-    const span = document.createElement('span');
-    console.log(span);
-
-    //check if bold is already applied
-    if(isItalic) {
-        span.style.fontStyle = "normal";
-        italicBtn.classList.remove('tool-icon_active');
+    const regexPatternItalic = new RegExp(`<i>(<strong>|<u>)*${selectionInfo.selectedText}(<\/strong>|<\/u>)*<\/i>|<i>${selectionInfo.selectedText}<\/i>`, "gi");
+    
+    if(noteField.innerHTML.match(regexPatternItalic)) {
+        noteField.innerHTML = noteField.innerHTML.replace(regexPatternItalic, (match) => {
+            return match.replace(/<\/?i>/g, '');
+          });
     } else {
-        span.style.fontStyle = "italic";
-        italicBtn.classList.add('tool-icon_active');
+        noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<i>${selectionInfo.selectedText}</i>`);
     }
 
-    //add the selected text to span element
-    span.innerHTML = selectedText;
-
-    //replace range content
-    range.deleteContents();
-    range.insertNode(span);
-
-    //toggle isBold
-    isItalic = !isItalic;
+    selectionInfo = {};
 }
 
 //function to switch between underlined and normal text
-function toggleUnderline() {
-    const underlineBtn = document.getElementById('underline');
-
-    selection = checkSelectedText()
-
-    if (selection.length < 1) {
+function toggleUnderline(selectionInfo) {
+    
+    if(!selectionInfo) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
     }
 
-    //create a span element
-    const span = document.createElement('span');
-    console.log(span);
-
-    //check if bold is already applied
-    if(isUnderline) {
-        span.style.textDecoration = "none";
-        underlineBtn.classList.remove('tool-icon_active');
+    const regexPatternUnderline = new RegExp(`<u>(<strong>|<i>)*${selectionInfo.selectedText}(<\/strong>|<\/i>)*<\/u>|<u>${selectionInfo.selectedText}<\/u>`, "gi");
+    
+    if(noteField.innerHTML.match(regexPatternUnderline)) {
+        noteField.innerHTML = noteField.innerHTML.replace(regexPatternUnderline, (match) => {
+            return match.replace(/<\/?u>/g, '');
+          });
     } else {
-        span.style.textDecoration = "underline";
-        underlineBtn.classList.add('tool-icon_active');
+        noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<u>${selectionInfo.selectedText}</u>`);
     }
 
-    //add the selected text to span element
-    span.innerHTML = selectedText;
+    // const matchWithTagsBold = new RegExp(`^<u>(<strong>|<i>)*${selectionInfo.selectedText}(<\/strong>|<\/i>)*<\/u>|<u>${selectionInfo.selectedText}<\/u>`, "gi");
+    // regexPatternUnderline.lastIndex = selectionInfo.startOffset;
+    // const matchWithTags = regexPatternUnderline.exec(selectionInfo.selectedText);
 
-    //replace range content
-    range.deleteContents();
-    range.insertNode(span);
+    // if(matchWithTags) {
+    //     noteField.innerHTML = noteField.innerHTML.replace(regexPatternUnderline, (match) => {
+    //     return match.replace(/<\/?u>/g, '');
+    //     });
+    // } 
+    // else {
+    //     noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<u>${selectionInfo.selectedText}</u>`);
+    // }
 
-    //toggle isUnderlined
-    isUnderline = !isUnderline;
+    selectionInfo = {};
+}
+
+//* Alternativ med DOMParser
+// function toggleUnderline(selectionInfo) {
+//     if (!selectionInfo) {
+//         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
+//         return;
+//     }
+
+//     const parser = new DOMParser();
+//     const doc = parser.parseFromString(noteField.innerHTML, 'text/html');
+
+//     const elementsToToggle = Array.from(doc.querySelectorAll('u')).filter((element) =>
+//         element.textContent.includes(selectionInfo.selectedText)
+//     );
+
+//     if (elementsToToggle.length > 0) {
+//         elementsToToggle.forEach((element) => {
+//             const parent = element.parentNode;
+//             parent.replaceChild(document.createTextNode(element.textContent), element);
+//         });
+//     } else {
+//         const uElement = document.createElement('u');
+//         uElement.appendChild(document.createTextNode(selectionInfo.selectedText));
+
+//         console.log(uElement);
+        
+//         selectionInfo.range.deleteContents();
+//         selectionInfo.range.insertNode(uElement);
+//         console.log(noteField.innerHTML);
+
+//         noteField.innerHTML = noteField.innerHTML;
+//     }
+
+//     selectionInfo = {};
+// }
+
+
+// -----------------------------------------------------------------------------------
+// ------   Type of Text Section -----------------------------------------------------
+// -----------------------------------------------------------------------------------
+const selectTextType = document.getElementById('text-type');
+
+selectTextType.addEventListener('change', function(event){
+    event.preventDefault();
+    changeTextType(event);
+});
+
+function changeTextType(event) {
+
+    let selectionInfo = checkSelectedText();
+
+    if(!selectionInfo) {
+        alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
+        return;
+    }
+    
+    let { target } = event;
+    let { value } = target;
+
+    const regexPatternTextType= new RegExp(`<(h[1-6]|p)>(<u>|<i>|<strong>)*${selectionInfo.selectedText}(<\/u>|<\/i>|<\/strong>)*<\/(h[1-6]|p)>|<(h[1-6]|p)>${selectionInfo.selectedText}<\/(h[1-6]|p)>`, "gi");
+    
+    if(noteField.innerHTML.match(regexPatternTextType)) {
+        noteField.innerHTML = noteField.innerHTML.replace(regexPatternTextType, (match) => {
+            return match.replace(/<\/?(h[1-6]|p)>/g, (tag) => {
+                if (tag.startsWith('</')) {
+                    return `</${value}>`;
+                } else {
+                    return `<${value}>`;
+                }
+            });
+          }); 
+    } else {
+        noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<${value}>${selectionInfo.selectedText}</${value}>`);
+    }
+
+    document.addEventListener('keyup', function(event){
+        if(event.key === 'Enter') {
+           //TODO - O.b.s! Koden nedan behövs när en ny anteckningen skapas!
+           const indexToShow = 6;
+           selectTextType.selectedIndex = indexToShow;
+        }
+    });
+}
+
+    
+    //   selectElement.value = desiredValue;
+//Lägga in listor
+//eventlyssnare i funktionen som lyssnar på enter och lägger till en ny <li> då?
+//om man vill byta punkter använd replace?
+
+// -----------------------------------------------------------------------------------
+// ------  List section -----------------------------------------------------
+// -----------------------------------------------------------------------------------
+// list buttons
+const unorderedListButton = document.getElementById("ul-list");
+const orderedListButton = document.getElementById("ol-list");
+// toggle unordered list
+function toggleUnorderedlist(selectionInfo) {
+  const listStart = "<ul><li>";
+  const listEnd = "</ul></li>";
+  // determine the range to work with based on user selection or cursor position
+  const range =
+    selectionInfo && selectionInfo.range
+      ? selectionInfo.range
+      : createRangeAtCursor();
+  // check if there is selected text, if yes, wrap in tags
+  if (selectionInfo && selectionInfo.selectedText) {
+    const newList = listStart + selectionInfo.selectedText + listEnd;
+    insertTextAtCursor(newList, range);
+  } else {
+    // if not, start empty list and set focus
+    insertTextAtCursor(listStart + "<br>" + listEnd, range);
+    noteField.focus();
+  }
+}
+// toggle ordered list
+function toggleOrderedlist(selectionInfo) {
+  const listStart = "<ol><li>";
+  const listEnd = "</ol></li>";
+  // determine the range to work with based on user selection or cursor position
+  const range =
+    selectionInfo && selectionInfo.range
+      ? selectionInfo.range
+      : createRangeAtCursor();
+  // check if there is selected text, if yes, wrap in tags
+  if (selectionInfo && selectionInfo.selectedText) {
+    const newList = listStart + selectionInfo.selectedText + listEnd;
+    insertTextAtCursor(newList, range);
+    // if not, start empty list and set focus
+  } else {
+    insertTextAtCursor(listStart + "<br>" + listEnd, range);
+    noteField.focus();
+  }
+}
+// function to insert ext at the cursor position
+function insertTextAtCursor(newText, range) {
+  // get current selection and range
+  const selection = window.getSelection();
+  let currentRange = range || selection.getRangeAt(0);
+  // if no range is available, create new one at cursor position
+  if (!currentRange) {
+    currentRange = createRangeAtCursor();
+  }
+  // delete the selected text, if any
+  range.deleteContents();
+  // insert the new text at the cursor position
+  const fragment = range.createContextualFragment(newText);
+  range.insertNode(fragment);
+}
+// function to create a range at cursor position
+function createRangeAtCursor() {
+  // get the current selection and range
+  const selection = window.getSelection();
+  const range = selection.getRangeAt(0);
+  const currentOffset = range.startOffset;
+  // create a new range at the cursor position
+  const newRange = document.createRange();
+  newRange.setStart(range.startContainer, currentOffset);
+  newRange.setEnd(range.startContainer, currentOffset);
+  return newRange;
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // -----------------------------------------------------------------------------------
+// // ------   Font-family Section -----------------------------------------------------
+// // -----------------------------------------------------------------------------------
+// const selectFont = document.getElementById('font-family');
+
+// selectFont.addEventListener('change', function(event){
+//     event.preventDefault();
+//     changeFont(event);
+// });
+
+// function changeFont(event) {
+
+//     let selectionInfo = checkSelectedText();
+
+//     if(!selectionInfo) {
+//         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
+//         return;
+//     }
+    
+//     let { target } = event;
+//     let { value } = target;
+    
+//     console.log(value);
+
+//     const regexPatternFont = new RegExp(
+//         `<span\\s+style\\s*=\\s*['"]([^'"]*\\bfont-family\\s*:\\s*[^'"]*\\b)['"][^>]*>${selectionInfo.selectedText}<\\/span>`,
+//     "gi"
+//     );
+   
+//     if(noteField.innerHTML.match(regexPatternFont)) {
+//         noteField.innerHTML = noteField.innerHTML.replace(regexPatternFont, selectionInfo.selectedText);
+//         });
+//     } else {
+//         noteField.innerHTML = noteField.innerHTML.replace(
+//             selectionInfo.selectedText, 
+//             `<span style="font-family:'${value}'">${selectionInfo.selectedText}</span>`);
+//         console.log(noteField.innerHTML);
+//     };
+// }
