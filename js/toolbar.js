@@ -7,9 +7,7 @@ const noteField = document.getElementById('note-field');
 toolIcons.forEach(function(toolIcon){
     toolIcon.addEventListener('click', (event)=> {
         const { target } = event;
-        console.log(target);
         const toolIconId = target.id; 
-        console.log(toolIconId);
 
         event.preventDefault();
 
@@ -53,7 +51,8 @@ function checkSelectedText() {
             startOffset: startOffset,
             endOffset: endOffset,
             textBeforeSelection: noteField.textContent.substring(0, startOffset),
-            textAfterSelection: noteField.textContent.substring(endOffset)
+            textAfterSelection: noteField.textContent.substring(endOffset),
+            stringToSearch: noteField.innerHTML.slice(startOffset, endOffset)
         };
     }
 }
@@ -66,7 +65,7 @@ function toggleBold(selectionInfo) {
         return;
     }
     
-    const regexPatternBold= new RegExp(`<strong>(<u>|<i>)*${selectionInfo.selectedText}(<\/u>|<\/i>)*<\/strong>|<strong>${selectionInfo.selectedText}<\/strong>`, "gi");
+    const regexPatternBold = new RegExp(`<strong>(<u|i>)*${selectionInfo.selectedText}(</u|i>)*<\/strong>`, "gi");
 
     if(noteField.innerHTML.match(regexPatternBold)) {
         noteField.innerHTML = noteField.innerHTML.replace(regexPatternBold, (match) => {
@@ -76,11 +75,8 @@ function toggleBold(selectionInfo) {
         noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<strong>${selectionInfo.selectedText}</strong>`);
     }
 
-    selectionInfo = {};
-}
-
-function replaceAt(originalString, rangeIndex, replacement) {
-    return originalString.substr(0, rangeIndex) + replacement + originalString.substr(rangeIndex + replacement.length);
+    console.log(noteField.innerHTML);
+    // selectionInfo = {};
 }
 
 //function to switch between italic and normal text
@@ -91,7 +87,7 @@ function toggleItalic(selectionInfo) {
         return;
     }
 
-    const regexPatternItalic = new RegExp(`<i>(<strong>|<u>)*${selectionInfo.selectedText}(<\/strong>|<\/u>)*<\/i>|<i>${selectionInfo.selectedText}<\/i>`, "gi");
+    const regexPatternItalic = new RegExp(`<i>(<strong|u>)*${selectionInfo.selectedText}(</strong|u>)*<\/i>`, "gi");
     
     if(noteField.innerHTML.match(regexPatternItalic)) {
         noteField.innerHTML = noteField.innerHTML.replace(regexPatternItalic, (match) => {
@@ -101,7 +97,31 @@ function toggleItalic(selectionInfo) {
         noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<i>${selectionInfo.selectedText}</i>`);
     }
 
-    selectionInfo = {};
+    console.log(noteField.innerHTML);
+    // const matchSelectedTextWithTags = new RegExp(`^<i>(<strong>|<u>)*${selectionInfo.selectedText}(<\/strong>|<\/u>)*<\/i>|<i>${selectionInfo.selectedText}<\/i>`, "i");
+    // //search for selectedText without tags
+    // const matchSelectedText = new RegExp(`${selectionInfo.selectedText}`, "i");
+    
+    // //use substring to only search from selectionInfo.startOffset
+    // const stringToSearch = noteField.innerHTML.slice(selectionInfo.startOffset, selectionInfo.endOffset);
+    // console.log("string to search", stringToSearch);
+    
+    // const matchWithTags = matchSelectedTextWithTags.exec(stringToSearch);
+    // const matchNoTags = matchSelectedText.exec(stringToSearch);
+    // console.log("match with tags:", matchWithTags);
+    // console.log("match without tags:", matchNoTags);
+
+    // if(matchWithTags) {
+    //     noteField.innerHTML = noteField.innerHTML.replace(matchSelectedTextWithTags, (match) => {
+    //     return match.replace(/<\/?i>/g, '');
+    //     });
+    // } else if(matchNoTags) {
+    //     noteField.innerHTML = selectionInfo.textBeforeSelection + stringToSearch.replace(matchSelectedText, `<i>${selectionInfo.selectedText}</i>`);
+    // } else {
+    //     console.log("no matching text");
+    // }
+
+    // selectionInfo = checkSelectedText();
 }
 
 //function to switch between underlined and normal text
@@ -112,8 +132,9 @@ function toggleUnderline(selectionInfo) {
         return;
     }
 
-    const regexPatternUnderline = new RegExp(`<u>(<strong>|<i>)*${selectionInfo.selectedText}(<\/strong>|<\/i>)*<\/u>|<u>${selectionInfo.selectedText}<\/u>`, "gi");
-    
+    const regexPatternUnderline = new RegExp(`<u>(<strong|i>)*${selectionInfo.selectedText}(</strong|i>)*<\/u>`, "gi");
+
+
     if(noteField.innerHTML.match(regexPatternUnderline)) {
         noteField.innerHTML = noteField.innerHTML.replace(regexPatternUnderline, (match) => {
             return match.replace(/<\/?u>/g, '');
@@ -121,58 +142,37 @@ function toggleUnderline(selectionInfo) {
     } else {
         noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<u>${selectionInfo.selectedText}</u>`);
     }
+    
+    console.log(noteField.innerHTML);
 
-    // const matchWithTagsBold = new RegExp(`^<u>(<strong>|<i>)*${selectionInfo.selectedText}(<\/strong>|<\/i>)*<\/u>|<u>${selectionInfo.selectedText}<\/u>`, "gi");
-    // regexPatternUnderline.lastIndex = selectionInfo.startOffset;
-    // const matchWithTags = regexPatternUnderline.exec(selectionInfo.selectedText);
+    // //search for selectedText within tags
+    // const matchSelectedTextWithTags = new RegExp(`^<u>(<strong>|<i>)*${selectionInfo.selectedText}(<\/strong>|<\/i>)*<\/u>|<u>${selectionInfo.selectedText}<\/u>`, "i");
+    // //search for selectedText without tags
+    // const matchSelectedText = new RegExp(`${selectionInfo.selectedText}`, "i");
+    
+    // //use substring to only search from selectionInfo.startOffset
+    // // let stringToSearch = noteField.innerHTML.slice(selectionInfo.startOffset, selectionInfo.endOffset);
+    // console.log("startoffset:", selectionInfo.startOffset);
+    // console.log("endoffset:", selectionInfo.endOffset);
+    // console.log("string to search", selectionInfo.stringToSearch);
+    
+    // const matchWithTags = matchSelectedTextWithTags.exec(selectionInfo.stringToSearch);
+    // const matchNoTags = matchSelectedText.exec(selectionInfo.stringToSearch);
+    // console.log("match with tags:", matchWithTags);
+    // console.log("match without tags:", matchNoTags);
 
     // if(matchWithTags) {
-    //     noteField.innerHTML = noteField.innerHTML.replace(regexPatternUnderline, (match) => {
+    //     noteField.innerHTML = noteField.innerHTML.replace(matchSelectedTextWithTags, (match) => {
     //     return match.replace(/<\/?u>/g, '');
     //     });
-    // } 
-    // else {
-    //     noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<u>${selectionInfo.selectedText}</u>`);
+    // } else if(matchNoTags) {
+    //     noteField.innerHTML = selectionInfo.textBeforeSelection + selectionInfo.stringToSearch.replace(matchSelectedText,`<u>${selectionInfo.selectedText}</u>`) + selectionInfo.textAfterSelection;
+    // } else {
+    //     console.log("no matching text");
     // }
 
-    selectionInfo = {};
+    // selectionInfo = checkSelectedText();
 }
-
-//* Alternativ med DOMParser
-// function toggleUnderline(selectionInfo) {
-//     if (!selectionInfo) {
-//         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
-//         return;
-//     }
-
-//     const parser = new DOMParser();
-//     const doc = parser.parseFromString(noteField.innerHTML, 'text/html');
-
-//     const elementsToToggle = Array.from(doc.querySelectorAll('u')).filter((element) =>
-//         element.textContent.includes(selectionInfo.selectedText)
-//     );
-
-//     if (elementsToToggle.length > 0) {
-//         elementsToToggle.forEach((element) => {
-//             const parent = element.parentNode;
-//             parent.replaceChild(document.createTextNode(element.textContent), element);
-//         });
-//     } else {
-//         const uElement = document.createElement('u');
-//         uElement.appendChild(document.createTextNode(selectionInfo.selectedText));
-
-//         console.log(uElement);
-        
-//         selectionInfo.range.deleteContents();
-//         selectionInfo.range.insertNode(uElement);
-//         console.log(noteField.innerHTML);
-
-//         noteField.innerHTML = noteField.innerHTML;
-//     }
-
-//     selectionInfo = {};
-// }
-
 
 // -----------------------------------------------------------------------------------
 // ------   Type of Text Section -----------------------------------------------------
@@ -196,8 +196,8 @@ function changeTextType(event) {
     let { target } = event;
     let { value } = target;
 
-    const regexPatternTextType= new RegExp(`<(h[1-6]|p)>(<u>|<i>|<strong>)*${selectionInfo.selectedText}(<\/u>|<\/i>|<\/strong>)*<\/(h[1-6]|p)>|<(h[1-6]|p)>${selectionInfo.selectedText}<\/(h[1-6]|p)>`, "gi");
-    
+    const regexPatternTextType = new RegExp(`<([hip]|h[1-6])>(<u>|<i>|<strong>)*${selectionInfo.selectedText}(<\/u>|<\/i>|<\/strong>)*<\/\\1>`, "gi");
+
     if(noteField.innerHTML.match(regexPatternTextType)) {
         noteField.innerHTML = noteField.innerHTML.replace(regexPatternTextType, (match) => {
             return match.replace(/<\/?(h[1-6]|p)>/g, (tag) => {
@@ -212,20 +212,16 @@ function changeTextType(event) {
         noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<${value}>${selectionInfo.selectedText}</${value}>`);
     }
 
+    console.log(noteField.innerHTML);
+
     document.addEventListener('keyup', function(event){
         if(event.key === 'Enter') {
            //TODO - O.b.s! Koden nedan behövs när en ny anteckningen skapas!
-           const indexToShow = 6;
-           selectTextType.selectedIndex = indexToShow;
+           const defaultTextIndex = 6;
+           selectTextType.selectedIndex = defaultTextIndex;
         }
     });
 }
-
-    
-    //   selectElement.value = desiredValue;
-//Lägga in listor
-//eventlyssnare i funktionen som lyssnar på enter och lägger till en ny <li> då?
-//om man vill byta punkter använd replace?
 
 // -----------------------------------------------------------------------------------
 // ------  List section -----------------------------------------------------
@@ -299,72 +295,91 @@ function createRangeAtCursor() {
   return newRange;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // // -----------------------------------------------------------------------------------
 // // ------   Font-family Section -----------------------------------------------------
 // // -----------------------------------------------------------------------------------
-// const selectFont = document.getElementById('font-family');
+const selectFont = document.getElementById('font-family');
 
-// selectFont.addEventListener('change', function(event){
-//     event.preventDefault();
-//     changeFont(event);
-// });
+selectFont.addEventListener('change', function(event){
+    event.preventDefault();
+    changeFont(event);
+});
 
-// function changeFont(event) {
+function changeFont(event) {
 
-//     let selectionInfo = checkSelectedText();
+    let selectionInfo = checkSelectedText();
 
-//     if(!selectionInfo) {
-//         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
-//         return;
-//     }
+    if(!selectionInfo) {
+        alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
+        return;
+    }
     
-//     let { target } = event;
-//     let { value } = target;
+    let { target } = event;
+    let { value } = target;
     
-//     console.log(value);
+    console.log(value);
 
-//     const regexPatternFont = new RegExp(
-//         `<span\\s+style\\s*=\\s*['"]([^'"]*\\bfont-family\\s*:\\s*[^'"]*\\b)['"][^>]*>${selectionInfo.selectedText}<\\/span>`,
-//     "gi"
-//     );
+    let userFontStyles = {
+        fontFamily: value,
+        fontSize: selectFontSize.value
+    }
+
+    const regexSpan = new RegExp(`<span.*?>(${selectionInfo.selectedText})<\/span>`, "gi");
+
+    const currentContent = noteField.innerHTML;
    
-//     if(noteField.innerHTML.match(regexPatternFont)) {
-//         noteField.innerHTML = noteField.innerHTML.replace(regexPatternFont, selectionInfo.selectedText);
-//         });
-//     } else {
-//         noteField.innerHTML = noteField.innerHTML.replace(
-//             selectionInfo.selectedText, 
-//             `<span style="font-family:'${value}'">${selectionInfo.selectedText}</span>`);
-//         console.log(noteField.innerHTML);
-//     };
-// }
+    if(currentContent.match(regexSpan)) {
+        const updatedSpan = `<span style="font-family:${userFontStyles.fontFamily}; font-size:${userFontStyles.fontSize}">${selectionInfo.selectedText}</span>`;
+        noteField.innerHTML = currentContent.replace(regexSpan, updatedSpan);
+        console.log(noteField.innerHTML);
+    } else {
+        noteField.innerHTML = noteField.innerHTML.replace(
+            selectionInfo.selectedText, 
+            `<span style="font-family:${userFontStyles.fontFamily}; font-size:${userFontStyles.fontSize}">${selectionInfo.selectedText}</span>`);
+        console.log(noteField.innerHTML);
+    };
+}
+
+// // -----------------------------------------------------------------------------------
+// // ------   Font-size Section -----------------------------------------------------
+// // -----------------------------------------------------------------------------------
+const selectFontSize = document.getElementById('font-size');
+
+selectFontSize.addEventListener('change', function(event){
+    event.preventDefault();
+    changeSize(event);
+});
+
+function changeSize(event) {
+
+    let selectionInfo = checkSelectedText();
+
+    if(!selectionInfo) {
+        alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
+        return;
+    }
+    
+    let { target } = event;
+    let { value } = target;
+    console.log(value);
+
+    let userFontStyles = {
+        fontFamily: selectFont.value,
+        fontSize: value
+    }
+
+    const regexSpan = new RegExp(`<span.*?>(${selectionInfo.selectedText})<\/span>`, "gi");
+
+    const currentContent = noteField.innerHTML;
+   
+    if(currentContent.match(regexSpan)) {
+        const updatedSpan = `<span style="font-family:${userFontStyles.fontFamily}; font-size:${userFontStyles.fontSize}">${selectionInfo.selectedText}</span>`;
+        noteField.innerHTML = currentContent.replace(regexSpan, updatedSpan);
+        console.log(noteField.innerHTML);
+    } else {
+        noteField.innerHTML = noteField.innerHTML.replace(
+            selectionInfo.selectedText, 
+            `<span style="font-family:${userFontStyles.fontFamily}; font-size:${userFontStyles.fontSize}">${selectionInfo.selectedText}</span>`);
+        console.log(noteField.innerHTML);
+    };
+}
