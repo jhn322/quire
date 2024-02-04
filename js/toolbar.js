@@ -68,7 +68,7 @@ function toggleBold(selectionInfo) {
         return;
     }
     
-    const regexPatternBold = new RegExp(`<strong>(<u|i>)*${selectionInfo.selectedText}(</u|i>)*<\/strong>`, "gi");
+    const regexPatternBold= new RegExp(`<strong>(<u>|<i>)*${selectionInfo.selectedText}(<\/u>|<\/i>)*<\/strong>|<strong>${selectionInfo.selectedText}<\/strong>`, "gi");
 
     if(noteField.innerHTML.match(regexPatternBold)) {
         noteField.innerHTML = noteField.innerHTML.replace(regexPatternBold, (match) => {
@@ -93,17 +93,27 @@ function toggleItalic(selectionInfo) {
         return;
     }
 
-    const regexPatternItalic = new RegExp(`<i>(<strong|u>)*${selectionInfo.selectedText}(</strong|u>)*<\/i>`, "gi");
+    const regexPatternItalic = new RegExp(
+        `<i>(<strong>|<u>)*${selectionInfo.selectedText}(<\/strong>|<\/u>)*<\/i>|<i>${selectionInfo.selectedText}<\/i>`,
+        "gi"
+      );
     
-    if(noteField.innerHTML.match(regexPatternItalic)) {
-        noteField.innerHTML = noteField.innerHTML.replace(regexPatternItalic, (match) => {
-            return match.replace(/<\/?i>/g, '');
-          });
-    } else {
-        noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<i>${selectionInfo.selectedText}</i>`);
-    }
+      if (noteField.innerHTML.match(regexPatternItalic)) {
+        noteField.innerHTML = noteField.innerHTML.replace(
+          regexPatternItalic,
+          (match) => {
+            return match.replace(/<\/?i>/g, "");
+          }
+        );
+      } else {
+        noteField.innerHTML = noteField.innerHTML.replace(
+          selectionInfo.selectedText,
+          `<i>${selectionInfo.selectedText}</i>`
+        );
+      }
 
     console.log(noteField.innerHTML);
+
     // const matchSelectedTextWithTags = new RegExp(`^<i>(<strong>|<u>)*${selectionInfo.selectedText}(<\/strong>|<\/u>)*<\/i>|<i>${selectionInfo.selectedText}<\/i>`, "i");
     // //search for selectedText without tags
     // const matchSelectedText = new RegExp(`${selectionInfo.selectedText}`, "i");
@@ -135,22 +145,68 @@ function toggleItalic(selectionInfo) {
 // -----------------------------------------------------------------------------------
 //function to switch between underlined and normal text
 function toggleUnderline(selectionInfo) {
-    
+    selectionInfo = checkSelectedText();
+    console.log("i början", selectionInfo);
+
+    console.log("direkt i funktionen, startOffset och textbefore",  selectionInfo.startOffset, selectionInfo.textBeforeSelection);
+
     if(!selectionInfo) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
     }
 
-    const regexPatternUnderline = new RegExp(`<u>(<strong|i>)*${selectionInfo.selectedText}(</strong|i>)*<\/u>`, "gi");
+    const regexPatternUnderline = new RegExp(
+        `(<u>(<strong>|<i>)*${selectionInfo.selectedText}(</strong>|</i>)*</u>)
+        |<u>${selectionInfo.selectedText}</u>
+        |${selectionInfo.selectedText}`,
+        "gi"
+      );
 
+    const matches = Array.from(noteField.innerHTML.matchAll(regexPatternUnderline));
+    console.log(matches);
+    
+    matches.forEach((match) => {
+        const index = match.index;
+        console.log(match[0], index);
 
-    if(noteField.innerHTML.match(regexPatternUnderline)) {
-        noteField.innerHTML = noteField.innerHTML.replace(regexPatternUnderline, (match) => {
-            return match.replace(/<\/?u>/g, '');
-          });
-    } else {
-        noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<u>${selectionInfo.selectedText}</u>`);
-    }
+        if(index === selectionInfo.startOffset) {
+            console.log("index matchar", index, selectionInfo.startOffset);
+
+            const textBefore = noteField.innerHTML.substring(0, index);
+            const textAfter = noteField.innerHTML.substring(index + match[0].length);
+
+            if(match[0].includes("<u>")){
+                noteField.innerHTML = textBefore + `${selectionInfo.selectedText}` + textAfter;
+            } else {
+                noteField.innerHTML = textBefore + `<u>${selectionInfo.selectedText}</u>` + textAfter;
+            }
+        } else {
+            console.log("index matchar inte", index, selectionInfo.startOffset);
+        }
+    });
+
+    // if (regexPatternUnderline.exec(noteField.innerHTML)) {
+    //     noteField.innerHTML = noteField.innerHTML.replace(regexPatternUnderline, (match, index) => {
+    //         console.log("index är:", index, selectionInfo.startOffset);
+    //         if (index === selectionInfo.startOffset) {
+    //             // Toggle underline for the exact occurrence
+    //             return match.includes("<u>") ? match.replace(/<\/?u>/g, '') : `<u>${match}</u>`;
+    //         } 
+    //     });
+    // } else {
+    //     // Handle the case where there are no matches
+    //     console.log("No matches found");
+    // }
+
+    // noteField.innerHTML = noteField.innerHTML.replace(regexPatternUnderline, (match) => {
+    //     if (match.index === selectionInfo.startOffset) {
+    //         // Toggle underline for the exact occurrence
+    //         return match.includes("<u>") ? match.replace(/<\/?u>/g, '') : `<u>${match}</u>`;
+    //     } else {
+    //         // Return unchanged for other occurrences
+    //         return match;
+    //     }
+    // });
     
     console.log(noteField.innerHTML);
 
