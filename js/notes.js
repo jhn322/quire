@@ -37,6 +37,8 @@ let monthsList = [
 let noteArray = [];
 let activeNote = new Note("", "");
 renderAllTumbnails();
+let isNewNote = false;
+
 document.addEventListener("DOMContentLoaded", function () {
   // check local storage for stored notes
   activeNote = JSON.parse(localStorage.getItem("notes")) || new Note("", "");
@@ -55,24 +57,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // hide button
   saveBtn.classList.add("hide-btn");
 
-  // show button when someone is typing
-  noteField.addEventListener("keyup", function () {
-    if (this.textContent.length) {
-      saveBtn.classList.remove("hide-btn");
-    }
-  });
-
   const addNote = document.querySelector(".add-note");
 
   addNote.addEventListener("click", () => {
     const toolbar = document.getElementById("toolbar");
     toolbar.classList.remove("toolbar-hidden");
-
+    isNewNote = true;
     title.value = "";
     noteField.textContent = "";
-    // activeNote = new Note(title.value, noteField.value);
-    // noteTitle.value = "";
-    // noteField.value = "";
     activeNote = new Note(title.value, noteField.value);
     console.log(activeNote);
   });
@@ -251,9 +243,10 @@ function getDate() {
 
 console.log(getDate());
 
-let currentNote;
+let editedNote = JSON.parse(localStorage.getItem("notes")) || "";
+let currentNote = editedNote.id;
 let newNoteArray = [];
-let editedNote;
+
 let isEditingNote = false;
 
 document.addEventListener("click", (evt) => {
@@ -262,9 +255,34 @@ document.addEventListener("click", (evt) => {
     title.value = evt.target.noteTitle;
     noteField.innerHTML = evt.target.content;
     setNewObject();
-    isEditingNote = true;
+    isNewNote = false;
+  } else if (
+    evt.target.parentNode.id == "note-field" ||
+    evt.target.id == "note-field" ||
+    evt.target.id == "title" ||
+    evt.target.id == "toolbar" ||
+    evt.target.parentNode.id == "toolbar"
+  ) {
+    addOrEditMode();
+    if (isNewNote == false) isEditingNote = true;
+  } else {
+    noteField.classList.remove("updateModeBorder");
+    noteField.setAttribute("contenteditable", false);
+    title.style.border = "none";
+    document.getElementById("save-notes").classList.add("hide-btn");
+    document.querySelector(".toolbar").classList.remove("showToolbar");
+    isEditingNote = false;
   }
+  if (evt.target.className == "add-note") addOrEditMode();
 });
+
+function addOrEditMode() {
+  noteField.setAttribute("contenteditable", true);
+  noteField.classList.add("updateModeBorder");
+  title.style.border = "solid 2px #aaa";
+  document.getElementById("save-notes").classList.remove("hide-btn");
+  document.querySelector(".toolbar").classList.add("showToolbar");
+}
 
 function setNewObject() {
   let thisNote = document.getElementById(currentNote + "Wrapper");
@@ -303,6 +321,10 @@ function saveChanges() {
     image.src = img;
     images.appendChild(image);
   });
+
+  newNoteArray = [];
+  noteArray = JSON.parse(localStorage.getItem("allNotes"));
+  localStorage.setItem("notes", JSON.stringify(editedNote));
 
   noteArray.forEach((notes) => {
     if (notes.id !== currentNote) newNoteArray.push(notes);
