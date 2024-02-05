@@ -46,6 +46,7 @@ function checkSelectedText() {
         let endOffset = range.endOffset;
 
         return {
+            selection: selection,
             selectedText: selection.toString(),
             range: range,
             startOffset: startOffset,
@@ -68,18 +69,37 @@ function toggleBold(selectionInfo) {
         return;
     }
     
-    const regexPatternBold= new RegExp(`<strong>(<u>|<i>)*${selectionInfo.selectedText}(<\/u>|<\/i>)*<\/strong>|<strong>${selectionInfo.selectedText}<\/strong>`, "gi");
+    let spanElement = null;
+    
+    let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
 
-    if(noteField.innerHTML.match(regexPatternBold)) {
-        noteField.innerHTML = noteField.innerHTML.replace(regexPatternBold, (match) => {
-            return match.replace(/<\/?strong>/g, '');
-          }); 
-    } else {
-        noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<strong>${selectionInfo.selectedText}</strong>`);
+    while (commonAncestorContainer) {
+        if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText) {
+            spanElement = commonAncestorContainer;
+            break;
+        }
+        commonAncestorContainer = commonAncestorContainer.parentNode;
     }
+    console.log("gemensam container:", commonAncestorContainer);
 
-    console.log(noteField.innerHTML);
-    // selectionInfo = {};
+    if (!spanElement) {
+        spanElement = document.createElement('span');
+        spanElement.style.fontWeight = 'bold';
+        selectionInfo.range.surroundContents(spanElement);
+    } else {
+        const style = window.getComputedStyle(spanElement);
+        console.log('Fetstil:', style.fontWeight);
+        console.log('Kursiv stil:', style.fontStyle);
+        console.log('Understruken stil:', style.textDecoration);
+        
+        if(style.fontWeight.includes('700')){
+            spanElement.style.fontWeight = '400';
+            console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight);
+        } else if (style.fontWeight.includes('400')){
+            spanElement.style.fontWeight = '700';
+            console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight);
+        }
+    }
 }
 
 // -----------------------------------------------------------------------------------
@@ -93,51 +113,37 @@ function toggleItalic(selectionInfo) {
         return;
     }
 
-    const regexPatternItalic = new RegExp(
-        `<i>(<strong>|<u>)*${selectionInfo.selectedText}(<\/strong>|<\/u>)*<\/i>|<i>${selectionInfo.selectedText}<\/i>`,
-        "gi"
-      );
+    let spanElement = null;
     
-      if (noteField.innerHTML.match(regexPatternItalic)) {
-        noteField.innerHTML = noteField.innerHTML.replace(
-          regexPatternItalic,
-          (match) => {
-            return match.replace(/<\/?i>/g, "");
-          }
-        );
-      } else {
-        noteField.innerHTML = noteField.innerHTML.replace(
-          selectionInfo.selectedText,
-          `<i>${selectionInfo.selectedText}</i>`
-        );
-      }
+    let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
 
-    console.log(noteField.innerHTML);
+    while (commonAncestorContainer) {
+        if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText) {
+            spanElement = commonAncestorContainer;
+            break;
+        }
+        commonAncestorContainer = commonAncestorContainer.parentNode;
+    }
+    console.log("gemensam container:", commonAncestorContainer);
 
-    // const matchSelectedTextWithTags = new RegExp(`^<i>(<strong>|<u>)*${selectionInfo.selectedText}(<\/strong>|<\/u>)*<\/i>|<i>${selectionInfo.selectedText}<\/i>`, "i");
-    // //search for selectedText without tags
-    // const matchSelectedText = new RegExp(`${selectionInfo.selectedText}`, "i");
-    
-    // //use substring to only search from selectionInfo.startOffset
-    // const stringToSearch = noteField.innerHTML.slice(selectionInfo.startOffset, selectionInfo.endOffset);
-    // console.log("string to search", stringToSearch);
-    
-    // const matchWithTags = matchSelectedTextWithTags.exec(stringToSearch);
-    // const matchNoTags = matchSelectedText.exec(stringToSearch);
-    // console.log("match with tags:", matchWithTags);
-    // console.log("match without tags:", matchNoTags);
-
-    // if(matchWithTags) {
-    //     noteField.innerHTML = noteField.innerHTML.replace(matchSelectedTextWithTags, (match) => {
-    //     return match.replace(/<\/?i>/g, '');
-    //     });
-    // } else if(matchNoTags) {
-    //     noteField.innerHTML = selectionInfo.textBeforeSelection + stringToSearch.replace(matchSelectedText, `<i>${selectionInfo.selectedText}</i>`);
-    // } else {
-    //     console.log("no matching text");
-    // }
-
-    // selectionInfo = checkSelectedText();
+    if (!spanElement) {
+        spanElement = document.createElement('span');
+        spanElement.style.fontStyle = 'italic';
+        selectionInfo.range.surroundContents(spanElement);
+    } else {
+        const style = window.getComputedStyle(spanElement);
+        console.log('Fetstil:', style.fontWeight);
+        console.log('Kursiv stil:', style.fontStyle);
+        console.log('Understruken stil:', style.textDecoration);
+        
+        if(style.fontStyle.includes('italic')){
+            spanElement.style.fontStyle = 'normal';
+            console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight);
+        } else if (style.fontStyle.includes('normal')){
+            spanElement.style.fontStyle = 'italic';
+            console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight);
+        }
+    }
 }
 
 // -----------------------------------------------------------------------------------
@@ -145,98 +151,43 @@ function toggleItalic(selectionInfo) {
 // -----------------------------------------------------------------------------------
 //function to switch between underlined and normal text
 function toggleUnderline(selectionInfo) {
-    selectionInfo = checkSelectedText();
-    console.log("i början", selectionInfo);
-
-    console.log("direkt i funktionen, startOffset och textbefore",  selectionInfo.startOffset, selectionInfo.textBeforeSelection);
 
     if(!selectionInfo) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
     }
 
-    const regexPatternUnderline = new RegExp(
-        `(<u>(<strong>|<i>)*${selectionInfo.selectedText}(</strong>|</i>)*</u>)
-        |<u>${selectionInfo.selectedText}</u>
-        |${selectionInfo.selectedText}`,
-        "gi"
-      );
-
-    const matches = Array.from(noteField.innerHTML.matchAll(regexPatternUnderline));
-    console.log(matches);
+    let spanElement = null;
     
-    matches.forEach((match) => {
-        const index = match.index;
-        console.log(match[0], index);
+    let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
 
-        if(index === selectionInfo.startOffset) {
-            console.log("index matchar", index, selectionInfo.startOffset);
-
-            const textBefore = noteField.innerHTML.substring(0, index);
-            const textAfter = noteField.innerHTML.substring(index + match[0].length);
-
-            if(match[0].includes("<u>")){
-                noteField.innerHTML = textBefore + `${selectionInfo.selectedText}` + textAfter;
-            } else {
-                noteField.innerHTML = textBefore + `<u>${selectionInfo.selectedText}</u>` + textAfter;
-            }
-        } else {
-            console.log("index matchar inte", index, selectionInfo.startOffset);
+    while (commonAncestorContainer) {
+        if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText) {
+            spanElement = commonAncestorContainer;
+            break;
         }
-    });
+        commonAncestorContainer = commonAncestorContainer.parentNode;
+    }
+    console.log("gemensam container:", commonAncestorContainer);
 
-    // if (regexPatternUnderline.exec(noteField.innerHTML)) {
-    //     noteField.innerHTML = noteField.innerHTML.replace(regexPatternUnderline, (match, index) => {
-    //         console.log("index är:", index, selectionInfo.startOffset);
-    //         if (index === selectionInfo.startOffset) {
-    //             // Toggle underline for the exact occurrence
-    //             return match.includes("<u>") ? match.replace(/<\/?u>/g, '') : `<u>${match}</u>`;
-    //         } 
-    //     });
-    // } else {
-    //     // Handle the case where there are no matches
-    //     console.log("No matches found");
-    // }
-
-    // noteField.innerHTML = noteField.innerHTML.replace(regexPatternUnderline, (match) => {
-    //     if (match.index === selectionInfo.startOffset) {
-    //         // Toggle underline for the exact occurrence
-    //         return match.includes("<u>") ? match.replace(/<\/?u>/g, '') : `<u>${match}</u>`;
-    //     } else {
-    //         // Return unchanged for other occurrences
-    //         return match;
-    //     }
-    // });
-    
-    console.log(noteField.innerHTML);
-
-    // //search for selectedText within tags
-    // const matchSelectedTextWithTags = new RegExp(`^<u>(<strong>|<i>)*${selectionInfo.selectedText}(<\/strong>|<\/i>)*<\/u>|<u>${selectionInfo.selectedText}<\/u>`, "i");
-    // //search for selectedText without tags
-    // const matchSelectedText = new RegExp(`${selectionInfo.selectedText}`, "i");
-    
-    // //use substring to only search from selectionInfo.startOffset
-    // // let stringToSearch = noteField.innerHTML.slice(selectionInfo.startOffset, selectionInfo.endOffset);
-    // console.log("startoffset:", selectionInfo.startOffset);
-    // console.log("endoffset:", selectionInfo.endOffset);
-    // console.log("string to search", selectionInfo.stringToSearch);
-    
-    // const matchWithTags = matchSelectedTextWithTags.exec(selectionInfo.stringToSearch);
-    // const matchNoTags = matchSelectedText.exec(selectionInfo.stringToSearch);
-    // console.log("match with tags:", matchWithTags);
-    // console.log("match without tags:", matchNoTags);
-
-    // if(matchWithTags) {
-    //     noteField.innerHTML = noteField.innerHTML.replace(matchSelectedTextWithTags, (match) => {
-    //     return match.replace(/<\/?u>/g, '');
-    //     });
-    // } else if(matchNoTags) {
-    //     noteField.innerHTML = selectionInfo.textBeforeSelection + selectionInfo.stringToSearch.replace(matchSelectedText,`<u>${selectionInfo.selectedText}</u>`) + selectionInfo.textAfterSelection;
-    // } else {
-    //     console.log("no matching text");
-    // }
-
-    // selectionInfo = checkSelectedText();
+    if (!spanElement) {
+        spanElement = document.createElement('span');
+        spanElement.style.textDecoration = 'underline';
+        selectionInfo.range.surroundContents(spanElement);
+    } else {
+        const style = window.getComputedStyle(spanElement);
+        console.log('Fetstil:', style.fontWeight);
+        console.log('Kursiv stil:', style.fontStyle);
+        console.log('Understruken stil:', style.textDecoration);
+        
+        if(style.textDecoration.includes('underline')){
+            spanElement.style.textDecoration = 'none';
+            console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight);
+        } else if (style.textDecoration.includes('none')){
+            spanElement.style.textDecoration = 'underline';
+            console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight);
+        }
+    }
 }
 
 // -----------------------------------------------------------------------------------
@@ -261,23 +212,30 @@ function changeTextType(event) {
     let { target } = event;
     let { value } = target;
 
-    const regexPatternTextType = new RegExp(`<([hip]|h[1-6])>(<u>|<i>|<strong>)*${selectionInfo.selectedText}(<\/u>|<\/i>|<\/strong>)*<\/\\1>`, "gi");
+    let textTagElement = null;
+    
+    let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
 
-    if(noteField.innerHTML.match(regexPatternTextType)) {
-        noteField.innerHTML = noteField.innerHTML.replace(regexPatternTextType, (match) => {
-            return match.replace(/<\/?(h[1-6]|p)>/g, (tag) => {
-                if (tag.startsWith('</')) {
-                    return `</${value}>`;
-                } else {
-                    return `<${value}>`;
-                }
-            });
-          }); 
-    } else {
-        noteField.innerHTML = noteField.innerHTML.replace(selectionInfo.selectedText, `<${value}>${selectionInfo.selectedText}</${value}>`);
+    const textTags = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'];
+
+    while (commonAncestorContainer) {
+        if (textTags.includes(commonAncestorContainer.nodeName) && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText){
+            textTagElement = commonAncestorContainer;
+            break;
+        }
+        commonAncestorContainer = commonAncestorContainer.parentNode;
     }
+    console.log("gemensam container:", commonAncestorContainer);
 
-    console.log(noteField.innerHTML);
+    if (!textTagElement) {
+        textTagElement = document.createElement(`${value}`);
+        selectionInfo.range.surroundContents(textTagElement);
+        console.log(textTagElement);
+    } else {
+        const newTagElement = document.createElement(`${value}`);
+        newTagElement.innerHTML = textTagElement.innerHTML;
+        textTagElement.parentNode.replaceChild(newTagElement, textTagElement);
+    }
 
     document.addEventListener('keyup', function(event){
         if(event.key === 'Enter') {
@@ -384,25 +342,33 @@ function changeFont(event) {
     
     console.log(value);
 
-    let userFontStyles = {
-        fontFamily: value,
-        fontSize: selectFontSize.value
+    let spanElement = null;
+    
+    let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
+
+    while (commonAncestorContainer) {
+        if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText) {
+            spanElement = commonAncestorContainer;
+            break;
+        }
+        commonAncestorContainer = commonAncestorContainer.parentNode;
     }
+    console.log("gemensam container:", commonAncestorContainer);
 
-    const regexSpan = new RegExp(`<span.*?>(${selectionInfo.selectedText})<\/span>`, "gi");
-
-    const currentContent = noteField.innerHTML;
-   
-    if(currentContent.match(regexSpan)) {
-        const updatedSpan = `<span style="font-family:${userFontStyles.fontFamily}; font-size:${userFontStyles.fontSize}">${selectionInfo.selectedText}</span>`;
-        noteField.innerHTML = currentContent.replace(regexSpan, updatedSpan);
-        console.log(noteField.innerHTML);
+    if (!spanElement) {
+        spanElement = document.createElement('span');
+        spanElement.style.fontFamily = `${value}`;
+        selectionInfo.range.surroundContents(spanElement);
     } else {
-        noteField.innerHTML = noteField.innerHTML.replace(
-            selectionInfo.selectedText, 
-            `<span style="font-family:${userFontStyles.fontFamily}; font-size:${userFontStyles.fontSize}">${selectionInfo.selectedText}</span>`);
-        console.log(noteField.innerHTML);
-    };
+        const style = window.getComputedStyle(spanElement);
+        console.log('Fetstil:', style.fontWeight);
+        console.log('Kursiv stil:', style.fontStyle);
+        console.log('Understruken stil:', style.textDecoration);
+        console.log('Font:', style.fontFamily);
+        
+        spanElement.style.fontFamily = `${value}`;
+        console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight, 'Font:', style.fontFamily);
+    }
 }
 
 // // -----------------------------------------------------------------------------------
@@ -428,23 +394,32 @@ function changeSize(event) {
     let { value } = target;
     console.log(value);
 
-    let userFontStyles = {
-        fontFamily: selectFont.value,
-        fontSize: value
+    let spanElement = null;
+    
+    let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
+
+    while (commonAncestorContainer) {
+        if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText) {
+            spanElement = commonAncestorContainer;
+            break;
+        }
+        commonAncestorContainer = commonAncestorContainer.parentNode;
     }
+    console.log("gemensam container:", commonAncestorContainer);
 
-    const regexSpan = new RegExp(`<span.*?>(${selectionInfo.selectedText})<\/span>`, "gi");
-
-    const currentContent = noteField.innerHTML;
-   
-    if(currentContent.match(regexSpan)) {
-        const updatedSpan = `<span style="font-family:${userFontStyles.fontFamily}; font-size:${userFontStyles.fontSize}">${selectionInfo.selectedText}</span>`;
-        noteField.innerHTML = currentContent.replace(regexSpan, updatedSpan);
-        console.log(noteField.innerHTML);
+    if (!spanElement) {
+        spanElement = document.createElement('span');
+        spanElement.style.fontSize = `${value}`;
+        selectionInfo.range.surroundContents(spanElement);
     } else {
-        noteField.innerHTML = noteField.innerHTML.replace(
-            selectionInfo.selectedText, 
-            `<span style="font-family:${userFontStyles.fontFamily}; font-size:${userFontStyles.fontSize}">${selectionInfo.selectedText}</span>`);
-        console.log(noteField.innerHTML);
-    };
+        const style = window.getComputedStyle(spanElement);
+        console.log('Fetstil:', style.fontWeight);
+        console.log('Kursiv stil:', style.fontStyle);
+        console.log('Understruken stil:', style.textDecoration);
+        console.log('Font:', style.fontFamily);
+        console.log('Fontsize:', style.fontSize);
+        
+        spanElement.style.fontSize = `${value}`;
+        console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight, 'Font:', style.fontFamily, 'Fontsize:', style.fontSize);
+    }
 }
