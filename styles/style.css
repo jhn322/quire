@@ -235,28 +235,31 @@ a:visited {
 } */
 
 /* --- text-types --- */
-.h1-option {
-  font-size: 1.75rem;
+.h1-option, #note-field h1 {
+  font-size: 3rem;
 }
 
-.h2-option {
-  font-size: 1.65rem;
+.h2-option, #note-field h2 {
+  font-size: 2.5rem;
 }
 
-.h3-option {
-  font-size: 1.55rem;
+.h3-option, #note-field h3 {
+  font-size: 2.2rem;
 }
 
-.h4-option {
-  font-size: 1.45rem;
+.h4-option, #note-field h4 {
+  font-size: 1.8rem;
+  font-style: italic;
 }
 
-.h5-option {
-  font-size: 1.35rem;
+.h5-option, #note-field h5 {
+  font-size: 1.6rem;
+  font-style: italic;
 }
 
-.h6-option {
-  font-size: 1.25rem;
+.h6-option, #note-field h6 {
+  font-size: 1.4rem;
+  font-style: italic;
 }
 
 /* --- font-types --- */
@@ -267,6 +270,31 @@ a:visited {
 .font-timesNewRoman {
   font-family: "Times New Roman", serif;
 }
+
+.font-roboto {
+  font-family: 'Dosis', sans-serif;
+}
+
+.font-nunito {
+  font-family: 'Nunito', sans-serif;
+}
+
+.font-raleway {
+  font-family: 'Raleway', sans-serif;
+}
+
+.font-teko {
+  font-family: 'Teko', sans-serif;
+}
+
+.font-charm {
+  font-family: 'Charm', cursive;
+}
+
+.font-merienda {
+  font-family: 'Merienda', cursive;
+}
+
 
 /* --- note-section --- */
 .note-section {
