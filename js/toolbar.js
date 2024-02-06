@@ -1,26 +1,29 @@
-//variable for all icons in toolbar
-const toolIcons = document.querySelectorAll('.tool-icon');
-
 //variable for note field
 const noteField = document.getElementById('note-field');
 
-//Eventlisteners for all toolbar buttons
-toolIcons.forEach(function(toolIcon){
-    toolIcon.addEventListener('click', (event)=> {
+//variable for all toolbar buttons
+const toolButtons = document.querySelectorAll('.tool-icon');
+
+//varialbe for all select menus
+const selectMenus = document.querySelectorAll('select');
+
+//-------- EventListeners for all toolbar buttons -----------
+toolButtons.forEach(function(toolButton){
+    toolButton.addEventListener('click', (event)=> {
         const { target } = event;
-        const toolIconId = target.id; 
+        const toolId = target.id; 
         
         event.preventDefault();
 
         //function to get user selected text
-        let selectionInfo = checkSelectedText();
+        const selectionInfo = checkSelectedText();
         
         //switch statement to call function depending on user choice
-        switch(toolIconId) {
+        switch(toolId) {
             case 'bold':
             case 'italic':
             case 'underline':
-                toggleStyle(toolIconId, selectionInfo);
+                toggleStyle(toolId, selectionInfo);
                 break;
             case 'ul-list':
                 toggleUnorderedlist(selectionInfo);
@@ -35,14 +38,30 @@ toolIcons.forEach(function(toolIcon){
     })
 })
 
-//TODO - eventlisteners for all select menus
+//-------- EventListeners for all select menus -----------
+selectMenus.forEach(function(selectMenu){
+    selectMenu.addEventListener('change', (event)=> {
+        const { target } = event;
+        const selectMenuId = target.id; 
+        
+        event.preventDefault();
 
+        //function to get user selected text
+        const selectionInfo = checkSelectedText();
+
+        handleSelect(event, selectMenuId, selectionInfo);
+    });
+})
+
+//------------------------------------------------------------
 // ----------- function to get selected text -----------------
+//------------------------------------------------------------
 function checkSelectedText() {
-    let selection = window.getSelection();
+    const selection = window.getSelection();
     
+    //if there is a selection return range and selected text
     if (selection && selection.toString().length > 0) {
-        let range = selection.getRangeAt(0);
+        const range = selection.getRangeAt(0);
         
         return {
             selectedText: selection.toString(),
@@ -51,31 +70,39 @@ function checkSelectedText() {
     }
 }
 
-// -----------------------------------------------------------------------------------
-// ------  Toggle style section -----------------------------------------------------
-// -----------------------------------------------------------------------------------
+// ----------------------------------------------------------------
+// ------  Toggle style section -----------------------------------
+// ----------------------------------------------------------------
 //function to switch between adding and removing styles
 function toggleStyle(tool, selectionInfo) {
 
+    //check if there is selected text
     if(!selectionInfo) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
     }
     
+    //variable to surround selected text
     let spanElement = null;
+    //variable for common parent element for selected text
     let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
 
+    //check if there is a common "span" parent that contains the selected text
     while (commonAncestorContainer) {
         if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText) {
+            //if common parent is a span with selected text store in variable
             spanElement = commonAncestorContainer;
             break;
         }
+        //if not, continue to search for common parent span tag higher up in DOM-tree
         commonAncestorContainer = commonAncestorContainer.parentNode;
     }
 
+    //if there is no surrounding span element create one
     if (!spanElement) {
         spanElement = document.createElement('span');
 
+        //add style attribute based on user choice
         switch(tool) {
             case 'bold':
                 spanElement.style.fontWeight = 'bold';
@@ -87,10 +114,14 @@ function toggleStyle(tool, selectionInfo) {
                 spanElement.style.textDecoration = 'underline';
                 break;
         }
+        //surround selected text with new span
         selectionInfo.range.surroundContents(spanElement);
     } else {
+        //if there is a surrounding span change style based on user choice
+        //get style attributes of span element
         const styleAttribute = window.getComputedStyle(spanElement);
         
+        //call function based on user choice
         switch(tool) {
             case 'bold':
                 toggleBold(styleAttribute, spanElement);
@@ -111,6 +142,7 @@ function toggleStyle(tool, selectionInfo) {
 
 // ----------- toggle bold function ----------------------
 function toggleBold(style, span) {
+    //if text is already bold - make it normal. If not make it bold.
     if(style.fontWeight.includes('700')){
         span.style.fontWeight = '400';
         console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight);
@@ -121,6 +153,7 @@ function toggleBold(style, span) {
 }
 
 // ----------- toggle italic function ----------------------
+//if text is already italic - make it normal. If not make it italic.
 function toggleItalic(style, span) {
     if(style.fontStyle.includes('italic')){
         span.style.fontStyle = 'normal';
@@ -132,6 +165,7 @@ function toggleItalic(style, span) {
 }
 
 // ----------- toggle underline function ----------------------
+//if text is already underlined - remove underline. If not add underline.
 function toggleUnderline(style, span) {
     if(style.textDecoration.includes('underline')){
         span.style.textDecoration = 'none';
@@ -142,9 +176,9 @@ function toggleUnderline(style, span) {
     }
 }
 
-// -----------------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // ------  List section -----------------------------------------------------
-// -----------------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // list buttons
 const unorderedListButton = document.getElementById("ul-list");
 const orderedListButton = document.getElementById("ol-list");
@@ -214,166 +248,115 @@ function createRangeAtCursor() {
   return newRange;
 }
 
-// -----------------------------------------------------------------------------------
-// ------   Type of Text Section -----------------------------------------------------
-// -----------------------------------------------------------------------------------
-const selectTextType = document.getElementById('text-type');
-
-selectTextType.addEventListener('change', function(event){
-    event.preventDefault();
-    changeTextType(event);
-});
-
-function changeTextType(event) {
-
-    let selectionInfo = checkSelectedText();
-
+// --------------------------------------------------------------------------
+// ------  Function to handle select menus ----------------------------------
+// --------------------------------------------------------------------------
+function handleSelect(event, menu, selectionInfo) {
     if(!selectionInfo) {
         alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
         return;
     }
-    
-    let { target } = event;
-    let { value } = target;
+    //variable to store the value of user's choice 
+    const { target } = event;
+    const { value } = target;
 
+    switch(menu) {
+        case 'text-type':
+            changeTextType(selectionInfo, value);
+            break;
+        case 'font-family':
+        case 'font-size':
+            changeFontAttr(menu, selectionInfo, value);
+            break;
+    }
+}
+// -----------------------------------------------------------------------------
+// ------ Change text type section ---------------------------------------------
+// -----------------------------------------------------------------------------
+function changeTextType(selectionInfo, value) {
+
+    //variable to surround selected text
     let textTagElement = null;
-    
+    //variable for common parent element for selected text
     let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
 
+    //list of text tags
     const textTags = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'];
 
+    //check if common parent is a text tag that contains selected text
     while (commonAncestorContainer) {
         if (textTags.includes(commonAncestorContainer.nodeName) && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText){
+            //if common parent is a text tag with selected text store in variable
             textTagElement = commonAncestorContainer;
             break;
         }
+        //if not, continue to search for common parent text tag higher up in DOM-tree
         commonAncestorContainer = commonAncestorContainer.parentNode;
     }
-    console.log("gemensam container:", commonAncestorContainer);
 
+    //if there was no texttag containing selected text then create one and surrond selected text
     if (!textTagElement) {
         textTagElement = document.createElement(`${value}`);
         selectionInfo.range.surroundContents(textTagElement);
-        console.log(textTagElement);
-    } else {
+    } else { //if a texttag was found replace it with new texttag of right kind
         const newTagElement = document.createElement(`${value}`);
         newTagElement.innerHTML = textTagElement.innerHTML;
         textTagElement.parentNode.replaceChild(newTagElement, textTagElement);
     }
 
+    //function to change text type back to normal text after pressing enter
     document.addEventListener('keyup', function(event){
         if(event.key === 'Enter') {
            //TODO - O.b.s! Koden nedan behövs när en ny anteckningen skapas!
+           const selectTextType = document.getElementById('text-type');
            const defaultTextIndex = 6;
            selectTextType.selectedIndex = defaultTextIndex;
         }
     });
+    console.log(noteField.innerHTML);
+
+    // Deselect the text
+    window.getSelection().removeAllRanges();
 }
 
-
-
-// // -----------------------------------------------------------------------------------
-// // ------   Font-family Section -----------------------------------------------------
-// // -----------------------------------------------------------------------------------
-const selectFont = document.getElementById('font-family');
-
-selectFont.addEventListener('change', function(event){
-    event.preventDefault();
-    changeFont(event);
-});
-
-function changeFont(event) {
-
-    let selectionInfo = checkSelectedText();
-
-    if(!selectionInfo) {
-        alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
-        return;
-    }
-    
-    let { target } = event;
-    let { value } = target;
-    
-    console.log(value);
-
+// -----------------------------------------------------------------------------
+// ------ Change font attribute section ----------------------------------------
+// -----------------------------------------------------------------------------
+function changeFontAttr(menu, selectionInfo, value) {
+    //variable to surround selected text
     let spanElement = null;
-    
+    //variable for common parent element for selected text
     let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
 
+    //check if there is a common "span" parent that contains the selected text
     while (commonAncestorContainer) {
         if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText) {
+            //if common parent is a span with selected text store in variable
             spanElement = commonAncestorContainer;
             break;
         }
+        //if not, continue to search for common parent span tag higher up in DOM-tree
         commonAncestorContainer = commonAncestorContainer.parentNode;
     }
-    console.log("gemensam container:", commonAncestorContainer);
 
+    //variable to store the attribute that should be changed
+    const attribute = menu === 'font-family' ? 'fontFamily' : 'fontSize';
+
+    //if there is no surrounding span element create one
     if (!spanElement) {
         spanElement = document.createElement('span');
-        spanElement.style.fontFamily = `${value}`;
+        //use attribute variable and value to change style
+        spanElement.style[attribute] = `${value}`;
         selectionInfo.range.surroundContents(spanElement);
-    } else {
+    } else { 
+        //if there is a surrounding span change style based on user choice
+        //get style attributes of span element
         const style = window.getComputedStyle(spanElement);
-        console.log('Fetstil:', style.fontWeight);
-        console.log('Kursiv stil:', style.fontStyle);
-        console.log('Understruken stil:', style.textDecoration);
-        console.log('Font:', style.fontFamily);
-        
-        spanElement.style.fontFamily = `${value}`;
+        spanElement.style[attribute] = `${value}`;
         console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight, 'Font:', style.fontFamily);
     }
-}
+    console.log(noteField.innerHTML);
 
-// // -----------------------------------------------------------------------------------
-// // ------   Font-size Section -----------------------------------------------------
-// // -----------------------------------------------------------------------------------
-const selectFontSize = document.getElementById('font-size');
-
-selectFontSize.addEventListener('change', function(event){
-    event.preventDefault();
-    changeSize(event);
-});
-
-function changeSize(event) {
-
-    let selectionInfo = checkSelectedText();
-
-    if(!selectionInfo) {
-        alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
-        return;
-    }
-    
-    let { target } = event;
-    let { value } = target;
-    console.log(value);
-
-    let spanElement = null;
-    
-    let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
-
-    while (commonAncestorContainer) {
-        if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText) {
-            spanElement = commonAncestorContainer;
-            break;
-        }
-        commonAncestorContainer = commonAncestorContainer.parentNode;
-    }
-    console.log("gemensam container:", commonAncestorContainer);
-
-    if (!spanElement) {
-        spanElement = document.createElement('span');
-        spanElement.style.fontSize = `${value}`;
-        selectionInfo.range.surroundContents(spanElement);
-    } else {
-        const style = window.getComputedStyle(spanElement);
-        console.log('Fetstil:', style.fontWeight);
-        console.log('Kursiv stil:', style.fontStyle);
-        console.log('Understruken stil:', style.textDecoration);
-        console.log('Font:', style.fontFamily);
-        console.log('Fontsize:', style.fontSize);
-        
-        spanElement.style.fontSize = `${value}`;
-        console.log('Efter: understruken:', style.textDecoration, 'kursiv:', style.fontStyle, 'fetstil:', style.fontWeight, 'Font:', style.fontFamily, 'Fontsize:', style.fontSize);
-    }
+    // Deselect the text
+    window.getSelection().removeAllRanges();
 }
