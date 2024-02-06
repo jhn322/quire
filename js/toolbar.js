@@ -29,6 +29,43 @@ toolButtons.forEach(function (toolButton) {
       target.classList.toggle("tool-btn-highlight");
     }
 
+    //--------function to handle clearing the note field--------
+    function handleNoteFieldClear() {
+      //check if the content of the note field is empty
+      const isNoteFieldEmpty = noteField.textContent.trim() === "";
+
+      //if note field is empty
+      if (isNoteFieldEmpty) {
+        const listButtons = [
+          document.getElementById("ul-list"),
+          document.getElementById("ol-list"),
+        ];
+
+        //remove 'tool-btn-highlight' class from list buttons
+        listButtons.forEach((button) =>
+          button.classList.remove("tool-btn-highlight")
+        );
+
+        //remove empty list elements
+        const listElements = noteField.querySelectorAll("ul, ol");
+        listElements.forEach((element) => {
+          if (!element.textContent.trim()) {
+            element.remove();
+          }
+        });
+
+        //if un/ordered list active, keep the 'tool-btn-highlight' class
+        if (noteField.querySelector("ul, ol")) {
+          listButtons.forEach((button) =>
+            button.classList.add("tool-btn-highlight")
+          );
+        }
+      }
+    }
+
+    //attach an event listener to the note field to handle clearing
+    noteField.addEventListener("input", handleNoteFieldClear);
+
     event.preventDefault();
 
     //function to get user selected text
