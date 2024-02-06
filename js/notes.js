@@ -33,12 +33,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // update notes
   const noteField = document.getElementById("note-field");
   const title = document.getElementById("title");
-  const noteDtae = document.querySelector('#noteDate');
+  const noteDate = document.querySelector('#noteDate');
 
 
   noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
-  noteDtae.innerHTML = getDate();
+  noteDate.innerHTML = getDate();
 
   // button to save
   const saveBtn = document.getElementById("save-notes");
@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", function () {
       activeNote.img = imageArray;
       activeNote.title = title.value;
       activeNote.content = noteField.innerHTML;
-      activeNote.savedDate = noteDtae.innerHTML;
-      activeNote.editedDate = noteDtae.innerHTML;
+      activeNote.savedDate = noteDate.innerHTML;
+      activeNote.editedDate = noteDate.innerHTML;
       localStorage.setItem("notes", JSON.stringify(activeNote));
       saveBtn.classList.add("hide-btn");
 
@@ -105,6 +105,7 @@ function updateNote(noteObject, allNotes) {
     if (note.id === noteObject.id) {
       note.content = noteObject.content;
       note.title = noteObject.title;
+      note.editedDate = getDate();
     }
   });
   localStorage.setItem("allNotes", JSON.stringify(allNotes));
@@ -126,6 +127,7 @@ function createTumbnail(noteObject) {
   newListItem.noteTitle = noteObject.title;
   newListItem.content = noteObject.content;
   newListItem.savedDate = noteObject.savedDate;
+  newListItem.editedDate = noteObject.editedDate;
   newListItem.idAddress = noteObject.id;
   newListItem.images = noteObject.img;
 
@@ -229,11 +231,11 @@ function searchInNote(n, isFav) {
 function getDate(){
   const date = new Date()
   //return `${date.getFullYear()}-${((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1)}-${(date.getDate() < 10 ? '0' : '') + date.getDate()}`
-  return `${monthsList[date.getMonth()]} ${(date.getDate() < 10 ? '0' : '') + date.getDate()}, ${date.getFullYear()}`
+  return `${monthsList[date.getMonth()]} ${(date.getDate() < 10 ? '0' : '') + date.getDate()}, ${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 
 }
 
-console.log(getDate())
+//console.log(getDate())
 
 let editedNote = JSON.parse(localStorage.getItem("notes")) || '';
 let currentNote = editedNote.id;
