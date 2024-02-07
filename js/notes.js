@@ -92,7 +92,7 @@ function saveAllNotes(noteObject) {
   if (checkNote.length === 0) {
     allNotes.push(activeNote);
     localStorage.setItem("allNotes", JSON.stringify(allNotes));
-    createTumbnail(activeNote, document.querySelector(".note-list"));
+    createTumbnail(activeNote);
   } else {
     updateNote(noteObject, allNotes);
     renderAllTumbnails();
