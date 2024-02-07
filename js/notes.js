@@ -144,18 +144,17 @@ document.addEventListener('click', (evt) => {
     noteField.innerHTML = evt.target.content;
     setNewObject();
     isNewNote = false;
+    viewItem();
+    isEditingNote = false;
   }
-  else if(evt.target.parentNode.id == 'note-field'
-  || evt.target.id == 'note-field'
+  else if(evt.target.id == 'note-field'
   || evt.target.id == 'title'
-  || evt.target.id == 'toolbar'
-  || evt.target.parentNode.id == 'toolbar'
-  || evt.target.parentNode.className == 'img-modal-window'
-  || evt.target.id == 'add-image-btn'){
+  || evt.target.parentNode.id == 'note-field'){
     addOrEditMode();
     if(isNewNote == false)
     isEditingNote = true;
-  } else {
+  }
+  else if(evt.target.id == 'save-notes'){
     viewItem();
     isEditingNote = false;
   }
