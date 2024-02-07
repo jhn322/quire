@@ -89,7 +89,7 @@ function toggleStyle(tool, selectionInfo) {
 
     //check if there is a common "span" parent that contains the selected text
     while (commonAncestorContainer) {
-        if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText) {
+        if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()) {
             //if common parent is a span with selected text store in variable
             spanElement = commonAncestorContainer;
             break;
@@ -285,7 +285,7 @@ function changeTextType(selectionInfo, value) {
 
     //check if common parent is a text tag that contains selected text
     while (commonAncestorContainer) {
-        if (textTags.includes(commonAncestorContainer.nodeName) && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText){
+        if (textTags.includes(commonAncestorContainer.nodeName) && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()){
             //if common parent is a text tag with selected text store in variable
             textTagElement = commonAncestorContainer;
             break;
@@ -330,7 +330,7 @@ function changeFontAttr(menu, selectionInfo, value) {
 
     //check if there is a common "span" parent that contains the selected text
     while (commonAncestorContainer) {
-        if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText) {
+        if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()) {
             //if common parent is a span with selected text store in variable
             spanElement = commonAncestorContainer;
             break;
