@@ -1,4 +1,4 @@
-function createTumbnail(noteObject, container) {
+function createTumbnail(noteObject) {
   const newListItem = document.createElement("li");
   const newTitle = document.createElement("h3");
   const newContent = document.createElement("p");
@@ -76,7 +76,7 @@ function createTumbnail(noteObject, container) {
   newListItem.appendChild(deletebtn);
   newListItem.appendChild(imageWrapper);
   newListItem.appendChild(newDate);
-  container.appendChild(newListItem);
+  document.querySelector(".note-list").appendChild(newListItem);
 
   noteArray = JSON.parse(localStorage.getItem("allNotes"));
 }

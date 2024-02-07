@@ -30,7 +30,6 @@ a{
     overflow-y: scroll;
     background: #ddd;
     padding: 10px 10px 10px 15px;
-    border-right: solid 1px #777;
 }
 #noteList::-webkit-scrollbar, #demo::-webkit-scrollbar{
     background-color: #eeeeee00;
@@ -46,7 +45,7 @@ a{
     justify-content: center;
     align-items: center;
     padding: 50px 100px;
-    background: #ddd;
+    background: #fff;
 }
 .note{
     position: relative;
