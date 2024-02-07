@@ -12,14 +12,14 @@ let getFirstNote = false;
 if(allNotes !== null){
     noteArray = JSON.parse(allNotes);
     noteArray.forEach((note) => {
-        if(note.isFavorite == true){
+        if(note.isFavorite == true){ // View the first note only
             let noteAge = getNoteAge(note.savedDate);
             if(getFirstNote == false){
                 demoTitle.textContent = note.title;
                 demoText.innerHTML = note.content;
                 demo.dataset.content = `${noteAge}, Skapat ${note.savedDate}, Senaste ändring ${note.editedDate}`;
                 getFirstNote = true;
-            }
+            } // Create the notes
             let newNote = `
             <div class="note" id="${note.id}">
                 <b class='star' onclick='favToggle(${note.id})'><i class="fas fa-star"></i></b>
@@ -42,7 +42,7 @@ if(allNotes !== null){
         }
     });
 }
-
+// Giving (title, text, date, isfavorite) values to each note
 for(let i = 0; i < note.length; i++){
     note[i].noteTitle = note[i].getElementsByTagName('h3')[0].textContent;
     note[i].text = note[i].getElementsByTagName('p')[0].innerHTML;
@@ -50,7 +50,9 @@ for(let i = 0; i < note.length; i++){
     note[i].isFavorite = true;
 }
 
-let currentNote; 
+let currentNote; // Getting the chosen note
+
+//Checking of there are notes and choose the first note as the current one
 if(note.length != 0){
    selectedItem(note[0].id);
    currentNote = note[0].id;
@@ -58,7 +60,7 @@ if(note.length != 0){
 
 
 document.addEventListener('click', (evt) => {
-    if(evt.target.className == 'note'){
+    if(evt.target.className == 'note'){ // If note is clicked, display it
         currentNote = evt.target.id;
         demoTitle.textContent = document.getElementById(evt.target.id).noteTitle;
         demoText.innerHTML = document.getElementById(evt.target.id).text;
@@ -66,22 +68,22 @@ document.addEventListener('click', (evt) => {
         demo.dataset.content = document.getElementById(evt.target.id).date;
         selectedItem(evt.target.id);
     }
-    else if(evt.target.className == 'content'){
-        let wrapperName = evt.target.id.slice(0, evt.target.id.length - 4);
+    else if(evt.target.className == 'content'){ // If the content of the note is clicked
+        let wrapperName = evt.target.id.slice(0, evt.target.id.length - 4); // Get the parent of the content which is the note
         currentNote = wrapperName;
         demoTitle.textContent = document.getElementById(wrapperName).noteTitle;
         demoText.innerHTML = document.getElementById(wrapperName).text;
         selectedItem(wrapperName);
     }
-    else if(evt.target.id == 'navButton'){
+    else if(evt.target.id == 'navButton'){ // Mobile nav button
         if (navClicked === false){
             document.querySelector('.side').style.display = 'flex';
             navClicked = true;
-            navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)', 'white');
+            navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)', 'white'); // Change the shape of the mobile nav button from 3 lines to cross
         } else {
             document.querySelector('.side').style.display = 'none';
             navClicked = false;
-            navButtonShape('rotate(0deg) translate(0%, 0%)', 'block', 'rotate(0deg) translate(0%, 0%)', 'black');
+            navButtonShape('rotate(0deg) translate(0%, 0%)', 'block', 'rotate(0deg) translate(0%, 0%)', 'black'); // Change the shape of the mobile nav button from cross to 3 lines
         }
     }
     else if(evt.target.id == 'demo'){
@@ -114,7 +116,7 @@ function deleteNote(note){
     localStorage.setItem("allNotes", JSON.stringify(noteArray));
 }
 
-function favToggle(note){
+function favToggle(note){ // Chenge star button from yellow to grey, and toggle the favorite status
     let currentNote = document.getElementById(note);
     if(currentNote.isFavorite === true){
         currentNote.isFavorite = false;
@@ -131,7 +133,7 @@ function favToggle(note){
     });
 }
 
-function selectedItem(n){
+function selectedItem(n){ // Make the chosen note appearance different to others
     for(let i = 0; i < note.length; i++)
         note[i].classList.remove('selectedNote');
     document.getElementById(n).classList.add('selectedNote');
@@ -163,9 +165,6 @@ function getNoteAge(noteDate){
         nmOfDays = nmOfDays + ' day old note';
     else if(nmOfDays == 0)
         nmOfDays = 'Note is created today';
-    else
-        nmOfDays = 'Note is created in the future, ' + nmOfDays*-1 + ' days from now';
 
     return nmOfDays;
 }
-console.log(getNoteAge('februari 10, 2024'));
