@@ -3,6 +3,7 @@ document.getElementById("search-field").addEventListener("input", function () {
   const searchTerm = this.value.toLowerCase();
   filterNotes(searchTerm);
 });
+filterNotes('');
 
 // function for filtering notes
 function filterNotes(searchTerm) {
@@ -19,25 +20,7 @@ function filterNotes(searchTerm) {
 
     if (title.includes(searchTerm) || content.includes(searchTerm)) {
       // display matching notes
-      const searchedNote = createNoteElement(note.title, note.content);
-      noteList.appendChild(searchedNote);
+      createTumbnail(note);
     }
   });
-}
-
-// create thumbnail in note list
-function createNoteElement(title, text) {
-  const searchedNoteDiv = document.createElement("div");
-  searchedNoteDiv.classList.add("note-thumbnail");
-
-  const titleElement = document.createElement("h3");
-  titleElement.innerText = title;
-
-  const textElement = document.createElement("p");
-  textElement.innerText = text;
-
-  searchedNoteDiv.appendChild(titleElement);
-  searchedNoteDiv.appendChild(textElement);
-
-  return searchedNoteDiv;
 }
