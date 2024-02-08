@@ -14,9 +14,9 @@ const noteField = document.getElementById("note-field");
 //variable for all toolbar buttons
 const toolButtons = document.querySelectorAll(".tool-icon");
 
-const boldBtn = document.getElementById('bold');
-const italicBtn = document.getElementById('italic');
-const underlineBtn = document.getElementById('underline');
+const boldBtn = document.getElementById("bold");
+const italicBtn = document.getElementById("italic");
+const underlineBtn = document.getElementById("underline");
 
 //varialbe for all select menus
 const selectMenus = document.querySelectorAll("select");
@@ -150,13 +150,17 @@ function toggleStyle(tool, selectionInfo) {
 
   //check if there is a common "span" parent that contains the selected text
   while (commonAncestorContainer) {
-      if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()) {
-          //if common parent is a span with selected text store in variable
-          spanElement = commonAncestorContainer;
-          break;
-      }
-      //if not, continue to search for common parent span tag higher up in DOM-tree
-      commonAncestorContainer = commonAncestorContainer.parentNode;
+    if (
+      commonAncestorContainer.nodeName === "SPAN" &&
+      commonAncestorContainer.textContent.trim() ===
+        selectionInfo.selectedText.trim()
+    ) {
+      //if common parent is a span with selected text store in variable
+      spanElement = commonAncestorContainer;
+      break;
+    }
+    //if not, continue to search for common parent span tag higher up in DOM-tree
+    commonAncestorContainer = commonAncestorContainer.parentNode;
   }
 
   //if there is no surrounding span element create one
@@ -350,13 +354,17 @@ function changeTextType(selectionInfo, value) {
 
   //check if common parent is a text tag that contains selected text
   while (commonAncestorContainer) {
-      if (textTags.includes(commonAncestorContainer.nodeName) && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()){
-          //if common parent is a text tag with selected text store in variable
-          textTagElement = commonAncestorContainer;
-          break;
-      }
-      //if not, continue to search for common parent text tag higher up in DOM-tree
-      commonAncestorContainer = commonAncestorContainer.parentNode;
+    if (
+      textTags.includes(commonAncestorContainer.nodeName) &&
+      commonAncestorContainer.textContent.trim() ===
+        selectionInfo.selectedText.trim()
+    ) {
+      //if common parent is a text tag with selected text store in variable
+      textTagElement = commonAncestorContainer;
+      break;
+    }
+    //if not, continue to search for common parent text tag higher up in DOM-tree
+    commonAncestorContainer = commonAncestorContainer.parentNode;
   }
 
   //if there was no texttag containing selected text then create one and surrond selected text
@@ -395,15 +403,19 @@ function changeFontAttr(menu, selectionInfo, value) {
 
   //check if there is a common "span" parent that contains the selected text
   while (commonAncestorContainer) {
-    if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()) {
-        //if common parent is a span with selected text store in variable
-        spanElement = commonAncestorContainer;
-        break;
+    if (
+      commonAncestorContainer.nodeName === "SPAN" &&
+      commonAncestorContainer.textContent.trim() ===
+        selectionInfo.selectedText.trim()
+    ) {
+      //if common parent is a span with selected text store in variable
+      spanElement = commonAncestorContainer;
+      break;
     }
     //if not, continue to search for common parent span tag higher up in DOM-tree
     commonAncestorContainer = commonAncestorContainer.parentNode;
   }
- 
+
   //variable to store the attribute that should be changed
   const attribute = menu === "font-family" ? "fontFamily" : "fontSize";
 
