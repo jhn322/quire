@@ -10,3 +10,4 @@ searchIcon.addEventListener("click", function () {
     event_label: "search_icon_click",
   });
 });
+// ------------------------------------------------------
