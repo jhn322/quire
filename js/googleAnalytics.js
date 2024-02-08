@@ -11,3 +11,14 @@ searchIcon.addEventListener("click", function () {
   });
 });
 // ------------------------------------------------------
+
+//Gtag for new-note-button - Ellen
+const addNoteBtn = document.querySelector('.add-note');
+
+addNoteBtn.addEventListener('click', function(){
+  gtag('event', 'Add_new_note', {
+    'event_category': 'engagement',
+    'event_label': 'new_note_click'
+  });
+});
+// ------------------------------------------------------
