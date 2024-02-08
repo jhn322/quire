@@ -6,7 +6,7 @@ const searchIcon = document.querySelector(
 searchIcon.addEventListener("click", function () {
   // Custom gtag event when the search icon is clicked
   gtag("event", "search", {
-    event_category: "engagement",
+    event_category: "clicks",
     event_label: "search_icon_click",
   });
 });
