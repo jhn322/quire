@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favorite notes</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/favorite.css">
-</head>
 
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="./styles/style.css" />
+
+    <link rel="stylesheet" href="styles/favorite.css">
+    <title>Favorite notes</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YWPH33ZZLC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-YWPH33ZZLC', { 'debug_mode': true });
+    </script>
+</head>
 
 <body id="modalWindowAttacher">
     <main>
@@ -37,8 +50,10 @@
         <div></div>
     </div>
 
+
     <script src="https://kit.fontawesome.com/dfb17be9bd.js" crossorigin="anonymous"></script>
     <script src="js/modalWindow.js"></script>
     <script src="js/favorite.js"></script>
 </body>
+
 </html>

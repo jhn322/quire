@@ -3,9 +3,26 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="./styles/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles/style.css" />
   <title>Quire</title>
+
+  <!-- google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Dosis:wght@400;700&family=Merienda:wght@400;700&family=Raleway:wght@400;700&family=Teko:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YWPH33ZZLC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-YWPH33ZZLC', { 'debug_mode': true });
+  </script>
 </head>
 
 <body id="modalWindowAttacher">
@@ -38,42 +55,41 @@
           <option class="h3-option" value="h3">Rubrik 3</option>
           <option class="h4-option" value="h4">Rubrik 4</option>
           <option class="h5-option" value="h5">Rubrik 5</option>
-          <option class="h6-option" value="h5">Rubrik 6</option>
+          <option class="h6-option" value="h6">Rubrik 6</option>
           <option value="p" selected>Vanlig text</option>
         </select>
         <select name="font-family" id="font-family">
-          <option class="font-arial" value="" selected>Arial</option>
-          <option class="font-timesNewRoman" value="">Times New Roman</option>
-          <option value="">Font 3</option>
-          <option value="">Font 4</option>
-          <option value="">Font 5</option>
-          <option value="">Font 6</option>
-          <option value="">Font 7</option>
+          <option class="font-arial" value="Arial">Arial</option>
+          <option class="font-timesNewRoman" value="Times New Roman" selected>Times New Roman</option>
+          <option class="font-dosis" value="Dosis">Dosis</option>
+          <option class="font-raleway" value="Raleway">Raleway</option>
+          <option class="font-teko" value="Teko">Teko</option>
+          <option class="font-charm" value="Charm">Charm</option>
+          <option class="font-merienda" value="Merienda">Merienda</option>
         </select>
         <select name="font-size" id="font-size">
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12" selected>12</option>
-          <option value="14">14</option>
-          <option value="18">18</option>
-          <option value="24">24</option>
-          <option value="30">30</option>
-          <option value="36">36</option>
-          <option value="48">48</option>
+          <option value="12px">12</option>
+          <option value="14px">14</option>
+          <option value="16px" selected>16</option>
+          <option value="18px">18</option>
+          <option value="24px">24</option>
+          <option value="30px">30</option>
+          <option value="36px">36</option>
+          <option value="48px">48</option>
+          <option value="54px">54</option>
+          <option value="62px">62</option>
         </select>
-        <i id="bold" class="fa-solid fa-bold tool-icon"></i>
-        <i id="italic" class="fa-solid fa-italic tool-icon"></i>
-        <i id="underline" class="fa-solid fa-underline tool-icon"></i>
-        <i id="ul-list" class="fa-solid fa-list-ul tool-icon"></i>
-        <i id="ol-list" class="fa-solid fa-list-ol tool-icon"></i>
-        <i id="add-image" class="fa-regular fa-image tool-icon"></i>
+        <button id="bold" class="fa-solid fa-bold tool-icon"></button>
+        <button id="italic" class="fa-solid fa-italic tool-icon"></button>
+        <button id="underline" class="fa-solid fa-underline tool-icon"></button>
+        <button id="ul-list" class="fa-solid fa-list-ul tool-icon"></button>
+        <button id="ol-list" class="fa-solid fa-list-ol tool-icon"></button>
+        <button id="add-image" class="fa-regular fa-image tool-icon"></button>
       </div>
 
       <!-- note section -->
       <div class="note-section">
-        <div id="note-field" contenteditable="true" spellcheck="false">Text för testning</div>
+        <div id="note-field" contenteditable="true" spellcheck="false"></div>
         <button id="save-notes">Spara</button>
       </div>
     </div>

@@ -1,170 +1,478 @@
-//variable for all icons in toolbar
-const toolIcons = document.querySelectorAll('.tool-icon');
-
 //variable for note field
-const noteField = document.getElementById('note-field');
+const noteField = document.getElementById("note-field");
 
-//variable to check if icon is already selected
-let isBold = false;
-let isItalic = false;
-let isUnderline= false;
+//variable for all toolbar buttons
+const toolButtons = document.querySelectorAll(".tool-icon");
 
-let selectedText = null;
-let range = null;
+//varialbe for all select menus
+const selectMenus = document.querySelectorAll("select");
 
-toolIcons.forEach(function(toolIcon){
-    toolIcon.addEventListener('click', (event)=> {
-        const { target } = event;
-        console.log(target);
-        const toolIconId = target.id; 
-        console.log(toolIconId);
-        
-        switch(toolIconId) {
-            case 'bold':
-                toggleBold();
-                break;
-            case 'italic':
-                toggleItalic();
-                break;
-            case 'underline':
-                toggleUnderline();
-                break;
-            case 'ul-list':
-                console.log("Nu ska vi skapa en ul-list");
-                break;
-            case 'ol-list':
-                console.log("Nu ska vi skapa en ol-list");
-                break;
-            case 'add-image':
-                console.log("Nu ska vi lägga till en bild");
-                break;
+//-------- EventListeners for all toolbar buttons -----------
+toolButtons.forEach(function (toolButton) {
+  toolButton.addEventListener("click", (event) => {
+    const { target } = event;
+    const toolId = target.id;
+
+    //check if clicked button is not add image button
+    if (!target.classList.contains("fa-image")) {
+      //function to get user selected text
+      const selectInfo = checkSelectedText();
+
+      //if no selected text alert
+      if (!selectInfo) {
+        alert(
+          "Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen."
+        );
+        return;
+      }
+      //toggles the class on the clicked button
+      target.classList.toggle("tool-btn-highlight");
+    }
+
+    //--------function to handle clearing the note field--------
+    function handleNoteFieldClear() {
+      //check if the content of the note field is empty
+      const isNoteFieldEmpty = noteField.textContent.trim() === "";
+
+      //if note field is empty
+      if (isNoteFieldEmpty) {
+        const listButtons = [
+          document.getElementById("ul-list"),
+          document.getElementById("ol-list"),
+        ];
+
+        //remove 'tool-btn-highlight' class from list buttons
+        listButtons.forEach((button) =>
+          button.classList.remove("tool-btn-highlight")
+        );
+
+        //remove empty list elements
+        const listElements = noteField.querySelectorAll("ul, ol");
+        listElements.forEach((element) => {
+          if (!element.textContent.trim()) {
+            element.remove();
+          }
+        });
+
+        //if un/ordered list active, keep the 'tool-btn-highlight' class
+        if (noteField.querySelector("ul, ol")) {
+          listButtons.forEach((button) =>
+            button.classList.add("tool-btn-highlight")
+          );
         }
-    })
-})
-
-//eventlistener on mouse up and key combination of shift and arrow
-noteField.addEventListener('mouseup', checkSelectedText);
-noteField.addEventListener('keyup', function(event) {
-    if(event.shiftKey && event.key.includes('Arrow')) {
-        checkSelectedText();
+      }
     }
-})
 
-//function to check and save selected text
+    //attach an event listener to the note field to handle clearing
+    noteField.addEventListener("input", handleNoteFieldClear);
+
+    event.preventDefault();
+
+    //function to get user selected text
+    const selectionInfo = checkSelectedText();
+
+    //switch statement to call function depending on user choice
+    switch (toolId) {
+      case "bold":
+      case "italic":
+      case "underline":
+        toggleStyle(toolId, selectionInfo);
+        break;
+      case "ul-list":
+        toggleUnorderedlist(selectionInfo);
+        break;
+      case "ol-list":
+        toggleOrderedlist(selectionInfo);
+        break;
+      case "add-image":
+        console.log("Nu ska vi lägga till en bild");
+        break;
+    }
+  });
+});
+
+//-------- EventListeners for all select menus -----------
+selectMenus.forEach(function (selectMenu) {
+  selectMenu.addEventListener("change", (event) => {
+    const { target } = event;
+    const selectMenuId = target.id;
+
+    event.preventDefault();
+
+    //function to get user selected text
+    const selectionInfo = checkSelectedText();
+
+    handleSelect(event, selectMenuId, selectionInfo);
+  });
+});
+
+//------------------------------------------------------------
+// ----------- function to get selected text -----------------
+//------------------------------------------------------------
 function checkSelectedText() {
-    let selection = window.getSelection().toString();
-    
-    if (selection.length > 0) {
-        selectedText = selection.toString();
-        range = window.getSelection().getRangeAt(0);
-        console.log('Markerad text: ' + selectedText);
-    }
-    return selection;
-};
+  const selection = window.getSelection();
 
-//function to switch between bold and normal text
-function toggleBold() {
-    const boldBtn = document.getElementById('bold');
+  //if there is a selection return range and selected text
+  if (selection && selection.toString().length > 0) {
+    const range = selection.getRangeAt(0);
 
-    selection = checkSelectedText()
-
-    if (selection.length < 1) {
-        alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
-        return;
-    }
-
-    //create a span element
-    const span = document.createElement('span');
-    console.log(span);
-
-    //check if bold is already applied
-    if(isBold) {
-        span.style.fontWeight = "normal";
-        boldBtn.classList.remove('tool-icon_active');
-    } else {
-        span.style.fontWeight = "bold";
-        boldBtn.classList.add('tool-icon_active');
-    }
-
-    //add the selected text to span element
-    span.innerHTML = selectedText;
-
-    //replace range content
-    range.deleteContents();
-    range.insertNode(span);
-
-    //toggle isBold
-    isBold = !isBold;
+    return {
+      selectedText: selection.toString(),
+      range: range,
+    };
+  }
 }
 
-//function to switch between italic and normal text
-function toggleItalic() {
-    const italicBtn = document.getElementById('italic');
+// ----------------------------------------------------------------
+// ------  Toggle style section -----------------------------------
+// ----------------------------------------------------------------
+//function to switch between adding and removing styles
+function toggleStyle(tool, selectionInfo) {
+  //check if there is selected text
+  if (!selectionInfo) {
+    alert(
+      "Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen."
+    );
+    return;
+  }
 
-    selection = checkSelectedText()
+  //variable to surround selected text
+  let spanElement = null;
+  //variable for common parent element for selected text
+  let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
 
-    if (selection.length < 1) {
-        alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
-        return;
+  //check if there is a common "span" parent that contains the selected text
+  while (commonAncestorContainer) {
+    if (
+      commonAncestorContainer.nodeName === "SPAN" &&
+      commonAncestorContainer.textContent.trim() === selectionInfo.selectedText
+    ) {
+      //if common parent is a span with selected text store in variable
+      spanElement = commonAncestorContainer;
+      break;
     }
+    //if not, continue to search for common parent span tag higher up in DOM-tree
+    commonAncestorContainer = commonAncestorContainer.parentNode;
+  }
 
-    //create a span element
-    const span = document.createElement('span');
-    console.log(span);
+  //if there is no surrounding span element create one
+  if (!spanElement) {
+    spanElement = document.createElement("span");
 
-    //check if bold is already applied
-    if(isItalic) {
-        span.style.fontStyle = "normal";
-        italicBtn.classList.remove('tool-icon_active');
-    } else {
-        span.style.fontStyle = "italic";
-        italicBtn.classList.add('tool-icon_active');
+    //add style attribute based on user choice
+    switch (tool) {
+      case "bold":
+        spanElement.style.fontWeight = "bold";
+        break;
+      case "italic":
+        spanElement.style.fontStyle = "italic";
+        break;
+      case "underline":
+        spanElement.style.textDecoration = "underline";
+        break;
     }
+    //surround selected text with new span
+    selectionInfo.range.surroundContents(spanElement);
+  } else {
+    //if there is a surrounding span change style based on user choice
+    //get style attributes of span element
+    const styleAttribute = window.getComputedStyle(spanElement);
 
-    //add the selected text to span element
-    span.innerHTML = selectedText;
+    //call function based on user choice
+    switch (tool) {
+      case "bold":
+        toggleBold(styleAttribute, spanElement);
+        break;
+      case "italic":
+        toggleItalic(styleAttribute, spanElement);
+        break;
+      case "underline":
+        toggleUnderline(styleAttribute, spanElement);
+        break;
+    }
+  }
+  // Deselect the text
+  window.getSelection().removeAllRanges();
 
-    //replace range content
-    range.deleteContents();
-    range.insertNode(span);
-
-    //toggle isBold
-    isItalic = !isItalic;
+  console.log(noteField.innerHTML);
 }
 
-//function to switch between underlined and normal text
-function toggleUnderline() {
-    const underlineBtn = document.getElementById('underline');
-
-    selection = checkSelectedText()
-
-    if (selection.length < 1) {
-        alert("Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen.");
-        return;
-    }
-
-    //create a span element
-    const span = document.createElement('span');
-    console.log(span);
-
-    //check if bold is already applied
-    if(isUnderline) {
-        span.style.textDecoration = "none";
-        underlineBtn.classList.remove('tool-icon_active');
-    } else {
-        span.style.textDecoration = "underline";
-        underlineBtn.classList.add('tool-icon_active');
-    }
-
-    //add the selected text to span element
-    span.innerHTML = selectedText;
-
-    //replace range content
-    range.deleteContents();
-    range.insertNode(span);
-
-    //toggle isUnderlined
-    isUnderline = !isUnderline;
+// ----------- toggle bold function ----------------------
+function toggleBold(style, span) {
+  //if text is already bold - make it normal. If not make it bold.
+  if (style.fontWeight.includes("700")) {
+    span.style.fontWeight = "400";
+    console.log(
+      "Efter: understruken:",
+      style.textDecoration,
+      "kursiv:",
+      style.fontStyle,
+      "fetstil:",
+      style.fontWeight
+    );
+  } else if (style.fontWeight.includes("400")) {
+    span.style.fontWeight = "700";
+    console.log(
+      "Efter: understruken:",
+      style.textDecoration,
+      "kursiv:",
+      style.fontStyle,
+      "fetstil:",
+      style.fontWeight
+    );
+  }
 }
 
+// ----------- toggle italic function ----------------------
+//if text is already italic - make it normal. If not make it italic.
+function toggleItalic(style, span) {
+  if (style.fontStyle.includes("italic")) {
+    span.style.fontStyle = "normal";
+    console.log(
+      "Efter: understruken:",
+      style.textDecoration,
+      "kursiv:",
+      style.fontStyle,
+      "fetstil:",
+      style.fontWeight
+    );
+  } else if (style.fontStyle.includes("normal")) {
+    span.style.fontStyle = "italic";
+    console.log(
+      "Efter: understruken:",
+      style.textDecoration,
+      "kursiv:",
+      style.fontStyle,
+      "fetstil:",
+      style.fontWeight
+    );
+  }
+}
 
+// ----------- toggle underline function ----------------------
+//if text is already underlined - remove underline. If not add underline.
+function toggleUnderline(style, span) {
+  if (style.textDecoration.includes("underline")) {
+    span.style.textDecoration = "none";
+    console.log(
+      "Efter: understruken:",
+      style.textDecoration,
+      "kursiv:",
+      style.fontStyle,
+      "fetstil:",
+      style.fontWeight
+    );
+  } else if (style.textDecoration.includes("none")) {
+    span.style.textDecoration = "underline";
+    console.log(
+      "Efter: understruken:",
+      style.textDecoration,
+      "kursiv:",
+      style.fontStyle,
+      "fetstil:",
+      style.fontWeight
+    );
+  }
+}
+
+// --------------------------------------------------------------------------
+// ------  List section -----------------------------------------------------
+// --------------------------------------------------------------------------
+// list buttons
+const unorderedListButton = document.getElementById("ul-list");
+const orderedListButton = document.getElementById("ol-list");
+// toggle unordered list
+function toggleUnorderedlist(selectionInfo) {
+  const listStart = "<ul><li>";
+  const listEnd = "</ul></li>";
+  // determine the range to work with based on user selection or cursor position
+  const range =
+    selectionInfo && selectionInfo.range
+      ? selectionInfo.range
+      : createRangeAtCursor();
+  // check if there is selected text, if yes, wrap in tags
+  if (selectionInfo && selectionInfo.selectedText) {
+    const newList = listStart + selectionInfo.selectedText + listEnd;
+    insertTextAtCursor(newList, range);
+  } else {
+    // if not, start empty list and set focus
+    insertTextAtCursor(listStart + "<br>" + listEnd, range);
+    noteField.focus();
+  }
+}
+// toggle ordered list
+function toggleOrderedlist(selectionInfo) {
+  const listStart = "<ol><li>";
+  const listEnd = "</ol></li>";
+  // determine the range to work with based on user selection or cursor position
+  const range =
+    selectionInfo && selectionInfo.range
+      ? selectionInfo.range
+      : createRangeAtCursor();
+  // check if there is selected text, if yes, wrap in tags
+  if (selectionInfo && selectionInfo.selectedText) {
+    const newList = listStart + selectionInfo.selectedText + listEnd;
+    insertTextAtCursor(newList, range);
+    // if not, start empty list and set focus
+  } else {
+    insertTextAtCursor(listStart + "<br>" + listEnd, range);
+    noteField.focus();
+  }
+}
+// function to insert ext at the cursor position
+function insertTextAtCursor(newText, range) {
+  // get current selection and range
+  const selection = window.getSelection();
+  let currentRange = range || selection.getRangeAt(0);
+  // if no range is available, create new one at cursor position
+  if (!currentRange) {
+    currentRange = createRangeAtCursor();
+  }
+  // delete the selected text, if any
+  range.deleteContents();
+  // insert the new text at the cursor position
+  const fragment = range.createContextualFragment(newText);
+  range.insertNode(fragment);
+}
+// function to create a range at cursor position
+function createRangeAtCursor() {
+  // get the current selection and range
+  const selection = window.getSelection();
+  const range = selection.getRangeAt(0);
+  const currentOffset = range.startOffset;
+  // create a new range at the cursor position
+  const newRange = document.createRange();
+  newRange.setStart(range.startContainer, currentOffset);
+  newRange.setEnd(range.startContainer, currentOffset);
+  return newRange;
+}
+
+// --------------------------------------------------------------------------
+// ------  Function to handle select menus ----------------------------------
+// --------------------------------------------------------------------------
+function handleSelect(event, menu, selectionInfo) {
+  if (!selectionInfo) {
+    alert(
+      "Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen."
+    );
+    return;
+  }
+  //variable to store the value of user's choice
+  const { target } = event;
+  const { value } = target;
+
+  switch (menu) {
+    case "text-type":
+      changeTextType(selectionInfo, value);
+      break;
+    case "font-family":
+    case "font-size":
+      changeFontAttr(menu, selectionInfo, value);
+      break;
+  }
+}
+// -----------------------------------------------------------------------------
+// ------ Change text type section ---------------------------------------------
+// -----------------------------------------------------------------------------
+function changeTextType(selectionInfo, value) {
+  //variable to surround selected text
+  let textTagElement = null;
+  //variable for common parent element for selected text
+  let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
+
+  //list of text tags
+  const textTags = ["H1", "H2", "H3", "H4", "H5", "H6", "P"];
+
+  //check if common parent is a text tag that contains selected text
+  while (commonAncestorContainer) {
+    if (
+      textTags.includes(commonAncestorContainer.nodeName) &&
+      commonAncestorContainer.textContent.trim() === selectionInfo.selectedText
+    ) {
+      //if common parent is a text tag with selected text store in variable
+      textTagElement = commonAncestorContainer;
+      break;
+    }
+    //if not, continue to search for common parent text tag higher up in DOM-tree
+    commonAncestorContainer = commonAncestorContainer.parentNode;
+  }
+
+  //if there was no texttag containing selected text then create one and surrond selected text
+  if (!textTagElement) {
+    textTagElement = document.createElement(`${value}`);
+    selectionInfo.range.surroundContents(textTagElement);
+  } else {
+    //if a texttag was found replace it with new texttag of right kind
+    const newTagElement = document.createElement(`${value}`);
+    newTagElement.innerHTML = textTagElement.innerHTML;
+    textTagElement.parentNode.replaceChild(newTagElement, textTagElement);
+  }
+
+  //function to change text type back to normal text after pressing enter
+  document.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+      //TODO - O.b.s! Koden nedan behövs när en ny anteckningen skapas!
+      const selectTextType = document.getElementById("text-type");
+      const defaultTextIndex = 6;
+      selectTextType.selectedIndex = defaultTextIndex;
+    }
+  });
+  console.log(noteField.innerHTML);
+
+  // Deselect the text
+  window.getSelection().removeAllRanges();
+}
+
+// -----------------------------------------------------------------------------
+// ------ Change font attribute section ----------------------------------------
+// -----------------------------------------------------------------------------
+function changeFontAttr(menu, selectionInfo, value) {
+  //variable to surround selected text
+  let spanElement = null;
+  //variable for common parent element for selected text
+  let commonAncestorContainer = selectionInfo.range.commonAncestorContainer;
+
+  //check if there is a common "span" parent that contains the selected text
+  while (commonAncestorContainer) {
+    if (
+      commonAncestorContainer.nodeName === "SPAN" &&
+      commonAncestorContainer.textContent.trim() === selectionInfo.selectedText
+    ) {
+      //if common parent is a span with selected text store in variable
+      spanElement = commonAncestorContainer;
+      break;
+    }
+    //if not, continue to search for common parent span tag higher up in DOM-tree
+    commonAncestorContainer = commonAncestorContainer.parentNode;
+  }
+
+  //variable to store the attribute that should be changed
+  const attribute = menu === "font-family" ? "fontFamily" : "fontSize";
+
+  //if there is no surrounding span element create one
+  if (!spanElement) {
+    spanElement = document.createElement("span");
+    //use attribute variable and value to change style
+    spanElement.style[attribute] = `${value}`;
+    selectionInfo.range.surroundContents(spanElement);
+  } else {
+    //if there is a surrounding span change style based on user choice
+    //get style attributes of span element
+    const style = window.getComputedStyle(spanElement);
+    spanElement.style[attribute] = `${value}`;
+    console.log(
+      "Efter: understruken:",
+      style.textDecoration,
+      "kursiv:",
+      style.fontStyle,
+      "fetstil:",
+      style.fontWeight,
+      "Font:",
+      style.fontFamily
+    );
+  }
+  console.log(noteField.innerHTML);
+
+  // Deselect the text
+  window.getSelection().removeAllRanges();
+}
