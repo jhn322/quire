@@ -2,7 +2,7 @@ function createTumbnail(noteObject) {
   const newListItem = document.createElement("li");
   const newTitle = document.createElement("h3");
   const newContent = document.createElement("p");
-  const newDate = document.createElement('div');
+  const newDate = document.createElement("div");
   const favorite = document.createElement("p");
   const deletebtn = document.createElement("p");
 
@@ -17,12 +17,12 @@ function createTumbnail(noteObject) {
   newListItem.images = noteObject.img;
 
   newTitle.textContent = noteObject.title;
-  newTitle.className = 'noteTitle';
+  newTitle.className = "noteTitle";
   newContent.innerHTML = noteObject.content;
-  newContent.className = 'noteContent';
+  newContent.className = "noteContent";
 
   favorite.innerHTML = '<i class="fas fa-star"></i>';
-  newDate.className = 'thumbnailDate';
+  newDate.className = "thumbnailDate";
   const savedDate = document.createElement("span");
   savedDate.textContent = `skapat ${noteObject.savedDate}`;
   const editDate = document.createElement("span");
@@ -35,7 +35,7 @@ function createTumbnail(noteObject) {
   if (noteObject.isFavorite == false) favorite.className = "star greyStar";
   else favorite.className = "star";
 
-  favorite.onclick = function(){
+  favorite.onclick = function () {
     if (newListItem.isFavorite == false) {
       newListItem.isFavorite = true;
       favorite.classList.remove("greyStar");
@@ -45,30 +45,29 @@ function createTumbnail(noteObject) {
       favorite.classList.add("greyStar");
       searchInNote(noteObject.id, false);
     }
-  }
+  };
 
   deletebtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
-  deletebtn.className = 'deleteNote';
+  deletebtn.className = "deleteNote";
   // Delete notes
   deletebtn.onclick = () => {
-    document.getElementById(newListItem.id).classList.add('noteDeleted');
+    document.getElementById(newListItem.id).classList.add("noteDeleted");
     setTimeout(() => {
       document.getElementById(newListItem.id).remove();
     }, 300);
     let tempArray = noteArray;
     noteArray = tempArray.filter((n) => n.id != noteObject.id);
     localStorage.setItem("allNotes", JSON.stringify(noteArray));
-  }
+  };
 
   // Put images in container
-  const imageWrapper = document.createElement('div');
-  imageWrapper.className = 'imageWrapper';
+  const imageWrapper = document.createElement("div");
+  imageWrapper.className = "imageWrapper";
   noteObject.img.forEach((img) => {
-    const image = document.createElement('img');
+    const image = document.createElement("img");
     image.src = img;
     imageWrapper.appendChild(image);
   });
-
 
   newListItem.appendChild(newTitle);
   newListItem.appendChild(newContent);
