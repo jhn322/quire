@@ -1,8 +1,6 @@
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     user-select: none;
+    font-family: Arial, Helvetica, sans-serif
 }
 p{
     margin-top: 10px;
@@ -18,51 +16,79 @@ a{
     width: 100%;
     text-align: center;
     border-radius: 0;
-    padding: 25px;
-    cursor: pointer;
+    padding: 25px 0;
 }
 .side{
-    width: 5.5%;
     gap: 0;
     box-shadow: none;
 }
 #noteList{
-    width: 20%;
+    width: 25%;
     display: flex;
     flex-direction: column;
     gap: 10px;
     overflow-y: scroll;
+    background: #ddd;
     padding: 10px 10px 10px 15px;
 }
 #noteList::-webkit-scrollbar, #demo::-webkit-scrollbar{
-    background-color: #fff;
+    background-color: #eeeeee00;
     width: 10px;
 }
 #noteList::-webkit-scrollbar-thumb, #demo::-webkit-scrollbar-thumb{
-    background: #777;
+    background: #0075ce;
     border-radius: 20px;
 }
 #resultWrapper{
-    width: 80%;
+    width: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px 150px;
-    background: #ddd;
+    padding: 50px 100px;
+    background: #fff;
 }
 .note{
     position: relative;
-    padding: 20px 20px 30px 20px;
-    background: #eee;
-    border: solid 1px #ccc;
+    padding: 20px 20px 35px 20px;
+    background: #f6f6f6;
     border-radius: 10px;
-    cursor: pointer;
 }
-.note > h3, .note > b, .imageWrapper, .noteDate, span{
+.note:hover > .deleteNote{
+    display: block;
+}
+.deleteNote{
+    right: 23px;
+    top: 50px;
+    font-size: 25px;
+}
+.selectedNote{
+    box-shadow: 0 0 10px #00000077;
+    background: #fff;
+    transition: 0.3s;
+}
+.selectedNote::before{
+    position: absolute;
+    content: '';
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0075ce;
+    width: 20px;
+    height: 50%;
+    clip-path: polygon(0% 50%, 70% 0%, 100% 0%, 100% 100%, 70% 100%, 0% 50%);
+}
+.note > h3, .imageWrapper, .noteDate, span, #demoTitle, #demoText{
     pointer-events: none;
 }
 .note > h3{
     white-space: nowrap;
+}
+.imageWrapper{
+    margin: 15px 0 30px 0;
+}
+.imageWrapper > img{
+    width: 50px;
+    height: 50px;
 }
 .content{
     overflow: hidden;
@@ -84,14 +110,13 @@ a{
 }
 .noteDate{
     position: absolute;
-    bottom: 10px;
-    right: 20px;
-    display: none;
+    bottom: 15px;
     font-size: 12px;
-    color: #555;
+    color: #888;
 }
-.note:hover > .noteDate{
-    display: block;
+.noteDate::first-line{
+    color: rgb(0, 140, 255);
+    font-weight: bold;
 }
 
 #demo{
@@ -99,17 +124,41 @@ a{
     width: 100%;
     border: solid 30px #fff;
     border-right: solid 15px #fff;
-    box-shadow: 0 0 10px #00000033;
+    box-shadow: 0 0 10px #00000044;
     background: #fff;
     border-radius: 15px;
     overflow-y: scroll;
+    cursor: pointer;
     padding-right: 5px;
+}
+#demo::before{
+    position: sticky;
+    content: attr(data-content);
+    top: 90%;
+    padding: 10px 20px 10px 10px;
+    background: #ffffffaa;
+    clip-path: polygon(0% 0%, 100% 0%, 97% 50%, 100% 100%, 0% 100%);
+    color: #000;
+    font-size: 12px;
+}
+
+#demoTitle{
+    background: linear-gradient(to right, #00000000, #00000022, #00000000);
+    text-align: center;
+    padding: 10px;
+    color: #0075ce;
+}
+#demoText{
+    font-size: 16px;
 }
 
 #demoText > img{
     display: block;
     margin: 10px 0;
     min-width: 100%;
+}
+#demoText > img:last-child{
+    margin: 10px 0 0 0;
 }
 
 #navButton{
@@ -166,16 +215,30 @@ a{
         text-align: center;
         box-shadow: unset;
     }
-    .note > b{
+    .note > b, .deleteNote{
         top: 10px;
         right: 10px;
+        pointer-events: none;
+    }
+    .deleteNote{
+        opacity: 0;
     }
     #navButton{
         display: flex;
     }
     .imageWrapper{
         justify-content: center;
-        max-height: 70px;
+        max-height: 40px;
         overflow-y: hidden;
+    }
+    #noteList::-webkit-scrollbar, #demo::-webkit-scrollbar{
+        background-color: unset;
+        width: 10px;
+    }
+    #noteList::-webkit-scrollbar-thumb, #demo::-webkit-scrollbar-thumb{
+        background: unset;
+    }
+    #demo::before, .noteDate{
+        display: none;
     }
 }
