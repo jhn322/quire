@@ -3,15 +3,26 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="./styles/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles/style.css" />
+  <title>Quire</title>
 
   <!-- google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Dosis:wght@400;700&family=Merienda:wght@400;700&family=Raleway:wght@400;700&family=Teko:wght@400;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Dosis:wght@400;700&family=Merienda:wght@400;700&family=Raleway:wght@400;700&family=Teko:wght@400;700&display=swap"
+    rel="stylesheet">
 
-  <title>Quire</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YWPH33ZZLC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-YWPH33ZZLC', { 'debug_mode': true });
+  </script>
 </head>
 
 <body id="modalWindowAttacher">
@@ -21,7 +32,7 @@
         <i class="logo fa-brands fa-quora"></i>
       </div>
       <a href="./search.html"><i class="menu-icon fa-solid fa-magnifying-glass"></i></a>
-      <i class="menu-icon fa-solid fa-star"></i>
+      <a href="favorite.html"><i class="menu-icon fa-solid fa-star"></i></a>
       <i class="menu-icon fa-solid fa-chart-column"></i>
       <i class="menu-icon fa-solid fa-gear"></i>
       <i class="menu-icon fa-solid fa-question"></i>
@@ -48,13 +59,13 @@
           <option value="p" selected>Vanlig text</option>
         </select>
         <select name="font-family" id="font-family">
-          <option class="font-arial" value='Arial'>Arial</option>
-          <option class="font-timesNewRoman" value='Times New Roman' selected>Times New Roman</option>
-          <option class="font-dosis" value='Dosis'>Dosis</option>
-          <option class="font-raleway" value='Raleway'>Raleway</option>
-          <option class="font-teko" value='Teko'>Teko</option>
-          <option class="font-charm" value='Charm'>Charm</option>
-          <option class="font-merienda" value='Merienda'>Merienda</option>
+          <option class="font-arial" value="Arial">Arial</option>
+          <option class="font-timesNewRoman" value="Times New Roman" selected>Times New Roman</option>
+          <option class="font-dosis" value="Dosis">Dosis</option>
+          <option class="font-raleway" value="Raleway">Raleway</option>
+          <option class="font-teko" value="Teko">Teko</option>
+          <option class="font-charm" value="Charm">Charm</option>
+          <option class="font-merienda" value="Merienda">Merienda</option>
         </select>
         <select name="font-size" id="font-size">
           <option value="12px">12</option>
@@ -91,6 +102,7 @@
   <script src="https://kit.fontawesome.com/dfb17be9bd.js" crossorigin="anonymous"></script>
   <script src="js/main.js"></script>
   <script src="js/modalWindow.js"></script>
+  <script src="js/create-notes.js"></script>
   <script src="js/notes.js"></script>
   <script src="js/toolbar.js"></script>
   <script src="js/getImages.js"></script>

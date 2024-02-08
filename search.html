@@ -1,41 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./styles/style.css" />
-    <link rel="stylesheet" href="./styles/search.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/search.css" />
     <title>Sök</title>
-</head>
 
-<body>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-YWPH33ZZLC"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-YWPH33ZZLC", { debug_mode: true });
+    </script>
+  </head>
+
+  <body>
     <main>
-        <nav class="side">
-            <div class="logo-div">
-                <a href="./index.html"><i class="logo fa-brands fa-quora"></i></a>
-            </div>
-            <i class="menu-icon fa-solid fa-magnifying-glass active-icon"></i>
-            <i class="menu-icon fa-solid fa-star"></i>
-            <i class="menu-icon fa-solid fa-chart-column"></i>
-            <i class="menu-icon fa-solid fa-gear"></i>
-            <i class="menu-icon fa-solid fa-question"></i>
-        </nav>
-        <div class="notes-column">
-            <ul id="note-list"></ul>
+      <nav class="side">
+        <div class="logo-div">
+          <a href="./index.html"><i class="logo fa-brands fa-quora"></i></a>
         </div>
+        <a href="favorite.html"><i class="menu-icon fa-solid fa-star"></i></a>
+        <i class="menu-icon fa-solid fa-star"></i>
+        <i class="menu-icon fa-solid fa-chart-column"></i>
+        <i class="menu-icon fa-solid fa-gear"></i>
+        <i class="menu-icon fa-solid fa-question"></i>
+      </nav>
+      <div class="notes-column">
+        <ul class="note-list" id="note-list"></ul>
+      </div>
 
-        <div class="search-container">
-            <i class="search-icon fa-solid fa-magnifying-glass"></i>
-            <input id="search-field" type="text" placeholder="Sök anteckning..."></input>
-        </div>
+      <div class="search-container">
+        <i class="search-icon fa-solid fa-magnifying-glass"></i>
+        <input id="search-field" type="text" placeholder="Sök anteckning..." />
+      </div>
     </main>
 
     <!-- Script for icons -->
-    <script src="https://kit.fontawesome.com/dfb17be9bd.js" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
-    <script src="js/notes.js"></script>
+    <script
+      src="https://kit.fontawesome.com/dfb17be9bd.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/create-notes.js"></script>
     <script src="js/search.js"></script>
-</body>
-
+  </body>
 </html>
