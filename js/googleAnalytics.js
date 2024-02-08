@@ -15,9 +15,10 @@ searchIcon.addEventListener("click", function () {
 //Gtag for new-note-button - Ellen
 const addNoteBtn = document.querySelector('.add-note');
 
+//eventListener with custom gtag event for click on new note 
 addNoteBtn.addEventListener('click', function(){
   gtag('event', 'Add_new_note', {
-    'event_category': 'engagement',
+    'event_category': 'click_engagement',
     'event_label': 'new_note_click'
   });
 });
