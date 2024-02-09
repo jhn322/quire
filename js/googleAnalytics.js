@@ -1,7 +1,5 @@
-// Gtag for search icon - Johan.S
-const searchIcon = document.querySelector(
-  ".search-icon.fa-solid.fa-magnifying-glass"
-);
+// Gtag for search icon - Johan
+const searchIcon = document.querySelector(".fa-magnifying-glass");
 
 searchIcon.addEventListener("click", function () {
   // Custom gtag event when the search icon is clicked
@@ -25,7 +23,7 @@ addNoteBtn.addEventListener("click", function () {
 // ------------------------------------------------------
 
 // gtag för spara-knappen - Anna-Sara
-const saveNoteBtn = document.getElementById("save-note");
+const saveNoteBtn = document.getElementById("save-notes");
 
 // custom gtag event when you save a note
 saveNoteBtn.addEventListener("click", function () {
