@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./styles/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <meta name="description" content="Quire's homepage">
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,16 +25,16 @@
         <a href="./search.html"
           ><i class="menu-icon fa-solid fa-magnifying-glass"></i
         ></a>
-        <i class="menu-icon fa-solid fa-star"></i>
+        <a href="favorite.html"><i class="menu-icon fa-solid fa-star"></i></a>
         <i class="menu-icon fa-solid fa-chart-column"></i>
         <a href="./settings.html"><i class="menu-icon fa-solid fa-gear"></i></a>
         <i class="menu-icon fa-solid fa-question"></i>
       </nav>
-      <div class="notes-column">
+      <aside class="notes-column">
         <ul class="note-list"></ul>
-      </div>
+      </aside>
 
-      <div class="mainText">
+      <section class="mainText">
         <!-- title-section -->
         <div class="title-section">
           <input type="text" name="title" id="title" placeholder="Titel..." />
@@ -90,22 +90,23 @@
           <div id="note-field" contenteditable="true" spellcheck="false"></div>
           <button id="save-notes">Spara</button>
         </div>
-      </div>
-      <div class="add-note">
-        <i class="fa-regular fa-pen-to-square"></i>
-      </div>
-    </main>
+      </section>
 
-    <!-- Script for icons -->
-    <script
-      src="https://kit.fontawesome.com/dfb17be9bd.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/main.js"></script>
-    <script src="js/modalWindow.js"></script>
-    <script src="js/create-notes.js"></script>
-    <script src="js/notes.js"></script>
-    <script src="js/toolbar.js"></script>
-    <script src="js/getImages.js"></script>
-  </body>
+    </div>
+    <div class="add-note">
+      <i class="fa-regular fa-pen-to-square"></i>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://kit.fontawesome.com/dfb17be9bd.js" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+  <script src="js/modalWindow.js"></script>
+  <script src="js/create-notes.js"></script>
+  <script src="js/notes.js"></script>
+  <script src="js/toolbar.js"></script>
+  <script src="js/getImages.js"></script>
+  <script src="js/googleAnalytics.js"></script>
+</body>
+
 </html>
