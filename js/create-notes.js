@@ -13,6 +13,7 @@ function createTumbnail(noteObject) {
   newListItem.noteTitle = noteObject.title;
   newListItem.content = noteObject.content;
   newListItem.savedDate = noteObject.savedDate;
+  newListItem.editedDate = noteObject.editedDate;
   newListItem.idAddress = noteObject.id;
   newListItem.images = noteObject.img;
 

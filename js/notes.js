@@ -130,78 +130,78 @@ function updateNote(noteObject, allNotes) {
   localStorage.setItem("allNotes", JSON.stringify(allNotes));
 }
 
-function createTumbnail(noteObject) {
-  const noteList = document.querySelector(".note-list");
-  const newListItem = document.createElement("li");
-  const newTitle = document.createElement("h3");
-  const newContent = document.createElement("p");
-  const newDate = document.createElement('div');
-  const favorite = document.createElement("p");
-  const deletebtn = document.createElement("p");
+// function createTumbnail(noteObject) {
+//   const noteList = document.querySelector(".note-list");
+//   const newListItem = document.createElement("li");
+//   const newTitle = document.createElement("h3");
+//   const newContent = document.createElement("p");
+//   const newDate = document.createElement('div');
+//   const favorite = document.createElement("p");
+//   const deletebtn = document.createElement("p");
 
-  newListItem.id = noteObject.id + "Wrapper";
-  newListItem.classList.add("note-thumbnail");
-  newListItem.isFavorite = noteObject.isFavorite;
+//   newListItem.id = noteObject.id + "Wrapper";
+//   newListItem.classList.add("note-thumbnail");
+//   newListItem.isFavorite = noteObject.isFavorite;
 
-  newListItem.noteTitle = noteObject.title;
-  newListItem.content = noteObject.content;
-  newListItem.savedDate = noteObject.savedDate;
-  newListItem.editedDate = noteObject.editedDate;
-  newListItem.idAddress = noteObject.id;
-  newListItem.images = noteObject.img;
+//   newListItem.noteTitle = noteObject.title;
+//   newListItem.content = noteObject.content;
+//   newListItem.savedDate = noteObject.savedDate;
+//   newListItem.editedDate = noteObject.editedDate;
+//   newListItem.idAddress = noteObject.id;
+//   newListItem.images = noteObject.img;
 
-  newTitle.textContent = noteObject.title;
-  newTitle.className = 'noteTitle';
-  newContent.innerHTML = noteObject.content;
-  newContent.className = 'noteContent';
+//   newTitle.textContent = noteObject.title;
+//   newTitle.className = 'noteTitle';
+//   newContent.innerHTML = noteObject.content;
+//   newContent.className = 'noteContent';
 
-  favorite.innerHTML = '<i class="fas fa-star"></i>';
-  newDate.className = 'thumbnailDate';
-  const savedDate = document.createElement("span");
-  savedDate.textContent = `skapat ${noteObject.savedDate}`;
-  const editDate = document.createElement("span");
-  editDate.textContent = `senaste ändring ${noteObject.editedDate}`;
-  newDate.appendChild(savedDate);
-  newDate.appendChild(editDate);
+//   favorite.innerHTML = '<i class="fas fa-star"></i>';
+//   newDate.className = 'thumbnailDate';
+//   const savedDate = document.createElement("span");
+//   savedDate.textContent = `skapat ${noteObject.savedDate}`;
+//   const editDate = document.createElement("span");
+//   editDate.textContent = `senaste ändring ${noteObject.editedDate}`;
+//   newDate.appendChild(savedDate);
+//   newDate.appendChild(editDate);
 
-  favorite.id = noteObject.id;
-  favorite.className = "star greyStar";
-  if (noteObject.isFavorite == false) favorite.className = "star greyStar";
-  else favorite.className = "star";
+//   favorite.id = noteObject.id;
+//   favorite.className = "star greyStar";
+//   if (noteObject.isFavorite == false) favorite.className = "star greyStar";
+//   else favorite.className = "star";
 
-  deletebtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
-  deletebtn.className = 'deleteNote';
-  // Delete notes
-  deletebtn.onclick = () => {
-    document.getElementById(newListItem.id).classList.add('noteDeleted');
-    setTimeout(() => {
-      document.getElementById(newListItem.id).remove();
-    }, 300);
-    let tempArray = noteArray;
-    noteArray = tempArray.filter((n) => n.id != noteObject.id);
-    localStorage.setItem("allNotes", JSON.stringify(noteArray));
-  }
+//   deletebtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+//   deletebtn.className = 'deleteNote';
+//   // Delete notes
+//   deletebtn.onclick = () => {
+//     document.getElementById(newListItem.id).classList.add('noteDeleted');
+//     setTimeout(() => {
+//       document.getElementById(newListItem.id).remove();
+//     }, 300);
+//     let tempArray = noteArray;
+//     noteArray = tempArray.filter((n) => n.id != noteObject.id);
+//     localStorage.setItem("allNotes", JSON.stringify(noteArray));
+//   }
 
-  // Put images in container
-  const imageWrapper = document.createElement('div');
-  imageWrapper.className = 'imageWrapper';
-  noteObject.img.forEach((img) => {
-    const image = document.createElement('img');
-    image.src = img;
-    imageWrapper.appendChild(image);
-  });
+//   // Put images in container
+//   const imageWrapper = document.createElement('div');
+//   imageWrapper.className = 'imageWrapper';
+//   noteObject.img.forEach((img) => {
+//     const image = document.createElement('img');
+//     image.src = img;
+//     imageWrapper.appendChild(image);
+//   });
 
 
-  newListItem.appendChild(newTitle);
-  newListItem.appendChild(newContent);
-  newListItem.appendChild(favorite);
-  newListItem.appendChild(deletebtn);
-  newListItem.appendChild(imageWrapper);
-  newListItem.appendChild(newDate);
-  noteList.appendChild(newListItem);
+//   newListItem.appendChild(newTitle);
+//   newListItem.appendChild(newContent);
+//   newListItem.appendChild(favorite);
+//   newListItem.appendChild(deletebtn);
+//   newListItem.appendChild(imageWrapper);
+//   newListItem.appendChild(newDate);
+//   noteList.appendChild(newListItem);
 
-  noteArray = JSON.parse(localStorage.getItem("allNotes"));
-}
+//   noteArray = JSON.parse(localStorage.getItem("allNotes"));
+// }
 
 function renderAllTumbnails() {
   const allNotes = JSON.parse(localStorage.getItem("allNotes")) || "";
