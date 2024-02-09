@@ -77,7 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
       activeNote.editedDate = noteDtae.innerHTML;
       localStorage.setItem("notes", JSON.stringify(activeNote));
       saveBtn.classList.add("hide-btn");
-
+      setTimeout(() => {
+        document.getElementsByClassName('note-thumbnail')[document.getElementsByClassName('note-thumbnail').length-1].click()
+      }, 100);
       saveAllNotes(activeNote);
     } else {
       saveChanges();
