@@ -4,9 +4,9 @@ const noteField = document.getElementById("note-field");
 //variable for all toolbar buttons
 const toolButtons = document.querySelectorAll(".tool-icon");
 
-const boldBtn = document.getElementById('bold');
-const italicBtn = document.getElementById('italic');
-const underlineBtn = document.getElementById('underline');
+const boldBtn = document.getElementById("bold");
+const italicBtn = document.getElementById("italic");
+const underlineBtn = document.getElementById("underline");
 
 //varialbe for all select menus
 const selectMenus = document.querySelectorAll("select");
@@ -416,7 +416,7 @@ function changeFontAttr(menu, selectionInfo, value) {
     //if not, continue to search for common parent span tag higher up in DOM-tree
     commonAncestorContainer = commonAncestorContainer.parentNode;
   }
- 
+
   //variable to store the attribute that should be changed
   const attribute = menu === "font-family" ? "fontFamily" : "fontSize";
 
