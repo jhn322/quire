@@ -1,13 +1,3 @@
-// //TODO - O.b.s! Koden nedan behövs när en ny anteckningen skapas!
-//SÄTT IN NÄR NY ANTECKNING SKAPAS!
-// const selectTextType = document.getElementById("text-type");
-// selectTextType.selectedIndex = 6;
-// const selectFontFamily = document.getElementById("font-family");
-// selectFontFamily.selectedIndex = 1;
-// const selectFontSize = document.getElementById("font-size");
-// selectFontSize.selectedIndex = 2;
-// boldBtn.classList.remove("tool-btn-highlight");
-
 //variable for note field
 const noteField = document.getElementById("note-field");
 
@@ -26,15 +16,6 @@ toolButtons.forEach(function (toolButton) {
   toolButton.addEventListener("click", (event) => {
     const { target } = event;
     const toolId = target.id;
-
-    // //check if clicked button is not add image button
-    // if (!target.classList.contains("fa-image")) {
-    //   //function to get user selected text
-    //   const selectInfo = checkSelectedText();
-
-    //   //toggles the class on the clicked button
-    //   target.classList.toggle("tool-btn-highlight");
-    // }
 
     //--------function to handle clearing the note field--------
     function handleNoteFieldClear() {
@@ -126,6 +107,7 @@ function checkSelectedText() {
     return {
       selectedText: selection.toString(),
       range: range,
+      selection
     };
   }
 }
@@ -150,7 +132,8 @@ function toggleStyle(tool, selectionInfo) {
 
   //check if there is a common "span" parent that contains the selected text
   while (commonAncestorContainer) {
-      if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()) {
+      if (commonAncestorContainer.nodeName === 'SPAN' && 
+          commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()) {
           //if common parent is a span with selected text store in variable
           spanElement = commonAncestorContainer;
           break;
@@ -162,6 +145,16 @@ function toggleStyle(tool, selectionInfo) {
   //if there is no surrounding span element create one
   if (!spanElement) {
     spanElement = document.createElement("span");
+
+    const selection = selectionInfo.selection;
+
+    // Loop through all nodes in selection and copy them to spanElement
+    for (let i = 0; i < selection.rangeCount; i++) {
+      const range = selection.getRangeAt(i);
+      const clonedContents = range.cloneContents();
+      spanElement.appendChild(clonedContents);
+      console.log("spanElement:", spanElement);
+    }
 
     //add style attribute based on user choice
     switch (tool) {
@@ -178,8 +171,11 @@ function toggleStyle(tool, selectionInfo) {
         underlineBtn.classList.add("tool-btn-highlight");
         break;
     }
-    //surround selected text with new span
-    selectionInfo.range.surroundContents(spanElement);
+    
+    //replace range for selectedText with spanElement
+    const range = selection.getRangeAt(0);
+    range.deleteContents();
+    range.insertNode(spanElement);
   } else {
     //if there is a surrounding span change style based on user choice
     //get style attributes of span element
@@ -350,7 +346,8 @@ function changeTextType(selectionInfo, value) {
 
   //check if common parent is a text tag that contains selected text
   while (commonAncestorContainer) {
-      if (textTags.includes(commonAncestorContainer.nodeName) && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()){
+      if (textTags.includes(commonAncestorContainer.nodeName) && 
+          commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()){
           //if common parent is a text tag with selected text store in variable
           textTagElement = commonAncestorContainer;
           break;
@@ -362,7 +359,22 @@ function changeTextType(selectionInfo, value) {
   //if there was no texttag containing selected text then create one and surrond selected text
   if (!textTagElement) {
     textTagElement = document.createElement(`${value}`);
-    selectionInfo.range.surroundContents(textTagElement);
+
+    const selection = selectionInfo.selection;
+
+    // Loop through all nodes in selection and copy them to textTagElement
+    for (let i = 0; i < selection.rangeCount; i++) {
+      const range = selection.getRangeAt(i);
+      const clonedContents = range.cloneContents();
+      textTagElement.appendChild(clonedContents);
+      console.log("textTagElement:", textTagElement);
+    }
+    
+    //replace range for selectedText with textTagElement
+    const range = selection.getRangeAt(0);
+    range.deleteContents();
+    range.insertNode(textTagElement);
+
   } else {
     //if a texttag was found replace it with new texttag of right kind
     const newTagElement = document.createElement(`${value}`);
@@ -385,7 +397,7 @@ function changeTextType(selectionInfo, value) {
 }
 
 // -----------------------------------------------------------------------------
-// ------ Change font attribute section ----------------------------------------
+// ------ Change fontFamily and fontSize section -------------------------------
 // -----------------------------------------------------------------------------
 function changeFontAttr(menu, selectionInfo, value) {
   //variable to surround selected text
@@ -395,7 +407,8 @@ function changeFontAttr(menu, selectionInfo, value) {
 
   //check if there is a common "span" parent that contains the selected text
   while (commonAncestorContainer) {
-    if (commonAncestorContainer.nodeName === 'SPAN' && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()) {
+    if (commonAncestorContainer.nodeName === 'SPAN' 
+        && commonAncestorContainer.textContent.trim() === selectionInfo.selectedText.trim()) {
         //if common parent is a span with selected text store in variable
         spanElement = commonAncestorContainer;
         break;
@@ -410,9 +423,24 @@ function changeFontAttr(menu, selectionInfo, value) {
   //if there is no surrounding span element create one
   if (!spanElement) {
     spanElement = document.createElement("span");
+
+    const selection = selectionInfo.selection;
+
+    // Loop through all nodes in selection and copy them to spanElement
+    for (let i = 0; i < selection.rangeCount; i++) {
+      const range = selection.getRangeAt(i);
+      const clonedContents = range.cloneContents();
+      spanElement.appendChild(clonedContents);
+      console.log("spanElement:", spanElement);
+    }
     //use attribute variable and value to change style
     spanElement.style[attribute] = `${value}`;
-    selectionInfo.range.surroundContents(spanElement);
+
+    //replace range for selectedText with spanElement
+    const range = selection.getRangeAt(0);
+    range.deleteContents();
+    range.insertNode(spanElement);
+
   } else {
     //if there is a surrounding span change style based on user choice
     //get style attributes of span element
