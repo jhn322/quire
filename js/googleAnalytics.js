@@ -1,5 +1,7 @@
 // Gtag for search icon - Johan.S
-const searchIcon = document.querySelector(".search-icon.fa-solid.fa-magnifying-glass");
+const searchIcon = document.querySelector(
+  ".search-icon.fa-solid.fa-magnifying-glass"
+);
 
 searchIcon.addEventListener("click", function () {
   // Custom gtag event when the search icon is clicked
@@ -21,3 +23,14 @@ addNoteBtn.addEventListener("click", function () {
   });
 });
 // ------------------------------------------------------
+
+// gtag för spara-knappen - Anna-Sara
+const saveNoteBtn = document.getElementById("save-note");
+
+// custom gtag event when you save a note
+saveNoteBtn.addEventListener("click", function () {
+  gtag("event", "click", {
+    event_category: "click_engagement",
+    event_label: "save_note",
+  });
+});
