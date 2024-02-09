@@ -1,0 +1,214 @@
+.toolbar {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7em;
+    padding: 0.8em 1.5em;
+    border-radius: 40px;
+    background-color: rgba(94, 167, 223, 0.3);
+    font-size: 1.2rem;
+  }
+  .showToolbar {
+    display: flex;
+  }
+  
+  .toolbar select {
+    font-size: 1rem;
+    padding: 0.2em;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .tool-icon {
+    width: 2em;
+    height: 2em;
+    padding: 0.2em 0.35em;
+  }
+  
+  .tool-icon_active {
+    background-color: white;
+  }
+  
+  /* --- text-types --- */
+  .h1-option,
+  #note-field h1 {
+    font-size: 3rem;
+  }
+  
+  .h2-option,
+  #note-field h2 {
+    font-size: 2.5rem;
+  }
+  
+  .h3-option,
+  #note-field h3 {
+    font-size: 2.2rem;
+  }
+  
+  .h4-option,
+  #note-field h4 {
+    font-size: 1.8rem;
+    font-style: italic;
+  }
+  
+  .h5-option,
+  #note-field h5 {
+    font-size: 1.6rem;
+    font-style: italic;
+  }
+  
+  .h6-option,
+  #note-field h6 {
+    font-size: 1.4rem;
+    font-style: italic;
+  }
+  
+  /* --- font-types --- */
+  .font-arial {
+    font-family: Arial, sans-serif;
+  }
+  
+  .font-timesNewRoman {
+    font-family: "Times New Roman", serif;
+  }
+  
+  .font-roboto {
+    font-family: "Dosis", sans-serif;
+  }
+  
+  .font-nunito {
+    font-family: "Nunito", sans-serif;
+  }
+  
+  .font-raleway {
+    font-family: "Raleway", sans-serif;
+  }
+  
+  .font-teko {
+    font-family: "Teko", sans-serif;
+  }
+  
+  .font-charm {
+    font-family: "Charm", cursive;
+  }
+  
+  .font-merienda {
+    font-family: "Merienda", cursive;
+  }
+
+  /* Image link modal container */
+.img-modal {
+  font-family: Arial, Helvetica, sans-serif;
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Image link modal styling */
+.img-modal-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  margin: 9.2% auto;
+  padding: 1rem;
+  width: 25%;
+  height: 200px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.img-modal-label {
+  font-size: 1.4rem;
+}
+
+/* Input styling */
+.img-modal-window input {
+  width: 90%;
+  height: 25%;
+  border: 2px solid #ccc;
+  margin-bottom: 0.5rem;
+}
+
+/* Exit button */
+.img-modal-close-btn {
+  font-size: 35px;
+  width: 1.5rem;
+  padding: 0.5rem;
+  color: #005392;
+  border: none;
+  position: absolute;
+  top: -12px;
+  right: 10px;
+}
+
+.img-modal-close-btn:hover,
+.img-modal-close-btn:focus {
+  text-decoration: none;
+  color: red;
+  cursor: pointer;
+}
+
+/* Add link button */
+.img-modal-add-btn {
+  background-color: #005392;
+  color: white;
+  padding: 15px 15px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 0.3rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.img-modal-add-btn:hover {
+  background-color: #819eb5;
+  color: #005392;
+}
+
+.error-message {
+  color: red;
+  position: absolute;
+  bottom: 10px;
+}
+
+/* Error message shake */
+.img-modal-shake {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate(-1px, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate(2px, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate(-4px, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate(4px, 0);
+  }
+}
+
+.tool-btn-highlight {
+  background-color: #005392;
+  border: none;
+  color: #fff;
+}
