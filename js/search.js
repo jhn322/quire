@@ -28,6 +28,7 @@ function filterNotes(searchTerm) {
 //Eventlistenter on notes in sidebar on click to index
 document.getElementById("note-list").addEventListener("click", (e) => {
   let test = parseInt(e.target.id);
+  if(e.target.className == "note-thumbnail")
   redirectToIndex(test);
 });
 
