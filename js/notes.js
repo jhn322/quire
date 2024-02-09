@@ -57,6 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
     noteField.textContent = "";
     activeNote = new Note(title.value, noteField.value);
     console.log(activeNote);
+    const selectTextType = document.getElementById("text-type");
+    
+    //function to set all tools in toolbar to default values
+    resetToolbar();
   });
 
   // save to local storage when pressing button
@@ -80,6 +84,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+// ---- function to reset toolbar when starting new note ----
+function resetToolbar(){
+  const selectTextType = document.getElementById("text-type");
+  selectTextType.selectedIndex = 6;
+  const selectFontFamily = document.getElementById("font-family");
+  selectFontFamily.selectedIndex = 1;
+  const selectFontSize = document.getElementById("font-size");
+  selectFontSize.selectedIndex = 2;
+
+  const toolButtons = document.querySelectorAll(".tool-icon");
+  toolButtons.forEach(function (toolButton) {
+    toolButton.classList.remove("tool-btn-highlight")
+  });
+};
 
 function saveAllNotes(noteObject) {
   //get localstorage
