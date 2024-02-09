@@ -124,6 +124,7 @@ function updateNote(noteObject, allNotes) {
     if (note.id === noteObject.id) {
       note.content = noteObject.content;
       note.title = noteObject.title;
+      note.editedDate = getDate();
     }
   });
   localStorage.setItem("allNotes", JSON.stringify(allNotes));
