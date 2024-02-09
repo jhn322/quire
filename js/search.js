@@ -3,7 +3,7 @@ document.getElementById("search-field").addEventListener("input", function () {
   const searchTerm = this.value.toLowerCase();
   filterNotes(searchTerm);
 });
-filterNotes('');
+filterNotes("");
 
 // function for filtering notes
 function filterNotes(searchTerm) {
@@ -21,6 +21,23 @@ function filterNotes(searchTerm) {
     if (title.includes(searchTerm) || content.includes(searchTerm)) {
       // display matching notes
       createTumbnail(note);
+    }
+  });
+}
+
+//Eventlistenter on notes in sidebar on click to index
+document.getElementById("note-list").addEventListener("click", (e) => {
+  let test = parseInt(e.target.id);
+  redirectToIndex(test);
+});
+
+//function that redirects to the correct note on index page
+function redirectToIndex(id) {
+  const allStoredNotes = JSON.parse(localStorage.getItem("allNotes"));
+  allStoredNotes.forEach((note) => {
+    if (note.id == id) {
+      localStorage.setItem("notes", JSON.stringify(note));
+      window.location.href = "/index.html";
     }
   });
 }
