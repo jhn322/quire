@@ -33,12 +33,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // update notes
   const noteField = document.getElementById("note-field");
   const title = document.getElementById("title");
-  const noteDtae = document.querySelector('#noteDate');
+  const noteDate = document.querySelector('#noteDate');
 
 
   noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
-  noteDtae.innerHTML = getDate();
+  noteDate.innerHTML = getDate();
 
   // button to save
   const saveBtn = document.getElementById("save-notes");
@@ -73,8 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
       activeNote.img = imageArray;
       activeNote.title = title.value;
       activeNote.content = noteField.innerHTML;
-      activeNote.savedDate = noteDtae.innerHTML;
-      activeNote.editedDate = noteDtae.innerHTML;
+      activeNote.savedDate = noteDate.innerHTML;
+      activeNote.editedDate = noteDate.innerHTML;
       localStorage.setItem("notes", JSON.stringify(activeNote));
       saveBtn.classList.add("hide-btn");
 
