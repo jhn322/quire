@@ -372,6 +372,7 @@ a:visited {
 .printPage > i {
   pointer-events: none;
   border-style: none;
+  padding-top: .4em;
 }
 
 .printPage:hover{
