@@ -354,6 +354,36 @@ a:visited {
   font-size: 1.5rem;
 }
 
+/* icon for printing active note */
+.printPage {
+  background-color: #005392;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 1em;
+  right: 5.1em;
+  cursor: pointer;
+}
+
+.printPage > i {
+  pointer-events: none;
+  border-style: none;
+}
+
+.printPage:hover{
+  transform: scale(1.2);
+  box-shadow: 3px 3px 5px #ccc;
+}
+
+#printPage{
+  color: white;
+  font-size: 1.5rem;
+}
+
 /* info modal section */
 .modalWindow {
   width: 50%;
