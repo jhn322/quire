@@ -5,6 +5,7 @@
     <meta name="description" content="Quire's settings">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="styles/settings.css">
     <title>Settings</title>
   </head>
   <body id="modalWindowAttacher">
@@ -24,13 +25,106 @@
       <div class="notes-column">
         <ul class="note-list"></ul>
       </div>
-      <section></section>
+
+      <button id="resetSettings" onclick="localStorage.removeItem('settings'); location.reload()">Reset all settings</button>
+      <section>
+        <div id="containerMainWrapper">
+          <div class="container">
+            <div class="slide" id="colorSettingsSlide"><h3>Color Settings</h3><i class="fas fa-chevron-down" id="colorSettingsArrow"></i></div>
+            <div class="toolsWrapper" id="colorSettings">
+              <div class="optionWrapper">
+                <select id="colorList">
+                  <option value="navColor">Nav Color</option>
+                  <option value="asideColor">Side-bar Color</option>
+                  <option value="noteColor">Note Color</option>
+                </select>
+                <div class="backColorWrapper" id="navColorWrapper">
+                  <div>
+                    <input type="radio" class="navBackColors" id="navBackColors7d0f0f">
+                    <label for="navBackColors7d0f0f">Red</label>
+                  </div>
+                  <div>
+                    <input type="radio" class="navBackColors" id="navBackColors265922">
+                    <label for="navBackColors265922">Green</label>
+                  </div>
+                  <div>
+                    <input type="radio" class="navBackColors" id="navBackColors005392">
+                    <label for="navBackColors005392">Blue</label>
+                  </div>
+                  <div>
+                    <input type="radio" class="navBackColors" id="navBackColors704836">
+                    <label for="navBackColors704836">Brown</label>
+                  </div>
+                  <div>
+                    <input type="radio" class="navBackColors" id="navBackColors555">
+                    <label for="navBackColors555">Dark-grey</label>
+                  </div>
+                  <div>
+                    <input type="radio" class="navBackColors" id="navBackColors888">
+                    <label for="navBackColors888">Bright-grey</label>
+                  </div>
+                  <div>
+                    <input type="radio" class="navBackColors" id="navBackColorse5a">
+                    <label for="navBackColorse5a">Pink</label>
+                  </div>
+                  <div>
+                    <input type="radio" class="navBackColors" id="navBackColors91d">
+                    <label for="navBackColors91d">Purple</label>
+                  </div>
+                </div>
+                <div class="backColorWrapper" id="asideColorWrapper">
+                  <input type="range" id="asideColorRange" min="0" max="100" value="92">
+                </div>
+                <div class="backColorWrapper" id="noteColorWrapper">
+                  <p id="noteColorText">rgb(246, 246, 246)</p>
+                  <p>Red</p> <input type="range" id="noteColorR" min="0" max="255" value="246">
+                  <p>Green</p> <input type="range" id="noteColorG" min="0" max="255" value="246">
+                  <p>Blue</p> <input type="range" id="noteColorB" min="0" max="255" value="246">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="slide" id="sizeSettingsSlide"><h3>Size Settings</h3><i class="fas fa-chevron-down" id="sizeSettingsArrow"></i></div>
+            <div class="toolsWrapper columnFlex" id="sizeSettings">
+              <div class="rangeWrapper">
+                <p>Title size</p>
+                <input type="range" id="titleSizeRange" class="sizeRange" min="10" max="40" value="18">
+              </div>
+              <div class="rangeWrapper">
+                <p>Content size</p>
+                <input type="range" id="contentSizeRange" class="sizeRange" min="10" max="30" value="16">
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="slide" id="borderSettingsSlide"><h3>Note Border Settings</h3><i class="fas fa-chevron-down" id="borderSettingsArrow"></i></div>
+            <div class="toolsWrapper" id="borderSettings">
+              <div id="borderSettingsSmall">
+                <select id="borderList">
+                  <option value="solid">Solid line</option>
+                  <option value="dashed">Dashed line</option>
+                  <option value="dotted">Dotted line</option>
+                </select>
+                <div>
+                  <p>Brightness</p>
+                  <input type="range" id="borderRange" value="0" min="0" max="100">
+                </div>
+                <div id="slideButton">
+                  <div id="slideButtonSeek"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
     <script
       src="https://kit.fontawesome.com/dfb17be9bd.js"
       crossorigin="anonymous"
     ></script>
     <script src="js/modalWindow.js"></script>
+    <script src="js/commonFunctions.js"></script>
     <script src="js/create-notes.js"></script>
     <script src="js/settings.js"></script>
   </body>
