@@ -242,3 +242,13 @@ a{
         display: none;
     }
 }
+
+/* print media */
+@media print {
+  
+
+    #noteList *{
+      display: none;
+    }
+
+}
