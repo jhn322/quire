@@ -67,6 +67,10 @@ p{
     transition: transform 0.3s ease-in-out;
 }
 
+.printPage{
+    right: 1em;
+}
+
 @media (max-width: 1024px){
     .side {
         position: absolute;
@@ -128,4 +132,16 @@ p{
     #demo::before, .noteDate{
         display: none;
     }
+}
+
+
+
+/* print media */
+@media print {
+  
+
+    #noteList *{
+      display: none;
+    }
+
 }
