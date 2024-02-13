@@ -1,0 +1,162 @@
+*{
+    font-family: sans-serif;
+    outline: none;
+}
+:root{
+    --lightBlue: #007dfb;
+    --darkBlue: #0066b4;
+    --menuColor: #e5e5e5;
+    --contentColor: #f9f9f9;
+    --darkGrey: #555;
+    --mediumGrey: #888;
+    --lightGrey: #bbb;
+    --lightOn: #0f0;
+    --lightOff: #d00;
+}
+main{
+    position: relative;
+}
+section{
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    overflow-y: scroll;
+    padding: 100px 0;
+}
+#resetSettings{
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    padding: 15px 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #ffffff00;
+}
+#resetSettings:hover{
+    color: #f00;
+}
+#containerMainWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 70%;
+    margin: auto;
+}
+select, option{
+    font-size: 16px;
+    color: #000;
+}
+select{
+    border: none;
+    background-color: var(--contentColor);
+    color: var(--lightBlue);
+    cursor: pointer;
+}
+label{
+    margin-right: 20px;
+    padding-left: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.hidden{
+    display: none;
+}
+.container{
+    width: 100%;
+    border-radius: 30px;
+    border: var(--darkGrey) solid 1px;
+    background: #fff;
+    overflow: hidden;
+}
+.slide{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: var(--darkBlue);
+    color: white;
+}
+.slide > h3, .slide > i{
+    pointer-events: none;
+}
+.toolsWrapper{
+    padding: 20px;
+    background-color: var(--contentColor);
+}
+.backColorWrapper{
+    margin-top: 20px;
+    display: none;
+    padding: 0 20px;
+}
+.backColorWrapper > div{
+    display: flex;
+    align-items: center;
+}
+#navColorWrapper{
+    display: flex;
+}
+
+.rangeWrapper{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    padding: 20px 0;
+}
+.rangeWrapper > p{
+    color: var(--lightBlue)
+}
+.columnFlex{
+    flex-direction: column;
+}
+input[type="range"]{
+    min-width: 80%;
+    cursor: pointer;
+}
+
+#noteColorWrapper{
+    flex-direction: column;
+    gap: 5px;
+    color: var(--mediumGrey);
+    margin-bottom: 50px;
+}
+#noteColorText{
+    margin-bottom: 20px;
+    color: var(--lightBlue);
+}
+#borderSettingsSmall{
+    display: flex;
+    justify-content: space-around;
+}
+#borderSettingsSmall > div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#borderSettingsSmall > div > input{
+    min-width: 50%;
+}
+#slideButton{
+    position: relative;
+    width: 50px;
+    height: 30px;
+    border-radius: 30px;
+    background: var(--lightGrey);
+    cursor: pointer;
+}
+#slideButton > div{
+    position: absolute;
+    left: 0;
+    transform: translateX(-20%);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--lightOff);
+    transition: 0.1s;
+}
+#slideButton > div.buttonOn{
+    background-color: var(--lightOn);
+    left: 100%;
+    transform: translateX(-80%);
+    border: solid 1px #0000003f;
+}
