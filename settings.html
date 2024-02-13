@@ -5,6 +5,7 @@
     <meta name="description" content="Quire's settings">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/modal.css">
     <title>Settings</title>
 
     <!-- Google tag (gtag.js) -->
@@ -16,23 +17,25 @@
     }
     gtag("js", new Date());
 
-    gtag("config", "G-YWPH33ZZLC", { debug_mode: true });
+    gtag("config", "G-YWPH33ZZLC", { 'debug_mode': true });
   </script>
   </head>
   <body id="modalWindowAttacher">
     <main>
-      <nav class="side">
-        <div class="logo-div">
-          <a href="./index.html"><i class="logo fa-brands fa-quora"></i></a>
-        </div>
-        <a href="./search.html"
-          ><i class="menu-icon fa-solid fa-magnifying-glass"></i
-        ></a>
-        <a href="./favorite.html"><i class="menu-icon fa-solid fa-star"></i></a>
-        <i class="menu-icon fa-solid fa-chart-column"></i>
-        <a href="#"><i class="menu-icon fa-solid fa-gear active-icon"></i></a>
-        <i class="menu-icon fa-solid fa-question"></i>
-      </nav>
+      <aside class="side">
+        <nav class="nav">
+          <div class="logo-div">
+            <a href="./index.html"><i class="logo fa-brands fa-quora"></i></a>
+          </div>
+          <a href="./search.html"
+            ><i class="menu-icon fa-solid fa-magnifying-glass"></i
+          ></a>
+          <a href="./favorite.html"><i class="menu-icon fa-solid fa-star"></i></a>
+          <i class="menu-icon fa-solid fa-chart-column"></i>
+          <a href="#"><i class="menu-icon fa-solid fa-gear active-icon"></i></a>
+          <i class="menu-icon fa-solid fa-question"></i>
+        </nav>
+      </aside>
       <div class="notes-column">
         <ul class="note-list"></ul>
       </div>

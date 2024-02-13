@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Quire's favorite webpage">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="./styles/toolbar.css">
-    <link rel="stylesheet" href="styles/favorite.css">
-    <title>Favorite notes</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quire's favorite webpage">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/toolbar.css">
+  <link rel="stylesheet" href="./styles/favorite.css">
+  <link rel="stylesheet" href="./styles/modal.css">
+  <link rel="stylesheet" href="./styles/mainNoteView.css">
+  <title>Favorite notes</title>
 
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-YWPH33ZZLC"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-YWPH33ZZLC"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-      gtag("config", "G-YWPH33ZZLC", { debug_mode: true });
-    </script>
-  </head>
+    gtag("config", "G-YWPH33ZZLC", { 'debug_mode': true });
+  </script>
+</head>
 
-  <body id="modalWindowAttacher">
-    <main>
-      <nav class="side">
+<body id="modalWindowAttacher">
+  <main>
+    <aside class="side">
+      <nav class="nav">
         <div class="logo-div">
           <a href="index.html"><i class="logo fa-brands fa-quora"></i></a>
         </div>
@@ -39,23 +42,23 @@
         <a href="./settings.html"><i class="menu-icon fa-solid fa-gear"></i></a>
         <i class="menu-icon fa-solid fa-question"></i>
       </nav>
+    </aside>
 
+    <aside class="notes-column" id="notesColumn">
+        <h6 style="display: none">Notes</h6>
+    </aside>
 
-        <aside class="notes-column" id="noteList">
-            <h6 style="display: none">Notes</h6>
-        </aside>
-
-
-      <section id="resultWrapper">
-        <div id="demo">
-          <h1 id="demoTitle">Title</h1>
-          <p id="demoText">Content</p>
-        </div>
-      </section>
-      <div class="printPage">
-        <i id="printPage" class="fa-solid fa-print tool-icon"></i>
+    <section id="resultWrapper">
+      <div id="demo">
+        <h1 id="demoTitle">Title</h1>
+        <p id="demoText">Content</p>
       </div>
-    </main>
+    </section>
+    <div class="printPage">
+      <i id="printPage" class="fa-solid fa-print tool-icon"></i>
+    </div>
+  </main>
+
     <div id="navButton">
       <div></div>
       <div></div>

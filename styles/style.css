@@ -12,13 +12,8 @@ main {
   position: relative;
 }
 
-/* side with nav icons */
+/* ---- SIDE NAV ---- */
 .side {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2em;
-  height: 100%;
   width: 5%;
   min-width: 70px;
   background-color: #005392;
@@ -26,10 +21,17 @@ main {
   z-index: 2;
 }
 
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2em;
+}
+
 .logo-div {
   width: 100%;
   color: white;
-  background-color: #1c354c;
+  background-color: #00000050;
   text-align: center;
   padding: 0.8em;
 }
@@ -49,29 +51,22 @@ a{
 }
 
 .menu-icon {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: white;
-  background-color: #005392;
   padding: 0.5em;
   border-radius: 10px;
   cursor: pointer;
 }
 
 .menu-icon:hover {
-  background-color: #5ea7df;
+  background-color: #ffffff50;
 }
 
 .active-icon {
-  background-color: #5ea7df;
+  background-color: #ffffff50;
 }
 
-/* Styling for images*/
-.note-img {
-  max-width: 300px;
-  max-height: auto;
-}
-
-/* column for note overview */
+/* ---- SIDE note overview ----*/
 .notes-column {
   width: 20%;
   min-width: 150px;
@@ -86,92 +81,13 @@ a{
 
 .note-list {
   padding-left: 0;
-  margin-top: 0.5em;
   border: 5px 5px solid;
   display: flex;
   flex-direction: column;
-}
-.noteTitle,
-.noteContent,
-.note-thumbnail > div {
-  pointer-events: none;
-}
-.note-thumbnail > p > img {
-  display: none;
-}
-.note-thumbnail > p {
-  max-height: 50px;
-  overflow-y: scroll;
-  margin-top: 10px;
-}
-.note-thumbnail > p::-webkit-scrollbar {
-  display: none;
-}
-.imageWrapper {
-  display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
-  margin: 10px 0;
-  margin: 15px 0 30px 0;
-}
-.imageWrapper > img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
+  gap: 10px;
 }
 
-.greyStar {
-  filter: saturate(0%);
-}
-
-.star,
-.deleteNote {
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  cursor: pointer;
-  user-select: none;
-  font-size: 20px;
-  color: #fa0;
-}
-.star > i,
-.deleteNote > i {
-  pointer-events: none;
-}
-.deleteNote {
-  top: 35px;
-  right: 10px;
-  font-size: 20px;
-  font-weight: normal;
-  color: #d01;
-  display: none;
-}
-.noteDeleted {
-  transform: translateX(-100%);
-  transition: 0.3s;
-}
-.note-thumbnail:hover > .deleteNote {
-  display: block;
-}
-
-#noteList::-webkit-scrollbar, #demo::-webkit-scrollbar{
-  background-color: #eeeeee00;
-  width: 10px;
-}
-#noteList::-webkit-scrollbar-thumb, #demo::-webkit-scrollbar-thumb{
-  background: #0075ce;
-  border-radius: 20px;
-}
-
-#resultWrapper{
-  width: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 50px 100px;
-  background: #fff;
-}
-
+/* ---- Mini notes ---- */
 .note{
   position: relative;
   padding: 20px 20px 35px 20px;
@@ -179,15 +95,110 @@ a{
   border-radius: 10px;
 }
 
-.note:hover > .deleteNote{
+.noteTitle,
+.noteContent,
+.note > div {
+  pointer-events: none;
+}
+
+.note > p > img {
+  display: none;
+}
+
+.note > p {
+  max-height: 50px;
+  overflow-y: scroll;
+  margin-top: 10px;
+}
+
+.note > p::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- mini images in mini notes --- */
+.imageWrapper {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  margin: 15px 0 30px 0;
+}
+
+.imageWrapper > img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+/* ---- star and delete icons ---- */
+.greyStar {
+  filter: saturate(0%);
+}
+
+.star,
+.deleteNote {
+  position: absolute;
+  top: 8px;
+  right: 20px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 20px;
+  color: #fa0;
+}
+
+.note > b{
+  top: 15px;
+  right: 20px;
+  color: #fa0;
+}
+
+.star > i,
+.deleteNote > i {
+  pointer-events: none;
+}
+
+.noteDeleted {
+  transform: translateX(-100%);
+  transition: 0.3s;
+}
+
+.note:hover > .deleteNote {
   display: block;
 }
 
-.deleteNote{
-  right: 23px;
-  top: 50px;
-  font-size: 25px;
+.deleteNote {
+  position: absolute;
+  top: 45px;
+  right: 24px;
+  color: #920000;
+  display: none;
 }
+
+#notesColumn::-webkit-scrollbar, #demo::-webkit-scrollbar{
+  background-color: #eeeeee00;
+  width: 10px;
+}
+
+#notesColumn::-webkit-scrollbar-thumb, #demo::-webkit-scrollbar-thumb{
+  background: #0075ce;
+  border-radius: 20px;
+}
+
+/* mini note date */
+/* fixa så det blir samma i js filerna*/
+.noteDate{
+  position: absolute;
+  bottom: 15px;
+  font-size: 12px;
+  color: #888;
+}
+
+.noteDate::first-line{
+  color: rgb(0, 140, 255);
+  font-weight: bold;
+}
+
+/* lägg till den här klassen även i andra js filer så man ser vilken note man är på */
 .selectedNote{
   box-shadow: 0 0 10px #00000077;
   background: #fff;
@@ -205,9 +216,11 @@ a{
   height: 50%;
   clip-path: polygon(0% 50%, 70% 0%, 100% 0%, 100% 100%, 70% 100%, 0% 50%);
 }
+
 .note > h3, .imageWrapper, .noteDate, span, #demoTitle, #demoText{
   pointer-events: none;
 }
+
 .note > h3{
   white-space: nowrap;
 }
@@ -217,314 +230,12 @@ a{
   max-height: 50px;
   overflow-y: scroll;
 }
+
 .content::-webkit-scrollbar{
   display: none;
 }
-/* jämför med js filerna */
-.note > b{
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  color: #fa0;
-  font-size: 25px;
-}
+
 .content > img{
   display: none;
-}
-
-.noteDate{
-  position: absolute;
-  bottom: 15px;
-  font-size: 12px;
-  color: #888;
-}
-.noteDate::first-line{
-  color: rgb(0, 140, 255);
-  font-weight: bold;
-}
-
-/* Class to add in js when creating listelement */
-/* jämför med js filer, kan nog sen tas bort?? */
-.note-thumbnail {
-  position: relative;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-  padding: 0.5em 1.7em;
-  list-style: none;
-}
-
-.note-thumbnail .thumbnailDate {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  font-size: 12px;
-  color: #a1a0a0;
-}
-
-.thumbnailDate {
-  opacity: 0;
-}
-.note-thumbnail:hover > .thumbnailDate {
-  opacity: 1;
-}
-
-/* Class to display which listelement is viewed */
-/* tas bort??? */
-.active-note {
-  background-color: #f9f8f8;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-}
-
-.mainText {
-  width: 78%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1em;
-  padding: 2em 2em 0 2em;
-}
-
-/* --- title-section --- */
-.title-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5em;
-  margin-top: 0.5em;
-}
-
-#title {
-  font-size: 1.6rem;
-  width: 40vw;
-  padding: 0.2em 1em;
-  outline: none;
-  border: none;
-  border-radius: 4px;
-}
-#noteDate {
-  color: #aaa;
-  margin-top: 10px;
-}
-
-/* --- note-section --- */
-.note-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1em;
-  margin-top: 0.5em;
-  overflow-y: hidden;
-}
-
-/* icon for adding a new note */
-.add-note {
-  background-color: #005392;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 1em;
-  right: 1em;
-  cursor: pointer;
-}
-.add-note > i {
-  pointer-events: none;
-}
-
-.add-note:hover {
-  transform: scale(1.2);
-  box-shadow: 3px 3px 5px #ccc;
-}
-
-.fa-pen-to-square {
-  color: white;
-  font-size: 1.5rem;
-}
-
-/* icon for printing active note */
-.printPage {
-  background-color: #005392;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 1em;
-  right: 5.1em;
-  cursor: pointer;
-}
-
-.printPage > i {
-  pointer-events: none;
-  border-style: none;
-  padding-top: .4em;
-}
-
-.printPage:hover{
-  transform: scale(1.2);
-  box-shadow: 3px 3px 5px #ccc;
-}
-
-#printPage{
-  color: white;
-  font-size: 1.5rem;
-}
-
-/* info modal section */
-/* flytta till egen fil */
-.modalWindow {
-  width: 50%;
-  height: 50%;
-  background-color: white;
-  z-index: 9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  border-radius: 8px;
-}
-
-.modalButton {
-  align-self: flex-end;
-  width: 1.5rem;
-  margin-bottom: 2rem;
-  background-color: #005392;
-  color: white;
-  border-radius: 8px;
-}
-
-.modalButton:hover {
-  color: #005392;
-  background-color: #819eb5;
-  cursor: pointer;
-}
-
-.modalBackground {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  top: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 8;
-}
-
-.modalText {
-  width: 40rem;
-  font-family: Arial, Helvetica, sans-serif;
-  margin-top: 2em;
-}
-
-.modalTitle {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 2rem;
-}
-
-/* NOTES */
-.hide-btn {
-  display: none;
-}
-
-#note-field {
-  width: 40vw;
-  padding: 2em;
-  border-radius: 4px;
-  font-size: 1em;
-  resize: none;
-  overflow-y: scroll;
-  outline: none;
-  min-height: 58vh;
-}
-#note-field::-webkit-scrollbar {
-  display: none;
-}
-.updateModeBorder {
-  border: solid 2px #aaa;
-}
-
-#save-notes {
-  padding: 0.5em 5em;
-  background-color: #005392;
-  border-radius: 4px;
-  color: rgb(255, 255, 255);
-  border: none;
-  cursor: pointer;
-  transform: translateY(-20%);
-}
-
-#note-field img {
-  margin: 10px 0;
-  min-width: 100%;
-  display: block;
-}
-
-#save-notes:hover {
-  background-color: #0f77c7;
-}
-
-.newNotes {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-  padding: 20px;
-  border-radius: 20px;
-  border: solid 1px #111;
-}
-.newNotes > button,
-.newNotes > input,
-.newNotes > textarea {
-  padding: 10px;
-  border-radius: 10px;
-  border: solid 1px #111;
-  outline: none;
-}
-.newNotes > button {
-  background-color: rgb(63, 140, 255);
-  color: #fff;
-}
-
-.bold-text {
-  font-weight: bold;
-}
-
-
-/* print media */
-@media print {
-  
-
-  .title-section, 
-  #note-field,
-  .mainText{
-    min-width: 100%;
-  }
-
-  .side,
-  .notes-column, 
-  #toolbar,
-  .add-note,
-  .printPage{
-    display: none;
-  }
-
-}
-
-.bold-text {
-  font-weight: bold;
-}
-
-.tool-btn-highlight {
-  background-color: #005392;
-  border: none;
-  color: #fff;
 }
 

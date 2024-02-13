@@ -1,3 +1,4 @@
+/* TOOLBAR */
 .toolbar {
     display: none;
     align-items: center;
@@ -96,7 +97,7 @@
     font-family: "Merienda", cursive;
   }
 
-  /* Image link modal container */
+/* Image link modal container */
 .img-modal {
   font-family: Arial, Helvetica, sans-serif;
   display: none;
@@ -152,7 +153,7 @@
 .img-modal-close-btn:hover,
 .img-modal-close-btn:focus {
   text-decoration: none;
-  color: red;
+  color: #920000;
   cursor: pointer;
 }
 
@@ -169,17 +170,17 @@
 }
 
 .img-modal-add-btn:hover {
-  background-color: #819eb5;
-  color: #005392;
+  background-color: #0f77c7;
 }
 
+/* Error msg img modal */
 .error-message {
-  color: red;
+  color: #920000;
   position: absolute;
   bottom: 10px;
 }
 
-/* Error message shake */
+/* Shake on error for img modal */
 .img-modal-shake {
   animation: shake 0.5s;
 }
@@ -207,6 +208,7 @@
   }
 }
 
+/* Highlight tool icon(s) on click */
 .tool-btn-highlight {
   background-color: #005392;
   border: none;

@@ -1,5 +1,5 @@
 // Gtag for search icon - Johan
-const searchIcon = document.querySelector(".fa-magnifying-glass");
+const searchIcon = document.querySelector(".search-icon");
 
 searchIcon.addEventListener("click", function () {
   // Custom gtag event when the search icon is clicked

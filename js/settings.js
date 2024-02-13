@@ -81,8 +81,8 @@ function asideBackColor(color) {
 }
 
 function noteBackColor() {
-  for(let i = 0; i < document.querySelectorAll('.note-thumbnail').length; i++)
-  document.querySelectorAll('.note-thumbnail')[i].style.backgroundColor = `rgb(${document.getElementById('noteColorR').value}, ${document.getElementById('noteColorG').value}, ${document.getElementById('noteColorB').value})`; // Result example: rgb(200, 50, 40) applied to all notes
+  for(let i = 0; i < document.querySelectorAll('.note').length; i++)
+  document.querySelectorAll('.note')[i].style.backgroundColor = `rgb(${document.getElementById('noteColorR').value}, ${document.getElementById('noteColorG').value}, ${document.getElementById('noteColorB').value})`; // Result example: rgb(200, 50, 40) applied to all notes
 }
 
 //------------------ Size settings --------------
@@ -116,15 +116,15 @@ document.getElementById('slideButton').onclick = () => {
     buttonSeek.isOne = true;
     buttonSeek.classList.add('buttonOn');
     settingsObj[0].noteBorderSwitch = 'true';
-    for(let i = 0; i < document.getElementsByClassName('note-thumbnail').length; i++)
+    for(let i = 0; i < document.getElementsByClassName('note').length; i++)
     if(storageSettings != null)
-    document.getElementsByClassName('note-thumbnail')[i].style.border = `${storageSettings[0].noteBorderType} 2px hsl(0, 0%, ${storageSettings[0].noteBorderColor}%)`;
+    document.getElementsByClassName('note')[i].style.border = `${storageSettings[0].noteBorderType} 2px hsl(0, 0%, ${storageSettings[0].noteBorderColor}%)`;
   } else {
     buttonSeek.isOne = false;
     buttonSeek.classList.remove('buttonOn');
     settingsObj[0].noteBorderSwitch = 'false';
-    for(let i = 0; i < document.getElementsByClassName('note-thumbnail').length; i++)
-    document.getElementsByClassName('note-thumbnail')[i].style.border = 'none';
+    for(let i = 0; i < document.getElementsByClassName('note').length; i++)
+    document.getElementsByClassName('note')[i].style.border = 'none';
   }
   saveToStorageSettings();
 }
@@ -143,8 +143,8 @@ borderRange.addEventListener('input', () => {
 // Giving borders to all notes
 function noteBorder(border) {
   if(buttonSeek.isOne == true){
-    for(let i = 0; i < document.getElementsByClassName('note-thumbnail').length; i++)
-    document.getElementsByClassName('note-thumbnail')[i].style.border = `${border} 2px hsl(0, 0%, ${borderRange.value}%)`;
+    for(let i = 0; i < document.getElementsByClassName('note').length; i++)
+    document.getElementsByClassName('note')[i].style.border = `${border} 2px hsl(0, 0%, ${borderRange.value}%)`;
     settingsObj[0].noteBorderType = borderShape;
     settingsObj[0].noteBorderColor = borderRange.value;
     saveToStorageSettings();
@@ -173,8 +173,8 @@ function setSettingValues(){
   if(storageSettings[0].noteBorderSwitch == 'true'){
       document.getElementById('slideButtonSeek').classList.add('buttonOn');
       buttonSeek.isOne = true;
-      for(let i = 0; i < document.getElementsByClassName('note-thumbnail').length; i++)
-      document.getElementsByClassName('note-thumbnail')[i].style.border = `${storageSettings[0].noteBorderType} 2px hsl(0, 0%, ${storageSettings[0].noteBorderColor}%)`;
+      for(let i = 0; i < document.getElementsByClassName('note').length; i++)
+      document.getElementsByClassName('note')[i].style.border = `${storageSettings[0].noteBorderType} 2px hsl(0, 0%, ${storageSettings[0].noteBorderColor}%)`;
   }
   if(storageSettings[0].noteBorderType) document.getElementById('borderList').value = storageSettings[0].noteBorderType;
   if(storageSettings[0].noteBorderColor) document.getElementById('borderRange').value = storageSettings[0].noteBorderColor;
