@@ -36,7 +36,8 @@ let settingsObj = [
       contentSizes: '',
       noteBorderSwitch: false,
       noteBorderType: 'solid',
-      noteBorderColor: ''
+      noteBorderColor: '',
+      fontFamily: ''
     }
   ];
 
@@ -52,24 +53,26 @@ function fetchStorageData() {
     if(storageSettings != null){
         setTimeout(() => {
             // Navbar
-            document.querySelector('.side').style.backgroundColor = `#${storageSettings[0].navColor}`; // Set the color
+            document.querySelector('.side').style.backgroundColor = `#${settingsObj[0].navColor}`; // Set the color
             // Aside 
-            document.querySelector('.notes-column').style.backgroundColor = `hsl(0, 0%, ${storageSettings[0].asideColor}%)`;
+            document.querySelector('.notes-column').style.backgroundColor = `hsl(0, 0%, ${settingsObj[0].asideColor}%)`;
             // Notes
             for(let i = 0; i < document.querySelectorAll('.note-thumbnail').length; i++)
-            document.querySelectorAll('.note-thumbnail')[i].style.backgroundColor = storageSettings[0].noteColors;
+            document.querySelectorAll('.note-thumbnail')[i].style.backgroundColor = settingsObj[0].noteColors;
             // Note titles
             for(let i = 0; i < document.getElementsByClassName('noteTitle').length; i++)
-            document.getElementsByClassName('noteTitle')[i].style.fontSize = storageSettings[0].titleSizes + 'px';
+            document.getElementsByClassName('noteTitle')[i].style.fontSize = settingsObj[0].titleSizes + 'px';
             // Note contents
             for(let i = 0; i < document.getElementsByClassName('noteContent').length; i++)
-            document.getElementsByClassName('noteContent')[i].style.fontSize = storageSettings[0].contentSizes + 'px';
+            document.getElementsByClassName('noteContent')[i].style.fontSize = settingsObj[0].contentSizes + 'px';
             // Note borders
-            if(storageSettings[0].noteBorderSwitch == 'true'){
+            if(settingsObj[0].noteBorderSwitch == 'true'){
                 for(let i = 0; i < document.getElementsByClassName('note-thumbnail').length; i++)
-                document.getElementsByClassName('note-thumbnail')[i].style.border = `${storageSettings[0].noteBorderType} 2px hsl(0, 0%, ${storageSettings[0].noteBorderColor}%)`;
+                document.getElementsByClassName('note-thumbnail')[i].style.border = `${settingsObj[0].noteBorderType} 2px hsl(0, 0%, ${settingsObj[0].noteBorderColor}%)`;
             }
-        }, 100);
+            // Font family
+            document.documentElement.style.setProperty('--fontFamily', `${settingsObj[0].fontFamily}`);
+        }, 10);
     }
 };
 fetchStorageData();
