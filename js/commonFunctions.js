@@ -56,8 +56,8 @@ function fetchStorageData() {
             // Aside 
             document.querySelector('.notes-column').style.backgroundColor = `hsl(0, 0%, ${storageSettings[0].asideColor}%)`;
             // Notes
-            for(let i = 0; i < document.querySelectorAll('.note-thumbnail').length; i++)
-            document.querySelectorAll('.note-thumbnail')[i].style.backgroundColor = storageSettings[0].noteColors;
+            for(let i = 0; i < document.querySelectorAll('.note').length; i++)
+            document.querySelectorAll('.note')[i].style.backgroundColor = storageSettings[0].noteColors;
             // Note titles
             for(let i = 0; i < document.getElementsByClassName('noteTitle').length; i++)
             document.getElementsByClassName('noteTitle')[i].style.fontSize = storageSettings[0].titleSizes + 'px';
@@ -66,8 +66,8 @@ function fetchStorageData() {
             document.getElementsByClassName('noteContent')[i].style.fontSize = storageSettings[0].contentSizes + 'px';
             // Note borders
             if(storageSettings[0].noteBorderSwitch == 'true'){
-                for(let i = 0; i < document.getElementsByClassName('note-thumbnail').length; i++)
-                document.getElementsByClassName('note-thumbnail')[i].style.border = `${storageSettings[0].noteBorderType} 2px hsl(0, 0%, ${storageSettings[0].noteBorderColor}%)`;
+                for(let i = 0; i < document.getElementsByClassName('note').length; i++)
+                document.getElementsByClassName('note')[i].style.border = `${storageSettings[0].noteBorderType} 2px hsl(0, 0%, ${storageSettings[0].noteBorderColor}%)`;
             }
         }, 100);
     }

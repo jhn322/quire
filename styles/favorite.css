@@ -1,127 +1,23 @@
 *{
-    user-select: none;
-    font-family: Arial, Helvetica, sans-serif
+    user-select: none;  
 }
+
 p{
     margin-top: 10px;
 }
-main{
-    display: flex;
-}
-a{
-    color: #fff;
-    text-decoration: none;
-}
-.menu-icon{
-    width: 100%;
-    text-align: center;
-    border-radius: 0;
-    padding: 25px 0;
-}
-.side{
-    gap: 0;
-    box-shadow: none;
-}
-#noteList{
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow-y: scroll;
-    background: #ddd;
-    padding: 10px 10px 10px 15px;
-}
-#noteList::-webkit-scrollbar, #demo::-webkit-scrollbar{
-    background-color: #eeeeee00;
-    width: 10px;
-}
-#noteList::-webkit-scrollbar-thumb, #demo::-webkit-scrollbar-thumb{
-    background: #0075ce;
-    border-radius: 20px;
-}
+
 #resultWrapper{
-    width: 75%;
+    width: 78%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 50px 100px;
     background: #fff;
-}
-.note{
-    position: relative;
-    padding: 20px 20px 35px 20px;
-    background: #f6f6f6;
-    border-radius: 10px;
-}
-.note:hover > .deleteNote{
-    display: block;
-}
-.deleteNote{
-    right: 23px;
-    top: 50px;
-    font-size: 25px;
-}
-.selectedNote{
-    box-shadow: 0 0 10px #00000077;
-    background: #fff;
-    transition: 0.3s;
-}
-.selectedNote::before{
-    position: absolute;
-    content: '';
-    right: -2px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #0075ce;
-    width: 20px;
-    height: 50%;
-    clip-path: polygon(0% 50%, 70% 0%, 100% 0%, 100% 100%, 70% 100%, 0% 50%);
-}
-.note > h3, .imageWrapper, .noteDate, span, #demoTitle, #demoText{
-    pointer-events: none;
-}
-.note > h3{
-    white-space: nowrap;
-}
-.imageWrapper{
-    margin: 15px 0 30px 0;
-}
-.imageWrapper > img{
-    width: 50px;
-    height: 50px;
-}
-.content{
-    overflow: hidden;
-    max-height: 50px;
-    overflow-y: scroll;
-}
-.content::-webkit-scrollbar{
-    display: none;
-}
-.note > b{
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    color: #fa0;
-    font-size: 25px;
-}
-.content > img{
-    display: none;
-}
-.noteDate{
-    position: absolute;
-    bottom: 15px;
-    font-size: 12px;
-    color: #888;
-}
-.noteDate::first-line{
-    color: rgb(0, 140, 255);
-    font-weight: bold;
-}
+  }
 
 #demo{
     height: 100%;
-    width: 100%;
+    width: 86%;
     border: solid 30px #fff;
     border-right: solid 15px #fff;
     box-shadow: 0 0 10px #00000044;
@@ -142,11 +38,12 @@ a{
     font-size: 12px;
 }
 
+/* ändra så titel är utanför text area */
 #demoTitle{
     background: linear-gradient(to right, #00000000, #00000022, #00000000);
     text-align: center;
     padding: 10px;
-    color: #0075ce;
+    color: #000000;
 }
 #demoText{
     font-size: 16px;
@@ -202,7 +99,7 @@ a{
     main{
         flex-direction: column;
     }
-    #noteList{
+    #notesColumn{
         width: 100%;
         height: 25%;
         display: flex;
@@ -235,11 +132,11 @@ a{
         max-height: 40px;
         overflow-y: hidden;
     }
-    #noteList::-webkit-scrollbar, #demo::-webkit-scrollbar{
+    #notesColumn::-webkit-scrollbar, #demo::-webkit-scrollbar{
         background-color: unset;
         width: 10px;
     }
-    #noteList::-webkit-scrollbar-thumb, #demo::-webkit-scrollbar-thumb{
+    #notesColumn::-webkit-scrollbar-thumb, #demo::-webkit-scrollbar-thumb{
         background: unset;
     }
     #demo::before, .noteDate{
@@ -253,7 +150,7 @@ a{
 @media print {
   
 
-    #noteList *{
+    #notesColumn *{
       display: none;
     }
 

@@ -1,0 +1,176 @@
+/* --- Main-section --- */
+.mainText {
+  width: 78%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  padding: 2em 2em 0 2em;
+}
+
+/* --- title-section --- */
+.title-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    margin-top: 0.5em;
+  }
+  
+  #title {
+    background: linear-gradient(to right, #00000000, #00000022, #00000000);
+    text-align: center;
+    padding: 10px;
+    color: #000000;
+    font-size: 1.8rem;
+    width: 40vw;
+    padding: 0.2em 1em;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+  }
+  #noteDate {
+    color: #aaa;
+    margin-top: 10px;
+  }
+
+  /* --- note-section --- */
+.note-section {
+    width: 78%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    margin-top: 0.5em;
+    overflow-y: scroll;
+    border: solid 30px #fff;
+    border-right: solid 15px #fff;
+    box-shadow: 0 0 10px #00000044;
+    border-radius: 15px;
+    padding-right: 5px;
+  }
+
+  /* NOTEFIELD*/
+#note-field {
+    width: 100%;
+    padding: 2em;
+    border-radius: 4px;
+    font-size: 1em;
+    resize: none;
+    overflow-y: scroll;
+    outline: none;
+    min-height: 65vh;
+  }
+  #note-field::-webkit-scrollbar {
+    display: none;
+  }
+  .updateModeBorder {
+    border: solid 2px #aaa;
+  }
+
+/* Styling for images */
+#note-field img {
+    margin: 10px 0;
+    min-width: 100%;
+    display: block;
+}
+
+/* SAVE NOTE BUTTON */
+  #save-notes {
+    padding: 0.5em 5em;
+    background-color: #005392;
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    transform: translateY(-20%);
+  }
+
+  #save-notes:hover {
+    background-color: #0f77c7;
+  }
+
+  .hide-btn {
+    display: none;
+  }
+  
+
+/* MAKE NEW NOTE  */
+/* icon for adding a new note */
+.add-note {
+    background-color: #005392;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    cursor: pointer;
+  }
+  .add-note > i {
+    pointer-events: none;
+  }
+  
+  .add-note:hover {
+    transform: scale(1.2);
+    box-shadow: 3px 3px 5px #ccc;
+  }
+  
+  .fa-pen-to-square {
+    color: white;
+    font-size: 1.5rem;
+  }
+  
+/* PRINTING */
+/* icon for printing active note */
+  .printPage {
+    background-color: #005392;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 1em;
+    right: 5.1em;
+    cursor: pointer;
+  }
+  
+  .printPage > i {
+    pointer-events: none;
+    border-style: none;
+    padding-top: .4em;
+  }
+  
+  .printPage:hover{
+    transform: scale(1.2);
+    box-shadow: 3px 3px 5px #ccc;
+  }
+  
+  #printPage{
+    color: white;
+    font-size: 1.5rem;
+  }
+  
+  /* print media */
+@media print {
+  
+    .title-section, 
+    #note-field,
+    .mainText{
+      min-width: 100%;
+    }
+  
+    .side,
+    .notes-column, 
+    #toolbar,
+    .add-note,
+    .printPage{
+      display: none;
+    }
+  
+  }
