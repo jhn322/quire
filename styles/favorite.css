@@ -5,18 +5,21 @@
 p{
     margin-top: 10px;
 }
-
+.content{
+    pointer-events: none;
+}
 #resultWrapper{
+    position: relative;
     width: 78%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px 100px;
+    padding: 100px 100px 0 100px;
     background: #fff;
   }
 
 #demo{
-    height: 100%;
+    height: 80%;
     width: 86%;
     border: solid 30px #fff;
     border-right: solid 15px #fff;
@@ -40,6 +43,11 @@ p{
 
 /* ändra så titel är utanför text area */
 #demoTitle{
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    width: 60%;
+    transform: translateX(-50%);
     background: linear-gradient(to right, #00000000, #00000022, #00000000);
     text-align: center;
     padding: 10px;
@@ -141,6 +149,9 @@ p{
     }
     #demo::before, .noteDate{
         display: none;
+    }
+    #demoTitle{
+        top: 3px;
     }
 }
 
