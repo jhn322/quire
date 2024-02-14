@@ -1,7 +1,3 @@
-*{
-    font-family: sans-serif;
-    outline: none;
-}
 :root{
     --lightBlue: #007dfb;
     --darkBlue: #0066b4;
@@ -12,6 +8,12 @@
     --lightGrey: #bbb;
     --lightOn: #0f0;
     --lightOff: #d00;
+    --commonSize: 20px;
+    --fontFamily: 'Times New Roman', Times, serif;
+}
+*{
+    font-family: var(--fontFamily);
+    outline: none;
 }
 main{
     position: relative;
@@ -26,7 +28,7 @@ section{
 #resetSettings{
     position: absolute;
     right: 10px;
-    bottom: 20px;
+    bottom: var(--commonSize);
     padding: 15px 10px;
     cursor: pointer;
     border: none;
@@ -54,7 +56,7 @@ select{
     cursor: pointer;
 }
 label{
-    margin-right: 20px;
+    margin-right: var(--commonSize);
     padding-left: 4px;
     cursor: pointer;
     white-space: nowrap;
@@ -72,7 +74,7 @@ label{
 .slide{
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: var(--commonSize);
     background-color: var(--darkBlue);
     color: white;
 }
@@ -80,13 +82,13 @@ label{
     pointer-events: none;
 }
 .toolsWrapper{
-    padding: 20px;
+    padding: var(--commonSize);
     background-color: var(--contentColor);
 }
 .backColorWrapper{
-    margin-top: 20px;
+    margin-top: var(--commonSize);
     display: none;
-    padding: 0 20px;
+    padding: 0 var(--commonSize);
 }
 .backColorWrapper > div{
     display: flex;
@@ -99,9 +101,9 @@ label{
 .rangeWrapper{
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: var(--commonSize);
     width: 100%;
-    padding: 20px 0;
+    padding: var(--commonSize) 0;
 }
 .rangeWrapper > p{
     color: var(--lightBlue)
@@ -121,7 +123,7 @@ input[type="range"]{
     margin-bottom: 50px;
 }
 #noteColorText{
-    margin-bottom: 20px;
+    margin-bottom: var(--commonSize);
     color: var(--lightBlue);
 }
 #borderSettingsSmall{
@@ -159,4 +161,11 @@ input[type="range"]{
     left: 100%;
     transform: translateX(-80%);
     border: solid 1px #0000003f;
+}
+#fontWrapper{
+    display: flex;
+    justify-content: center;
+    padding-top: var(--commonSize);
+    margin-top: var(--commonSize);
+    border-top: solid 1px var(--lightGrey);
 }

@@ -25,12 +25,12 @@ if(allNotes !== null){
                 <b class='star' onclick='favToggle(${note.id})'><i class="fas fa-star"></i></b>
                 <a class='deleteNote' onclick='deleteNote(${note.id})'><i class="fas fa-trash-alt"></i></a>
                 <h3>${note.title}</h3>
-                <p class='content' id="${note.id}Text">${note.content}</p>
+                <div class='content' id="${note.id}Text">${note.content}</div>
                 <p class='noteDate'>${noteAge}<br>Skapat ${note.savedDate}<br>Senaste ändring ${note.editedDate}</p>
             </div>
             `;
             notesColumn.innerHTML += newNote;
-
+            document.getElementById(note.id).content = note.content;
             const imageWrapper = document.createElement('div');
             imageWrapper.className = 'imageWrapper';
             note.img.forEach((img) => {
@@ -45,8 +45,7 @@ if(allNotes !== null){
 // Giving (title, text, date, isfavorite) values to each note
 for(let i = 0; i < note.length; i++){
     note[i].noteTitle = note[i].getElementsByTagName('h3')[0].textContent;
-    note[i].text = note[i].getElementsByTagName('p')[0].innerHTML;
-    note[i].date = note[i].getElementsByTagName('p')[1].innerHTML.replaceAll('<br>', ', ');
+    note[i].date = note[i].getElementsByTagName('p')[0].innerHTML.replaceAll('<br>', ', ');
     note[i].isFavorite = true;
 }
 
@@ -62,29 +61,11 @@ if(note.length != 0){
 document.addEventListener('click', (evt) => {
     if(evt.target.className == 'note'){ // If note is clicked, display it
         currentNote = evt.target.id;
-        demoTitle.textContent = document.getElementById(evt.target.id).noteTitle;
-        demoText.innerHTML = document.getElementById(evt.target.id).text;
+        demoTitle.textContent = evt.target.noteTitle;
+        demoText.innerHTML = document.getElementById(evt.target.id + 'Text').innerHTML;
         demo.scrollTop = 0;
-        demo.dataset.content = document.getElementById(evt.target.id).date;
+        demo.dataset.content = evt.target.date;
         selectedItem(evt.target.id);
-    }
-    else if(evt.target.className == 'content'){ // If the content of the note is clicked
-        let wrapperName = evt.target.id.slice(0, evt.target.id.length - 4); // Get the parent of the content which is the note
-        currentNote = wrapperName;
-        demoTitle.textContent = document.getElementById(wrapperName).noteTitle;
-        demoText.innerHTML = document.getElementById(wrapperName).text;
-        selectedItem(wrapperName);
-    }
-    else if(evt.target.id == 'navButton'){ // Mobile nav button
-        if (navClicked === false){
-            document.querySelector('.side').style.display = 'flex';
-            navClicked = true;
-            navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)', 'white'); // Change the shape of the mobile nav button from 3 lines to cross
-        } else {
-            document.querySelector('.side').style.display = 'none';
-            navClicked = false;
-            navButtonShape('rotate(0deg) translate(0%, 0%)', 'block', 'rotate(0deg) translate(0%, 0%)', 'black'); // Change the shape of the mobile nav button from cross to 3 lines
-        }
     }
     else if(evt.target.id == 'demo'){
         noteArray.find(note => {
@@ -96,15 +77,6 @@ document.addEventListener('click', (evt) => {
         });
     }
 });
-
-function navButtonShape(f, s, t, color){
-    let div = navButton.getElementsByTagName('div');
-    div[0].style.transform = f;
-    div[1].style.display = s;
-    div[2].style.transform = t;
-    for(let i = 0; i < div.length; i++)
-        div[i].style.background = color;
-}
 
 function deleteNote(note){
     document.getElementById(note).classList.add('noteDeleted');
