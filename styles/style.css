@@ -17,7 +17,6 @@ main {
   width: 5%;
   min-width: 70px;
   background-color: #005392;
-  box-shadow: 10px 10px 10px #ccc;
   z-index: 2;
 }
 
@@ -85,6 +84,10 @@ a{
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.note-list li {
+  list-style: none;
 }
 
 /* ---- Mini notes ---- */
