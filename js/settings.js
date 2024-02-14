@@ -151,6 +151,17 @@ function noteBorder(border) {
   }
 }
 
+// Choosing font family
+const fonts = document.getElementById('fonts');
+fonts.addEventListener('change', function(){
+  for(let i = 0; i < document.getElementsByClassName('noteTitle').length; i++){
+    document.getElementsByClassName('noteTitle')[i].style.fontFamily = fonts.options[fonts.selectedIndex].value;
+    document.getElementsByClassName('noteContent')[i].style.fontFamily = fonts.options[fonts.selectedIndex].value;
+  }
+  settingsObj[0].fontFamily = fonts.options[fonts.selectedIndex].value;
+  saveToStorageSettings();
+});
+
 // Set ranges and values of the html setting page's elements according to the values from localStorage
 function setSettingValues(){
   // Navbar
@@ -179,5 +190,7 @@ function setSettingValues(){
   if(storageSettings[0].noteBorderType) document.getElementById('borderList').value = storageSettings[0].noteBorderType;
   if(storageSettings[0].noteBorderColor) document.getElementById('borderRange').value = storageSettings[0].noteBorderColor;
   borderShape = storageSettings[0].noteBorderType;
+  // Font family
+  if(storageSettings[0].fontFamily) fonts.value = storageSettings[0].fontFamily;
 }
 if(storageSettings != null) setSettingValues();
