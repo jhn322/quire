@@ -158,6 +158,10 @@ let newNoteArray = [];
 let isEditingNote = false;
 document.addEventListener('click', (evt) => {
   if(evt.target.className == 'note-thumbnail'){
+    console.log(evt.target)
+    const testEle = evt.target
+    removeActive()
+    testEle.classList.add("active-note")
     currentNote = evt.target.idAddress;
     title.value = evt.target.noteTitle;
     noteField.innerHTML = evt.target.content;
@@ -251,4 +255,13 @@ function saveChanges(){
       newNoteArray.push(editedNote);
   });
   localStorage.setItem("allNotes", JSON.stringify(newNoteArray));
+}
+removeActive()
+function removeActive(){
+  const noteList = document.querySelector(".note-list").children
+  console.log(noteList.length)
+  for(i=0; i < noteList.length; i++){
+    noteList[i].classList.remove("active-note")
+    
+  }
 }
