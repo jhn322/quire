@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
       activeNote.editedDate = noteDtae.innerHTML;
       localStorage.setItem("notes", JSON.stringify(activeNote));
       saveBtn.classList.add("hide-btn");
-      setTimeout(() => { document.getElementsByClassName('note-thumbnail')[document.getElementsByClassName('note-thumbnail').length-1].click() }, 100);
+      setTimeout(() => { document.getElementsByClassName('note')[document.getElementsByClassName('note').length-1].click() }, 100);
       saveAllNotes(activeNote);
     } else {
       saveChanges();
@@ -157,7 +157,7 @@ let newNoteArray = [];
 
 let isEditingNote = false;
 document.addEventListener('click', (evt) => {
-  if(evt.target.className == 'note-thumbnail'){
+  if(evt.target.className == 'note'){
     currentNote = evt.target.idAddress;
     title.value = evt.target.noteTitle;
     noteField.innerHTML = evt.target.content;

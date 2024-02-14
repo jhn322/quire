@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Quire will find your note">
   <link rel="stylesheet" href="./styles/style.css" />
   <link rel="stylesheet" href="./styles/search.css" />
+  <link rel="stylesheet" href="./styles/modal.css">
   <title>Sök</title>
 
   <!-- Google tag (gtag.js) -->
@@ -17,25 +17,27 @@
       dataLayer.push(arguments);
     }
     gtag("js", new Date());
-    gtag("config", "G-YWPH33ZZLC", { debug_mode: true });
+    gtag("config", "G-YWPH33ZZLC", { 'debug_mode': true });
   </script>
 </head>
 
 
 <body id="modalWindowAttacher">
   <main>
-    <nav class="side">
-      <div class="logo-div">
-        <a href="./index.html"><i class="logo fa-brands fa-quora"></i></a>
-      </div>
-      <a href="#"
-          ><i class="menu-icon fa-solid fa-magnifying-glass active-icon"></i
-        ></a>
-      <a href="favorite.html"><i class="menu-icon fa-solid fa-star"></i></a>
-      <i class="menu-icon fa-solid fa-chart-column"></i>
-      <i class="menu-icon fa-solid fa-gear"></i>
-      <i class="menu-icon fa-solid fa-question"></i>
-    </nav>
+    <aside class="side">
+      <nav class="nav">
+        <div class="logo-div">
+          <a href="./index.html"><i class="logo fa-brands fa-quora"></i></a>
+        </div>
+        <a href="#"
+            ><i class="menu-icon fa-solid fa-magnifying-glass active-icon"></i
+          ></a>
+        <a href="favorite.html"><i class="menu-icon fa-solid fa-star"></i></a>
+        <i class="menu-icon fa-solid fa-chart-column"></i>
+        <a href="./settings.html"><i class="menu-icon fa-solid fa-gear"></i></a>
+        <i class="menu-icon fa-solid fa-question"></i>
+      </nav>
+    </aside>
     <aside class="notes-column">
       <ul class="note-list" id="note-list"></ul>
     </aside>
