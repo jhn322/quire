@@ -7,7 +7,7 @@ function createTumbnail(noteObject) {
   const deletebtn = document.createElement("p");
 
   newListItem.id = noteObject.id + "Wrapper";
-  newListItem.classList.add("note-thumbnail");
+  newListItem.classList.add("note");
   newListItem.isFavorite = noteObject.isFavorite;
 
   newListItem.noteTitle = noteObject.title;
@@ -22,7 +22,7 @@ function createTumbnail(noteObject) {
   newContent.className = "noteContent";
 
   favorite.innerHTML = '<i class="fas fa-star"></i>';
-  newDate.className = "thumbnailDate";
+  newDate.className = "noteDate";
   const savedDate = document.createElement("span");
   savedDate.textContent = `skapat ${noteObject.savedDate}`;
   const editDate = document.createElement("span");

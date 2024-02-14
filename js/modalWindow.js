@@ -7,7 +7,7 @@ const modalButton = document.createElement("button");
 
 //Gives button an event listener to remove the modal
 modalButton.addEventListener("click", removeModal);
-modalButton.textContent = "X";
+modalButton.innerHTML = "&times;";
 modalButton.className = "modalButton";
 
 const modalTitle = document.createElement("p");

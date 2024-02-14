@@ -2,7 +2,7 @@ const demo = document.getElementById('demo');
 const demoTitle = document.getElementById('demoTitle');
 const demoText = document.getElementById('demoText');
 const note = document.getElementsByClassName('note');
-const noteList = document.getElementById('noteList');
+const notesColumn = document.getElementById('notesColumn');
 const navButton = document.getElementById('navButton');
 let navClicked = false;
 let noteArray = [];
@@ -29,7 +29,7 @@ if(allNotes !== null){
                 <p class='noteDate'>${noteAge}<br>Skapat ${note.savedDate}<br>Senaste ändring ${note.editedDate}</p>
             </div>
             `;
-            noteList.innerHTML += newNote;
+            notesColumn.innerHTML += newNote;
 
             const imageWrapper = document.createElement('div');
             imageWrapper.className = 'imageWrapper';
