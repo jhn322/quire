@@ -93,67 +93,43 @@
   .hide-btn {
     display: none;
   }
-  
 
-/* MAKE NEW NOTE  */
-/* icon for adding a new note */
-.add-note {
-    background-color: #005392;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 1em;
-    right: 1em;
-    cursor: pointer;
-  }
-  .add-note > i {
-    pointer-events: none;
-  }
-  
-  .add-note:hover {
-    transform: scale(1.2);
-    box-shadow: 3px 3px 5px #ccc;
-  }
-  
+  /* MAKE NEW NOTE & PRINT BUTTONS */  
+.user-buttons {
+  display: flex;
+  gap: 1em;
+  position: fixed;
+  bottom: 4em;
+  right: 5em;
+}
+
   .fa-pen-to-square {
     color: white;
     font-size: 1.5rem;
   }
+
+  #printPage{
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    border-style: none;
+    padding-top: .5em;
+  }
   
-/* PRINTING */
-/* icon for printing active note */
-  .printPage {
+  .add_PrintButton {
     background-color: #005392;
     width: 60px;
     height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 1em;
-    right: 5.1em;
+    border-radius: 50%;   
     cursor: pointer;
   }
-  
-  .printPage > i {
-    pointer-events: none;
-    border-style: none;
-    padding-top: .4em;
-  }
-  
-  .printPage:hover{
+
+  .add_PrintButton:hover {
     transform: scale(1.2);
     box-shadow: 3px 3px 5px #ccc;
-  }
-  
-  #printPage{
-    color: white;
-    font-size: 1.5rem;
   }
   
   /* print media */
@@ -173,4 +149,22 @@
       display: none;
     }
   
+}
+
+/* ---- MEDIA QUERY ---- */
+@media (max-width: 1024px){
+  .mainText {
+    width: 100%;
   }
+
+  .note-section {
+    width: 90%;
+  }
+
+  .user-buttons {
+    flex-direction: column;
+    bottom: 1.8em;
+    right: 1em;
+    scale: 1.2;
+  }
+}

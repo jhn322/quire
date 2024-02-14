@@ -11,7 +11,7 @@ searchIcon.addEventListener("click", function () {
 // ------------------------------------------------------
 
 //Gtag for new-note-button - Ellen
-const addNoteBtn = document.querySelector(".add-note");
+const addNoteBtn = document.querySelector(".add-button");
 
 //eventListener with custom gtag event for click on new note
 addNoteBtn.addEventListener("click", function () {

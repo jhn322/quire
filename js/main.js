@@ -3,7 +3,7 @@ function printPage(){
     window.print();
 }
 //print icon event listener
-const printIcon = document.querySelector('.printPage');
+const printIcon = document.querySelector('.printButton');
 printIcon.addEventListener('click', event => {
     printPage()
 });

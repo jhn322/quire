@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
   saveBtn.classList.add("hide-btn");
 
 
-  const addNote = document.querySelector(".add-note");
+  const addNote = document.querySelector(".add-button");
 
   addNote.addEventListener("click", () => {
     const toolbar = document.getElementById("toolbar");
@@ -157,6 +157,7 @@ let newNoteArray = [];
 
 let isEditingNote = false;
 document.addEventListener('click', (evt) => {
+  console.log(evt.target);
   if(evt.target.className == 'note'){
     currentNote = evt.target.idAddress;
     title.value = evt.target.noteTitle;
@@ -177,8 +178,10 @@ document.addEventListener('click', (evt) => {
     viewItem();
     isEditingNote = false;
   }
-  if(evt.target.className == 'add-note')
+  if(evt.target.className == 'add-button'|| 'fa-pen-to-square') {
     addOrEditMode();
+  }
+    
 });
 
 function viewItem(){

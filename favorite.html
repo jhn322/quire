@@ -6,9 +6,10 @@
   <meta name="description" content="Quire's favorite webpage">
   <link rel="stylesheet" href="./styles/style.css">
   <link rel="stylesheet" href="./styles/toolbar.css">
+  <link rel="stylesheet" href="./styles/mainNoteView.css">
   <link rel="stylesheet" href="./styles/favorite.css">
   <link rel="stylesheet" href="./styles/modal.css">
-  <link rel="stylesheet" href="./styles/mainNoteView.css">
+  
   <title>Favorite notes</title>
 
   <!-- Google tag (gtag.js) -->
@@ -54,8 +55,14 @@
         <p id="demoText">Content</p>
       </div>
     </section>
-    <div class="printPage">
-      <i id="printPage" class="fa-solid fa-print tool-icon"></i>
+
+    <div class="user-buttons">
+      <div class="add_PrintButton add-button">
+        <i class="fa-regular fa-pen-to-square"></i>
+      </div>
+      <div class="add_PrintButton printButton">
+        <i id="printPage" class="fa-solid fa-print tool-icon"></i>
+      </div>
     </div>
   </main>
 
@@ -70,6 +77,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/modalWindow.js"></script>
+    <script src="js/commonFunctions.js"></script>
     <script src="js/favorite.js"></script>
     <script src="./js/main.js"></script>
 
