@@ -76,3 +76,28 @@ function fetchStorageData() {
     }
 };
 fetchStorageData();
+
+
+
+// Nav button
+
+navButton.addEventListener('click', () => {
+    if (navClicked === false){
+        document.querySelector('.side').style.display = 'flex';
+        navClicked = true;
+        navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)', 'white'); // Change the shape of the mobile nav button from 3 lines to cross
+    } else {
+        document.querySelector('.side').style.display = 'none';
+        navClicked = false;
+        navButtonShape('rotate(0deg) translate(0%, 0%)', 'block', 'rotate(0deg) translate(0%, 0%)', 'black'); // Change the shape of the mobile nav button from cross to 3 lines
+    }
+})
+
+function navButtonShape(f, s, t, color){
+    let div = navButton.getElementsByTagName('div');
+    div[0].style.transform = f;
+    div[1].style.display = s;
+    div[2].style.transform = t;
+    for(let i = 0; i < div.length; i++)
+        div[i].style.background = color;
+}
