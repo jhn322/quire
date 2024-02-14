@@ -158,7 +158,6 @@ let newNoteArray = [];
 let isEditingNote = false;
 document.addEventListener('click', (evt) => {
   if(evt.target.className == 'note'){
-    console.log(evt.target.id)
     setLocalstorageNote(evt.target.id)
     removeActive()
     evt.target.classList.add("selectedNote")
