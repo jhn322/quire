@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const noteField = document.getElementById("note-field");
   const title = document.getElementById("title");
   const noteDtae = document.querySelector('#noteDate');
-
+  findActive(activeNote.id)
 
   noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
@@ -159,6 +159,9 @@ let isEditingNote = false;
 document.addEventListener('click', (evt) => {
   console.log(evt.target);
   if(evt.target.className == 'note'){
+    setLocalstorageNote(evt.target.id)
+    removeActive()
+    evt.target.classList.add("selectedNote")
     currentNote = evt.target.idAddress;
     title.value = evt.target.noteTitle;
     noteField.innerHTML = evt.target.content;
@@ -254,4 +257,28 @@ function saveChanges(){
       newNoteArray.push(editedNote);
   });
   localStorage.setItem("allNotes", JSON.stringify(newNoteArray));
+}
+
+function removeActive(){
+  const noteList = document.querySelector(".note-list").children
+  for(i=0; i < noteList.length; i++){
+    noteList[i].classList.remove("selectedNote")
+    
+  }
+}
+function findActive(id){
+  const active = document.getElementById(id + "Wrapper")
+  active.classList.add("selectedNote")
+
+}
+
+function setLocalstorageNote(id){
+  const getAllNotes = JSON.parse(localStorage.getItem("allNotes"))
+  getAllNotes.forEach((note)=> {
+    if(note.id == parseInt(id)){
+      localStorage.setItem("notes", JSON.stringify(note))
+    }
+  })
+
+  
 }

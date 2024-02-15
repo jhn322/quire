@@ -1,101 +1,101 @@
 /* TOOLBAR */
 .toolbar {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    gap: 0.7em;
-    padding: 0.8em 1.5em;
-    border-radius: 40px;
-    background-color: rgba(94, 167, 223, 0.3);
-    font-size: 1.2rem;
-  }
-  .showToolbar {
-    display: flex;
-  }
-  
-  .toolbar select {
-    font-size: 1rem;
-    padding: 0.2em;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  .tool-icon {
-    width: 2em;
-    height: 2em;
-    padding: 0.2em 0.35em;
-  }
-  
-  .tool-icon_active {
-    background-color: white;
-  }
-  
-  /* --- text-types --- */
-  .h1-option,
-  #note-field h1 {
-    font-size: 3rem;
-  }
-  
-  .h2-option,
-  #note-field h2 {
-    font-size: 2.5rem;
-  }
-  
-  .h3-option,
-  #note-field h3 {
-    font-size: 2.2rem;
-  }
-  
-  .h4-option,
-  #note-field h4 {
-    font-size: 1.8rem;
-    font-style: italic;
-  }
-  
-  .h5-option,
-  #note-field h5 {
-    font-size: 1.6rem;
-    font-style: italic;
-  }
-  
-  .h6-option,
-  #note-field h6 {
-    font-size: 1.4rem;
-    font-style: italic;
-  }
-  
-  /* --- font-types --- */
-  .font-arial {
-    font-family: Arial, sans-serif;
-  }
-  
-  .font-timesNewRoman {
-    font-family: "Times New Roman", serif;
-  }
-  
-  .font-roboto {
-    font-family: "Dosis", sans-serif;
-  }
-  
-  .font-nunito {
-    font-family: "Nunito", sans-serif;
-  }
-  
-  .font-raleway {
-    font-family: "Raleway", sans-serif;
-  }
-  
-  .font-teko {
-    font-family: "Teko", sans-serif;
-  }
-  
-  .font-charm {
-    font-family: "Charm", cursive;
-  }
-  
-  .font-merienda {
-    font-family: "Merienda", cursive;
-  }
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7em;
+  padding: 0.8em 1.5em;
+  border-radius: 40px;
+  background-color: rgba(94, 167, 223, 0.3);
+  font-size: 1.2rem;
+}
+.showToolbar {
+  display: flex;
+}
+
+.toolbar select {
+  font-size: 1rem;
+  padding: 0.2em;
+  border: none;
+  border-radius: 5px;
+}
+
+.tool-icon {
+  width: 2em;
+  height: 2em;
+  padding: 0.2em 0.35em;
+}
+
+.tool-icon_active {
+  background-color: white;
+}
+
+/* --- text-types --- */
+.h1-option,
+#note-field h1 {
+  font-size: 3rem;
+}
+
+.h2-option,
+#note-field h2 {
+  font-size: 2.5rem;
+}
+
+.h3-option,
+#note-field h3 {
+  font-size: 2.2rem;
+}
+
+.h4-option,
+#note-field h4 {
+  font-size: 1.8rem;
+  font-style: italic;
+}
+
+.h5-option,
+#note-field h5 {
+  font-size: 1.6rem;
+  font-style: italic;
+}
+
+.h6-option,
+#note-field h6 {
+  font-size: 1.4rem;
+  font-style: italic;
+}
+
+/* --- font-types --- */
+.font-arial {
+  font-family: Arial, sans-serif;
+}
+
+.font-timesNewRoman {
+  font-family: "Times New Roman", serif;
+}
+
+.font-roboto {
+  font-family: "Dosis", sans-serif;
+}
+
+.font-nunito {
+  font-family: "Nunito", sans-serif;
+}
+
+.font-raleway {
+  font-family: "Raleway", sans-serif;
+}
+
+.font-teko {
+  font-family: "Teko", sans-serif;
+}
+
+.font-charm {
+  font-family: "Charm", cursive;
+}
+
+.font-merienda {
+  font-family: "Merienda", cursive;
+}
 
 /* Image link modal container */
 .img-modal {
@@ -142,6 +142,7 @@
 .img-modal-close-btn {
   font-size: 35px;
   width: 1.5rem;
+  background-color: transparent;
   padding: 0.5rem;
   color: #005392;
   border: none;
