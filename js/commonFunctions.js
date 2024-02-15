@@ -54,6 +54,10 @@ function fetchStorageData() {
         setTimeout(() => {
             // Navbar
             document.querySelector('.side').style.backgroundColor = `#${settingsObj[0].navColor}`; // Set the color
+            if(document.querySelector('.add-note'))
+            document.querySelector('.add-note').style.backgroundColor = `#${settingsObj[0].navColor}`;
+            if(document.querySelector('.printPage'))
+            document.querySelector('.printPage').style.backgroundColor = `#${settingsObj[0].navColor}`;
             // Aside 
             document.querySelector('.notes-column').style.backgroundColor = `hsl(0, 0%, ${settingsObj[0].asideColor}%)`;
             // Notes

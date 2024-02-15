@@ -17,7 +17,10 @@ p{
     padding: 100px 100px 0 100px;
     background: #fff;
   }
-
+#notesColumn{
+    z-index: 100;
+    box-shadow: 10px 0px 10px #ccc;
+}
 #demo{
     height: 80%;
     width: 86%;
