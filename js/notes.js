@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
+  noteDtae.innerHTML="";
   noteDtae.innerHTML = `Skapat ${activeNote.savedDate}, Ändrat ${activeNote.editedDate}`;
 
   // button to save
@@ -50,6 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const addNote = document.querySelector(".add-button");
 
   addNote.addEventListener("click", () => {
+    if (isEditingNote == true) {
+      alert("Du kan inte skapa en ny nota medan du redigerar en annan.")
+      return;
+    }
     const toolbar = document.getElementById("toolbar");
     toolbar.classList.remove("toolbar-hidden");
     isNewNote = true;
@@ -73,8 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
       activeNote.img = imageArray;
       activeNote.title = title.value;
       activeNote.content = noteField.innerHTML;
-      activeNote.savedDate = noteDtae.innerHTML;
-      activeNote.editedDate = noteDtae.innerHTML;
+      activeNote.savedDate = getDate()
+      activeNote.editedDate = getDate()
       localStorage.setItem("notes", JSON.stringify(activeNote));
       saveBtn.classList.add("hide-btn");
       setTimeout(() => { document.getElementsByClassName('note')[document.getElementsByClassName('note').length-1].click() }, 100);

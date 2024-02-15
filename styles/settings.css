@@ -90,12 +90,19 @@ label{
     display: none;
     padding: 0 var(--commonSize);
 }
+
 .backColorWrapper > div{
     display: flex;
     align-items: center;
 }
+
+.color-row {
+    margin-top: 1em;
+}
+
 #navColorWrapper{
     display: flex;
+    flex-wrap: wrap;
 }
 
 .rangeWrapper{
@@ -168,4 +175,8 @@ input[type="range"]{
     padding-top: var(--commonSize);
     margin-top: var(--commonSize);
     border-top: solid 1px var(--lightGrey);
+}
+
+@media (max-width: 1024px){
+    
 }

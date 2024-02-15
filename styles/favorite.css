@@ -52,6 +52,10 @@
     pointer-events: none;
 }
 
+.printPage{
+    right: 1em;
+}
+
 @media (max-width: 1024px){
     #resultWrapper{
         width: 100%;
@@ -64,4 +68,17 @@
     #demoTitle{
         top: 3px;
     }
+
+
+/* print media */
+@media print {
+  
+    #notesColumn *{
+      display: none;
+    }
+
+    .user-buttons {
+        display: none;
+    }
+
 }

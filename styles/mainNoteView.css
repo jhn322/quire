@@ -146,6 +146,9 @@
       display: none;
     }
   
+    .user-buttons {
+      display: none;
+  }
 }
 
 /* ---- MEDIA QUERY ---- */
