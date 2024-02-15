@@ -3,7 +3,7 @@ const demoTitle = document.getElementById('demoTitle');
 const demoText = document.getElementById('demoText');
 const note = document.getElementsByClassName('note');
 const notesColumn = document.getElementById('notesColumn');
-const navButton = document.getElementById('navButton');
+
 let navClicked = false;
 let noteArray = [];
 const allNotes = localStorage.getItem("allNotes");

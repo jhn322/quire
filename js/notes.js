@@ -181,7 +181,8 @@ document.addEventListener('click', (evt) => {
     viewItem();
     isEditingNote = false;
   }
-  if(evt.target.className == 'add-button'|| 'fa-pen-to-square') {
+  if(evt.target.className == 'add-button'
+  || evt.target.className == 'fa-pen-to-square') {
     addOrEditMode();
   }
     
