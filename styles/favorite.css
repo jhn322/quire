@@ -1,12 +1,7 @@
-*{
-    user-select: none;  
-}
-
-p{
-    margin-top: 10px;
-}
 .content{
     pointer-events: none;
+    max-height: 50px;
+    overflow: hidden;
 }
 #resultWrapper{
     position: relative;
@@ -33,18 +28,7 @@ p{
     cursor: pointer;
     padding-right: 5px;
 }
-#demo::before{
-    position: sticky;
-    content: attr(data-content);
-    top: 90%;
-    padding: 10px 20px 10px 10px;
-    background: #ffffffaa;
-    clip-path: polygon(0% 0%, 100% 0%, 97% 50%, 100% 100%, 0% 100%);
-    color: #000;
-    font-size: 12px;
-}
 
-/* ändra så titel är utanför text area */
 #demoTitle{
     position: absolute;
     left: 50%;
@@ -53,11 +37,8 @@ p{
     transform: translateX(-50%);
     background: linear-gradient(to right, #00000000, #00000022, #00000000);
     text-align: center;
-    padding: 10px;
+    padding: 5px;
     color: #000000;
-}
-#demoText{
-    font-size: 16px;
 }
 
 #demoText > img{
@@ -65,95 +46,21 @@ p{
     margin: 10px 0;
     min-width: 100%;
 }
-#demoText > img:last-child{
-    margin: 10px 0 0 0;
-}
 
 .add-button {
     display: none;
     pointer-events: none;
-  }
-
-/* #navButton{
-    z-index: 100;
-    position: absolute;
-    right: 0;
-    top: 25%;
-    padding: 30px 15px 30px 30px;
-    display: none;
-    justify-content: center;
-    gap: 4px;
-    flex-direction: column;
 }
-#navButton > div{
-    width: 25px;
-    height: 4px;
-    background: #000;
-    pointer-events: none;
-    transition: transform 0.3s ease-in-out;
-} */
 
 .printPage{
     right: 1em;
 }
 
 @media (max-width: 1024px){
-    .side {
-        position: absolute;
-        width: 100%;
-        height: fit-content;
-        display: none;
-    }
-    .logo {
-        font-size: 2rem;
-        width: 100%;
-    }
-    .menu-icon {
-        width: 100%;
-        text-align: center;
-    }
-    main{
-        flex-direction: column;
-    }
-    #notesColumn{
-        width: 100%;
-        height: 25%;
-        display: flex;
-        flex-direction: row;
-        overflow-y: scroll;
-    }
     #resultWrapper{
         width: 100%;
         height: 75%;
         padding: 0;
-    }
-    .note{
-        min-width: 150px;
-        text-align: center;
-        box-shadow: unset;
-    }
-    .note > b, .deleteNote{
-        top: 10px;
-        right: 10px;
-        pointer-events: none;
-    }
-    .deleteNote{
-        opacity: 0;
-    }
-    #navButton{
-        display: flex;
-    }
-    .imageWrapper{
-        justify-content: center;
-        max-height: 40px;
-        overflow-y: hidden;
-    }
-    #notesColumn::-webkit-scrollbar, #demo::-webkit-scrollbar{
-        background-color: unset;
-        width: 10px;
-    }
-    #notesColumn::-webkit-scrollbar-thumb, #demo::-webkit-scrollbar-thumb{
-        background: unset;
     }
     #demo::before, .noteDate{
         display: none;
@@ -161,8 +68,6 @@ p{
     #demoTitle{
         top: 3px;
     }
-}
-
 
 
 /* print media */
@@ -175,4 +80,5 @@ p{
     .user-buttons {
         display: none;
     }
+
 }

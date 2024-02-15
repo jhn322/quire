@@ -47,6 +47,8 @@ a:visited {
 a{
   color: #fff;
   text-decoration: none;
+  width: 100%;
+  text-align: center;
 }
 
 .menu-icon {
