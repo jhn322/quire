@@ -277,7 +277,7 @@ a{
 
   .notes-column {
     width: 100%;
-    min-height: 8em;
+    min-height: 7em;
     padding: 5px;
     flex-direction: row;
     align-items: center;
@@ -290,13 +290,13 @@ a{
 
   .note {
     min-width: 10em;
-    height: 7em;
+    height: 6em;
     padding: 10px;
     text-overflow: ellipsis;
     font-size: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
   }
 
   .star {

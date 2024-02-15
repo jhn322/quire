@@ -74,7 +74,7 @@ p{
     pointer-events: none;
   }
 
-#navButton{
+/* #navButton{
     z-index: 100;
     position: absolute;
     right: 0;
@@ -91,7 +91,7 @@ p{
     background: #000;
     pointer-events: none;
     transition: transform 0.3s ease-in-out;
-}
+} */
 
 .printPage{
     right: 1em;
@@ -168,9 +168,11 @@ p{
 /* print media */
 @media print {
   
-
     #notesColumn *{
       display: none;
     }
 
+    .user-buttons {
+        display: none;
+    }
 }
