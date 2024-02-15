@@ -90,21 +90,23 @@ fetchStorageData();
 
 navButton.addEventListener('click', () => {
     if (navClicked === false){
-        document.querySelector('.side').style.display = 'flex';
+        for(let i = 0; i < document.querySelector('.nav').getElementsByTagName('a').length; i++)
+        document.querySelector('.nav').getElementsByTagName('a')[i].style.display = 'block';
+        document.querySelector('.nav').getElementsByClassName('menu-icon fa-solid fa-question')[0].style.display = 'block';
         navClicked = true;
-        navButtonShape('rotate(0deg) translate(0%, 0%)', 'block', 'rotate(0deg) translate(0%, 0%)', 'black'); // Change the shape of the mobile nav button from cross to 3 lines
+        navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)'); // Change the shape of the mobile nav button from 3 lines to cross
     } else {
-        document.querySelector('.side').style.display = 'none';
+        for(let i = 0; i < document.querySelector('.nav').getElementsByTagName('a').length; i++)
+        document.querySelector('.nav').getElementsByTagName('a')[i].style.display = 'none';
+        document.querySelector('.nav').getElementsByClassName('menu-icon fa-solid fa-question')[0].style.display = 'none';
         navClicked = false;
-        navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)', 'white'); // Change the shape of the mobile nav button from 3 lines to cross
+        navButtonShape('rotate(0deg) translate(0%, 0%)', 'block', 'rotate(0deg) translate(0%, 0%)'); // Change the shape of the mobile nav button from cross to 3 lines
     }
 })
 
-function navButtonShape(f, s, t, color){
+function navButtonShape(f, s, t){
     let div = navButton.getElementsByTagName('div');
     div[0].style.transform = f;
     div[1].style.display = s;
     div[2].style.transform = t;
-    for(let i = 0; i < div.length; i++)
-        div[i].style.background = color;
 }
