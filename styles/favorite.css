@@ -72,38 +72,9 @@ p{
 .add-button {
     display: none;
     pointer-events: none;
-  }
-
-#navButton{
-    z-index: 100;
-    position: absolute;
-    right: 0;
-    top: 25%;
-    padding: 30px 15px 30px 30px;
-    display: none;
-    justify-content: center;
-    gap: 4px;
-    flex-direction: column;
-}
-#navButton > div{
-    width: 25px;
-    height: 4px;
-    background: #000;
-    pointer-events: none;
-    transition: transform 0.3s ease-in-out;
-}
-
-.printPage{
-    right: 1em;
 }
 
 @media (max-width: 1024px){
-    .side {
-        position: absolute;
-        width: 100%;
-        height: fit-content;
-        display: none;
-    }
     .logo {
         font-size: 2rem;
         width: 100%;
