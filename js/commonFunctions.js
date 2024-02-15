@@ -90,13 +90,13 @@ fetchStorageData();
 
 navButton.addEventListener('click', () => {
     if (navClicked === false){
-        for(let i = 0; i < document.querySelector('.nav').getElementsByTagName('a').length; i++)
+        for(let i = 1; i < document.querySelector('.nav').getElementsByTagName('a').length; i++)
         document.querySelector('.nav').getElementsByTagName('a')[i].style.display = 'block';
         document.querySelector('.nav').getElementsByClassName('menu-icon fa-solid fa-question')[0].style.display = 'block';
         navClicked = true;
         navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)'); // Change the shape of the mobile nav button from 3 lines to cross
     } else {
-        for(let i = 0; i < document.querySelector('.nav').getElementsByTagName('a').length; i++)
+        for(let i = 1; i < document.querySelector('.nav').getElementsByTagName('a').length; i++)
         document.querySelector('.nav').getElementsByTagName('a')[i].style.display = 'none';
         document.querySelector('.nav').getElementsByClassName('menu-icon fa-solid fa-question')[0].style.display = 'none';
         navClicked = false;
