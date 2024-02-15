@@ -269,6 +269,7 @@ function removeActive(){
 }
 function findActive(id){
   const active = document.getElementById(id + "Wrapper")
+  if(currentNote)
   active.classList.add("selectedNote")
 
 }
