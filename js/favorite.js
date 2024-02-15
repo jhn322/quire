@@ -4,7 +4,6 @@ const demoText = document.getElementById('demoText');
 const note = document.getElementsByClassName('note');
 const notesColumn = document.getElementById('notesColumn');
 
-let navClicked = false;
 let noteArray = [];
 const allNotes = localStorage.getItem("allNotes");
 let getFirstNote = false;

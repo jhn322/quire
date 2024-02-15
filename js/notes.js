@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
-  noteDtae.innerHTML = getDate();
+  noteDtae.innerHTML = `Skapat ${activeNote.savedDate}, Ändrat ${activeNote.editedDate}`;
 
   // button to save
   const saveBtn = document.getElementById("save-notes");

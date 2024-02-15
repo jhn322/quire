@@ -20,7 +20,6 @@
   #title {
     background: linear-gradient(to right, #00000000, #00000022, #00000000);
     text-align: center;
-    padding: 10px;
     color: #000000;
     font-size: 1.8rem;
     width: 40vw;
@@ -44,10 +43,8 @@
     margin-top: 0.5em;
     overflow-y: scroll;
     border: solid 30px #fff;
-    border-right: solid 15px #fff;
     box-shadow: 0 0 10px #00000044;
     border-radius: 15px;
-    padding-right: 5px;
   }
 
   /* NOTEFIELD*/
@@ -155,16 +152,38 @@
 @media (max-width: 1024px){
   .mainText {
     width: 100%;
+    padding: 0.5em;
+  }
+  
+  #title {
+    font-size: 1rem;
+    padding: 0.1em;
+  }
+  
+  #noteDate {
+    margin-top: 5px;
+    font-size: 0.9rem;
   }
 
   .note-section {
-    width: 90%;
+    width: 100%;
+    height: 60vh;
+    border: solid 20px #fff;
+    border-bottom: solid 2px #fff;
+    margin-bottom: 1em;
+    margin-top: 0em;
+  }
+
+  #note-field {
+    min-height: 47vh;
+    margin-bottom: 0.8em;
   }
 
   .user-buttons {
-    flex-direction: column;
-    bottom: 1.8em;
-    right: 1em;
-    scale: 1.2;
+    width: 100%;
+    gap: 1em;
+    position: unset;
+    justify-content: center;
+    padding-bottom: 15px;
   }
 }

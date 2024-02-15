@@ -1,4 +1,5 @@
 const navButton = document.getElementById('navButton');
+let navClicked = false;
 
 function getNoteAge(noteDate){
     let monthsList = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
@@ -91,11 +92,11 @@ navButton.addEventListener('click', () => {
     if (navClicked === false){
         document.querySelector('.side').style.display = 'flex';
         navClicked = true;
-        navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)', 'white'); // Change the shape of the mobile nav button from 3 lines to cross
+        navButtonShape('rotate(0deg) translate(0%, 0%)', 'block', 'rotate(0deg) translate(0%, 0%)', 'black'); // Change the shape of the mobile nav button from cross to 3 lines
     } else {
         document.querySelector('.side').style.display = 'none';
         navClicked = false;
-        navButtonShape('rotate(0deg) translate(0%, 0%)', 'block', 'rotate(0deg) translate(0%, 0%)', 'black'); // Change the shape of the mobile nav button from cross to 3 lines
+        navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)', 'white'); // Change the shape of the mobile nav button from 3 lines to cross
     }
 })
 

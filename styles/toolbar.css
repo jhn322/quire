@@ -215,3 +215,9 @@
   border: none;
   color: #fff;
 }
+
+@media (max-width: 1024px){
+  .showToolbar {
+    display: none;
+  }
+}
