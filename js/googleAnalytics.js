@@ -34,7 +34,7 @@
   settings.addEventListener("click", function(){
     gtag("event", "Settings_click",{
       event_category: "click-engagement",
-      event_label: "Settings button click",
+      event_label: "Settings_button_click",
     });
   });
 
