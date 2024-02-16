@@ -13,7 +13,7 @@
     background: #fff;
   }
 #notesColumn{
-    z-index: 100;
+    z-index: 7;
     box-shadow: 10px 0px 10px #ccc;
 }
 #demo{
@@ -46,6 +46,12 @@
     margin: 10px 0;
     min-width: 100%;
 }
+#noteDate{
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
 .add-button {
     display: none;
@@ -54,6 +60,10 @@
 
 .printPage{
     right: 1em;
+}
+
+.deleteNote {
+  transform: translateX(unset);
 }
 
 @media (max-width: 1024px){
@@ -69,7 +79,7 @@
         top: 3px;
     }
 
-
+}
 /* print media */
 @media print {
   

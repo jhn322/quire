@@ -19,7 +19,7 @@ class Note {
 }
 
 //list of months
-let monthsList = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
+let monthsList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 
 let noteArray = [];
@@ -27,19 +27,24 @@ let activeNote = new Note("", "");
 renderAllTumbnails();
 let isNewNote = false;
 
+
 document.addEventListener("DOMContentLoaded", function () {
   // check local storage for stored notes
   activeNote = JSON.parse(localStorage.getItem("notes")) || new Note("", "");
   // update notes
   const noteField = document.getElementById("note-field");
   const title = document.getElementById("title");
-  const noteDtae = document.querySelector('#noteDate');
-  findActive(activeNote.id)
+  const noteDate = document.querySelector('#noteDate');
+  
+  setTimeout( () => {
+    if(document.getElementById(activeNote.id + 'Wrapper'))
+    document.getElementById(activeNote.id + 'Wrapper').classList.add('selectedNote');
+  }, 100);
 
   noteField.innerHTML = activeNote.content;
   title.value = activeNote.title;
-  noteDtae.innerHTML="";
-  noteDtae.innerHTML = `Skapat ${activeNote.savedDate}, Ändrat ${activeNote.editedDate}`;
+  noteDate.innerHTML="";
+  noteDate.innerHTML = `<p>Created: ${activeNote.savedDate}</p><p>Last edited: ${activeNote.editedDate}</p>`;
 
   // button to save
   const saveBtn = document.getElementById("save-notes");
@@ -52,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   addNote.addEventListener("click", () => {
     if (isEditingNote == true) {
-      alert("Du kan inte skapa en ny nota medan du redigerar en annan.")
+      alert("It is not possible to create a new note while in editing mode.")
       return;
     }
     const toolbar = document.getElementById("toolbar");
@@ -148,13 +153,11 @@ function renderAllTumbnails() {
 
 //get the date for notes
 function getDate(){
-  const date = new Date()
-  //return `${date.getFullYear()}-${((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1)}-${(date.getDate() < 10 ? '0' : '') + date.getDate()}`
+  const date = new Date();
   return `${monthsList[date.getMonth()]} ${(date.getDate() < 10 ? '0' : '') + date.getDate()}, ${date.getFullYear()}`
 
 }
 
-console.log(getDate())
 
 let editedNote = JSON.parse(localStorage.getItem("notes")) || '';
 let currentNote = editedNote.id;
@@ -162,14 +165,16 @@ let newNoteArray = [];
 
 let isEditingNote = false;
 document.addEventListener('click', (evt) => {
-  console.log(evt.target);
   if(evt.target.className == 'note'){
-    setLocalstorageNote(evt.target.id)
-    removeActive()
-    evt.target.classList.add("selectedNote")
+    
+    for(let i = 0; i < document.getElementsByClassName('note').length; i++)
+      document.getElementsByClassName('note')[i].classList.remove('selectedNote');
+    document.getElementById(evt.target.id).classList.add('selectedNote');
+  
     currentNote = evt.target.idAddress;
-    title.value = evt.target.noteTitle;
-    noteField.innerHTML = evt.target.content;
+    let targetNote = findSelectedNote(evt.target.id);
+    title.value = targetNote[0].title;
+    noteField.innerHTML = targetNote[0].content;
     setNewObject();
     isNewNote = false;
     viewItem();
@@ -186,8 +191,8 @@ document.addEventListener('click', (evt) => {
     viewItem();
     isEditingNote = false;
   }
-  if(evt.target.className == 'add-button'
-  || evt.target.className == 'fa-pen-to-square') {
+  if(evt.target.className == 'fa-regular fa-pen-to-square'
+  || evt.target.className == 'add_PrintButton add-button') {
     addOrEditMode();
   }
     
@@ -265,27 +270,13 @@ function saveChanges(){
   localStorage.setItem("allNotes", JSON.stringify(newNoteArray));
 }
 
-function removeActive(){
-  const noteList = document.querySelector(".note-list").children
-  for(i=0; i < noteList.length; i++){
-    noteList[i].classList.remove("selectedNote")
-    
-  }
-}
-function findActive(id){
-  const active = document.getElementById(id + "Wrapper")
-  if(currentNote)
-  active.classList.add("selectedNote")
-
-}
-
-function setLocalstorageNote(id){
-  const getAllNotes = JSON.parse(localStorage.getItem("allNotes"))
-  getAllNotes.forEach((note)=> {
-    if(note.id == parseInt(id)){
-      localStorage.setItem("notes", JSON.stringify(note))
-    }
-  })
-
-  
+//Function that finds the selected note's array based on ID
+function findSelectedNote(id) {
+  //Id has Wrapper attached to it, needs to be removed and converted into a number before it can be used
+  let fixedId = id.replace("Wrapper", "");
+  fixedId = Number(fixedId);
+  let storageArray = [];
+  storageArray = JSON.parse(localStorage.getItem("allNotes"));
+  let findActiveNote = storageArray.filter((note) => note.id === fixedId);
+  return findActiveNote;
 }

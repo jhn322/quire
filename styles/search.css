@@ -13,9 +13,24 @@
 #search-field {
   width: 30vw;
   height: 2rem;
+  border: solid 1px #aaa;
+  border-radius: 15px;
+  padding: 15px;
 }
 
 .search-icon {
   font-size: 3rem;
   margin-bottom: 1em;
+}
+
+@media (max-width: 1024px){
+  .search-container {
+    width: 50%;
+  }
+
+  #search-field {
+    width: 100%;
+    text-align: center;
+    outline: none;
+  }
 }

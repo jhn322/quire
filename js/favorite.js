@@ -12,11 +12,10 @@ if(allNotes !== null){
     noteArray = JSON.parse(allNotes);
     noteArray.forEach((note) => {
         if(note.isFavorite == true){ // View the first note only
-            let noteAge = getNoteAge(note.savedDate);
+            //let noteAge = getNoteAge(note.savedDate);
             if(getFirstNote == false){
                 demoTitle.textContent = note.title;
                 demoText.innerHTML = note.content;
-                demo.dataset.content = `${noteAge}, Skapat ${note.savedDate}, Senaste ändring ${note.editedDate}`;
                 getFirstNote = true;
             } // Create the notes
             let newNote = `
@@ -25,11 +24,12 @@ if(allNotes !== null){
                 <a class='deleteNote' onclick='deleteNote(${note.id})'><i class="fas fa-trash-alt"></i></a>
                 <h3>${note.title}</h3>
                 <div class='content' id="${note.id}Text">${note.content}</div>
-                <p class='noteDate'>${noteAge}<br>Skapat ${note.savedDate}<br>Senaste ändring ${note.editedDate}</p>
+                <p class='noteDate'>Created: ${note.savedDate}<br>Last edited: ${note.editedDate}</p>
             </div>
             `;
             notesColumn.innerHTML += newNote;
             document.getElementById(note.id).content = note.content;
+            document.getElementById(note.id).noteDate = `created ${note.savedDate}, last edited ${note.editedDate}`;
             const imageWrapper = document.createElement('div');
             imageWrapper.className = 'imageWrapper';
             note.img.forEach((img) => {
@@ -64,6 +64,7 @@ document.addEventListener('click', (evt) => {
         demoText.innerHTML = document.getElementById(evt.target.id + 'Text').innerHTML;
         demo.scrollTop = 0;
         demo.dataset.content = evt.target.date;
+        document.getElementById('noteDate').innerHTML = evt.target.noteDate;
         selectedItem(evt.target.id);
     }
     else if(evt.target.id == 'demo'){
@@ -108,34 +109,4 @@ function selectedItem(n){ // Make the chosen note appearance different to others
     for(let i = 0; i < note.length; i++)
         note[i].classList.remove('selectedNote');
     document.getElementById(n).classList.add('selectedNote');
-}
-
-
-function getNoteAge(noteDate){
-    let monthsList = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
-
-    let noteDayTemp = noteDate.split(',')[0];
-    let noteDay = noteDayTemp.split(' ')[1]; // ex. 1
-
-    let noteMonthName = noteDate.split(' ')[0]; // ex. juni
-    let noteMonth = monthsList.indexOf(noteMonthName) + 1; // ex. 6
-
-    let noteYear = noteDate.split(' ')[2]; // ex. 2024
-
-    let nowDay = new Date().getDate();
-    let nowMonth = new Date().getMonth() + 1;
-    let nowYear = new Date().getFullYear();
-
-    let nmOfDays = ((nowDay - noteDay) + ((nowMonth - noteMonth)*30) + ((nowYear - noteYear)*365));
-
-    if (nmOfDays >= 365)
-        nmOfDays = Math.floor(nmOfDays/365) + ' year old note';
-    else if (nmOfDays >= 30)
-        nmOfDays = Math.floor(nmOfDays/30) + ' month old note';
-    else if (nmOfDays < 30 && nmOfDays > 0)
-        nmOfDays = nmOfDays + ' day old note';
-    else if(nmOfDays == 0)
-        nmOfDays = 'Note is created today';
-
-    return nmOfDays;
 }

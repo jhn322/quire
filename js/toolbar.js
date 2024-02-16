@@ -72,9 +72,6 @@ toolButtons.forEach(function (toolButton) {
       case "ol-list":
         toggleOrderedlist(selectionInfo);
         break;
-      case "add-image":
-        console.log("Nu ska vi lägga till en bild");
-        break;
     }
   });
 });
@@ -120,7 +117,7 @@ function toggleStyle(tool, selectionInfo) {
   //check if there is selected text
   if (!selectionInfo) {
     alert(
-      "Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen."
+      "There is no selected text.\nSelect the desired text and test again."
     );
     return;
   }
@@ -314,7 +311,7 @@ function createRangeAtCursor() {
 function handleSelect(event, menu, selectionInfo) {
   if (!selectionInfo) {
     alert(
-      "Du har ingen text markerad.\nMarkera den text du vill ändra och prova igen."
+      "There is no selected text.\nSelect the desired text and test again."
     );
     return;
   }

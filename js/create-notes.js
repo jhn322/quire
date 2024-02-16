@@ -24,9 +24,9 @@ function createTumbnail(noteObject) {
   newDate.className = "noteDate";
   const savedDate = document.createElement("span");
   savedDate.style.display = "block"
-  savedDate.textContent = `Skapat ${noteObject.savedDate}`;
+  savedDate.textContent = `Created: ${noteObject.savedDate}`;
   const editDate = document.createElement("span");
-  editDate.textContent = `Ändrat ${noteObject.editedDate}`;
+  editDate.textContent = `Last edited: ${noteObject.editedDate}`;
   editDate.style.display = "block"
   newDate.appendChild(savedDate);
   newDate.appendChild(editDate);

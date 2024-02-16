@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Set label text
   const label = document.createElement("label");
   label.setAttribute("for", "image-url");
-  label.textContent = "Klistra in en bildlänk";
+  label.textContent = "Add/Paste Image Link";
   label.classList.add("img-modal-label");
 
   // Set input type to text
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const addButton = document.createElement("button");
   addButton.classList.add("img-modal-add-btn");
   addButton.id = "add-image-btn";
-  addButton.textContent = "Lägg till bild";
+  addButton.textContent = "Add Image";
 
   // Added class to error messages
   const errorMsg = document.createElement("div");
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // If image dimensions are more than zero approve image element
           let imgElement = document.createElement("img");
           imgElement.src = imageUrl;
-          imgElement.alt = "Användarspecifik bild";
+          imgElement.alt = "User Customized Image";
           imgElement.classList.add("note-img");
 
           // Close the modal after successful processing
@@ -93,14 +93,14 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("note-field").scrollTop = document.getElementById("note-field").scrollHeight;
         } else {
           // If dimensions are zero show alert
-          displayError("Fel på bild, prova annan bildlänk.");
+          displayError("Upload error, please choose another image link.");
         }
       };
 
       // Event handler for error showing temporary image
       tempImg.onerror = function () {
         // Show alert if invalid image URL
-        displayError("Ogiltig bildlänk angiven.");
+        displayError("Invalid image link.");
       };
 
       // Set temp source to the provided URL

@@ -41,64 +41,62 @@
         <i class="menu-icon fa-solid fa-question"></i>
       </nav>
     </aside>
-    <div class="notes-column">
+    <aside class="notes-column" id="notesColumn">
       <ul class="note-list"></ul>
-    </div>
+    </aside>
 
-    <button id="resetSettings" onclick="localStorage.removeItem('settings'); location.reload()">Reset all
-      settings</button>
     <section>
       <div id="containerMainWrapper">
         <div class="container">
           <div class="slide" id="colorSettingsSlide">
-            <h3>Color Settings</h3><i class="fas fa-chevron-down" id="colorSettingsArrow"></i>
+            <h3>Colour Settings</h3><i class="fas fa-chevron-down" id="colorSettingsArrow"></i>
           </div>
           <div class="toolsWrapper" id="colorSettings">
             <div class="optionWrapper">
               <select id="colorList">
-                <option value="navColor">Nav Color</option>
-                <option value="asideColor">Side-bar Color</option>
-                <option value="noteColor">Note Color</option>
+                <option value="navColor">Nav Colour</option>
+                <option value="asideColor">Side-bar Contrast</option>
+                <option value="noteColor">Note Colour</option>
               </select>
               <div class="backColorWrapper" id="navColorWrapper">
                 <div class="color-row">
                   <div>
                     <input type="radio" class="navBackColors" id="navBackColors7d0f0f">
-                    <label for="navBackColors7d0f0f">Red</label>
+                    <label for="navBackColors7d0f0f" style="color:red;">Red</label>
                   </div>
                   <div>
                     <input type="radio" class="navBackColors" id="navBackColors265922">
-                    <label for="navBackColors265922">Green</label>
+                    <label for="navBackColors265922" style="color:green;">Green</label>
                   </div>
                 </div>
                 <div class="color-row">
                   <div>
                     <input type="radio" class="navBackColors" id="navBackColors005392">
-                    <label for="navBackColors005392">Blue</label>
+                    <label for="navBackColors005392" style="color:blue;">Blue</label>
                   </div>
                   <div>
                     <input type="radio" class="navBackColors" id="navBackColors704836">
-                    <label for="navBackColors704836">Brown</label>
+                    <label for="navBackColors704836" style="color:brown;">Brown</label>
                   </div>
                 </div>
                 <div class="color-row">
                   <div>
                     <input type="radio" class="navBackColors" id="navBackColors555">
-                    <label for="navBackColors555">Black</label>
+                    <label for="navBackColors555" style="color:black;">Black</label>
                   </div>
                   <div>
                     <input type="radio" class="navBackColors" id="navBackColors888">
-                    <label for="navBackColors888">Grey</label>
+                    <label for="navBackColors888" style="color:grey;">Grey</label>
                   </div>
                 </div>
                 <div class="color-row">
                   <div>
                     <input type="radio" class="navBackColors" id="navBackColorse5a">
-                    <label for="navBackColorse5a">Pink</label>
+                    <label for="navBackColorse5a" style="color:pink;">Pink</label>
                   </div>
                   <div>
                     <input type="radio" class="navBackColors" id="navBackColors91d">
-                    <label for="navBackColors91d">Purple</label>
+                    <label for="navBackColors91d" style="color:purple;">Purple</label>
                   </div>
                 </div>
               </div>
@@ -107,17 +105,16 @@
               </div>
               <div class="backColorWrapper" id="noteColorWrapper">
                 <p id="noteColorText">rgb(246, 246, 246)</p>
-                <p>Red</p> <input type="range" id="noteColorR" min="0" max="255" value="246">
-                <p>Green</p> <input type="range" id="noteColorG" min="0" max="255" value="246">
-                <p>Blue</p> <input type="range" id="noteColorB" min="0" max="255" value="246">
+                <p style="color:red;">Red</p> <input type="range" id="noteColorR" min="0" max="255" value="246">
+                <p style="color:green;">Green</p> <input type="range" id="noteColorG" min="0" max="255" value="246">
+                <p style="color:blue;">Blue</p> <input type="range" id="noteColorB" min="0" max="255" value="246">
               </div>
             </div>
           </div>
-
         </div>
         <div class="container">
           <div class="slide" id="sizeSettingsSlide">
-            <h3>Size Settings</h3><i class="fas fa-chevron-down" id="sizeSettingsArrow"></i>
+            <h3>Font Settings</h3><i class="fas fa-chevron-down" id="sizeSettingsArrow"></i>
           </div>
           <div class="toolsWrapper columnFlex" id="sizeSettings">
             <div class="rangeWrapper">
@@ -129,38 +126,40 @@
               <input type="range" id="contentSizeRange" class="sizeRange" min="10" max="30" value="16">
             </div>
           </div>
+          <div id="fontWrapper">
+            <select id="fonts">
+              <option style="font-family: monospace" value="monospace">Monospace</option>
+              <option style="font-family: serif" value="serif" selected>Times New Roman</option>
+              <option style="font-family: sans-serif" value="sans-serif">Sans Serif</option>
+              <option style="font-family: Verdana" value="Verdana">Verdana</option>
+              <option style="font-family: cursive" value="cursive">Cursive</option>
+              <option style="font-family: fantasy" value="fantasy">Fantasy</option>
+            </select>
+          </div>
         </div>
         <div class="container">
           <div class="slide" id="borderSettingsSlide">
-            <h3>Border and font settings</h3><i class="fas fa-chevron-down" id="borderSettingsArrow"></i>
+            <h3>Border settings</h3><i class="fas fa-chevron-down" id="borderSettingsArrow"></i>
           </div>
           <div class="toolsWrapper" id="borderSettings">
             <div id="borderSettingsSmall">
+              <div id="slideButton">
+                <div id="slideButtonSeek"></div>
+              </div>
               <select id="borderList">
                 <option value="solid">Solid line</option>
                 <option value="dashed">Dashed line</option>
                 <option value="dotted">Dotted line</option>
               </select>
-              <div>
-                <p>Brightness</p>
+              <div id="borderRangeWrapper">
+                <p id="transparencyText">Transparency</p>
                 <input type="range" id="borderRange" value="0" min="0" max="100">
               </div>
-              <div id="slideButton">
-                <div id="slideButtonSeek"></div>
-              </div>
-            </div>
-            <div id="fontWrapper">
-              <select id="fonts">
-                <option style="font-family: monospace" value="monospace">monospace</option>
-                <option style="font-family: serif" value="serif" selected>Times New Roman</option>
-                <option style="font-family: sans-serif" value="sans-serif">Sans Serif</option>
-                <option style="font-family: Verdana" value="Verdana">Verdana</option>
-                <option style="font-family: cursive" value="cursive">cursive</option>
-                <option style="font-family: fantasy" value="fantasy">fantasy</option>
-              </select>
             </div>
           </div>
         </div>
+        <button id="resetSettings" onclick="localStorage.removeItem('settings'); location.reload()">Reset all
+          settings</button>
       </div>
     </section>
   </main>
