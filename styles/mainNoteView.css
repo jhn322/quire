@@ -136,13 +136,20 @@
     #note-field,
     .mainText{
       min-width: 100%;
+      border: none;
+    }
+
+    .note-section{
+      border-style: none;
+      border: none;
     }
   
     .side,
     .notes-column, 
     #toolbar,
     .add-note,
-    .printPage{
+    .printPage,
+    #noteDate{
       display: none;
     }
   

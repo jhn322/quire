@@ -1,38 +1,16 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Gtag for print icon - Johan
-  const printPageIcon = document.getElementById("printPage");
 
-  printPageIcon.addEventListener("click", function () {
-    // Custom gtag event when the print icon is clicked
-    gtag("event", "Print_Page", {
-      event_category: "click_engagement",
-      event_label: "print_page",
-    });
-  });
-  // ------------------------------------------------------
+// Gtag for print icon - JOHAN
+// See print.js at top
+  
+// ------------------------------------------------------
 
-  //Gtag for new-note-button - Ellen
-  const addNoteBtn = document.querySelector(".add-button");
+//Gtag for new-note-button - Ellen
+// See notes.js at top
 
-    //eventListener with custom gtag event for click on new note
-    addNoteBtn.addEventListener("click", function () {
-      gtag("event", "Add_new_note", {
-        event_category: "click_engagement",
-        event_label: "new_note_click",
-      });
-    });
-  // ------------------------------------------------------
+// ------------------------------------------------------
 
   // gtag för spara-knappen - Anna-Sara
-  const saveNoteBtn = document.getElementById("save-notes");
-
-    // custom gtag event when you save a note
-    saveNoteBtn.addEventListener("click", function () {
-      gtag("event", "Save_button", {
-        event_category: "click_engagement",
-        event_label: "save_note",
-      });
-    });
+  // See notes.js at top
 
 // ------------------------------------------------------
 
@@ -46,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
       event_label: "Modal re-open count",
     });
   });
+
 // ------------------------------------------------------
 
   //Gtag Alexander Kuiper
@@ -58,22 +37,16 @@ document.addEventListener("DOMContentLoaded", function () {
       event_label: "Settings button click",
     });
   });
-  // ------------------------------------------------------
 
-  // gtag for reset button - Ali
-  const resetBtn = document.getElementById("resetSettings");
-  
-  //custom gtag event when you reset changes
-  resetBtn.addEventListener("click", function () {
-    gtag("event", "Reset_button", {
-      event_category: "click_engagement",
-      event_label: "reset_settings",
-    });
-  });
 // ------------------------------------------------------
 
-  //gtag for fav button - Mustafa
-  const favoriteBtn = document.querySelector(".fa-star")
+// gtag for reset button - Ali
+// See settings.js at top
+  
+// ------------------------------------------------------
+
+//gtag for fav button - Mustafa
+  const favoriteBtn = document.querySelector(".fa-star");
   
   //custom gtag event when mark a note as fav
   favoriteBtn.addEventListener("click", function () {
@@ -82,4 +55,4 @@ document.addEventListener("DOMContentLoaded", function () {
       event_label: "favorite page click",
     });
   });
-});
+

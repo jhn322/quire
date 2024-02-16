@@ -1,3 +1,16 @@
+ // gtag for reset button - Ali -------------------------------
+const resetBtn = document.getElementById("resetSettings");
+  
+  //custom gtag event when you reset changes
+  resetBtn.addEventListener("click", function () {
+    gtag("event", "Reset_button", {
+      event_category: "click_engagement",
+      event_label: "reset_settings",
+    });
+  });
+// -------------------------------------------------------------
+
+
 function takeAll() {
   const allNotes = JSON.parse(localStorage.getItem("allNotes"));
   allNotes.forEach((e) => {

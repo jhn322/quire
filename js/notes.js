@@ -1,3 +1,27 @@
+//Gtag for new-note-button - Ellen
+const addNoteBtn = document.querySelector(".add-button");
+
+//eventListener with custom gtag event for click on new note
+addNoteBtn.addEventListener("click", function () {
+  gtag("event", "Add_new_note", {
+    event_category: "click_engagement",
+    event_label: "new_note_click",
+  });
+});
+// --------------------------------------------------------------
+
+// gtag för spara-knappen - Anna-Sara
+  const saveNoteBtn = document.getElementById("save-notes");
+
+    // custom gtag event when you save a note
+    saveNoteBtn.addEventListener("click", function () {
+      gtag("event", "Save_button", {
+        event_category: "click_engagement",
+        event_label: "save_note",
+      });
+    });
+// --------------------------------------------------------------
+
 class Note {
   constructor(
     title,
@@ -31,6 +55,7 @@ let isNewNote = false;
 document.addEventListener("DOMContentLoaded", function () {
   // check local storage for stored notes
   activeNote = JSON.parse(localStorage.getItem("notes")) || new Note("", "");
+
   // update notes
   const noteField = document.getElementById("note-field");
   const title = document.getElementById("title");
@@ -183,6 +208,11 @@ document.addEventListener('click', (evt) => {
   else if(evt.target.id == 'note-field'
   || evt.target.id == 'title'
   || evt.target.parentNode.id == 'note-field'){
+    if(JSON.parse(localStorage.getItem("allNotes")) === null){
+      alert("Please press the note creation button.")
+      console.log("Wut")
+      return;
+    }
     addOrEditMode();
     if(isNewNote == false)
     isEditingNote = true;
