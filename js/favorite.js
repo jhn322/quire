@@ -16,6 +16,7 @@ if(allNotes !== null){
             if(getFirstNote == false){
                 demoTitle.textContent = note.title;
                 demoText.innerHTML = note.content;
+                document.getElementById('noteDate').innerHTML = `Created: ${note.savedDate}<br>Last edited: ${note.editedDate}`;
                 getFirstNote = true;
             } // Create the notes
             let newNote = `
@@ -29,7 +30,6 @@ if(allNotes !== null){
             `;
             notesColumn.innerHTML += newNote;
             document.getElementById(note.id).content = note.content;
-            document.getElementById(note.id).noteDate = `created ${note.savedDate}, last edited ${note.editedDate}`;
             const imageWrapper = document.createElement('div');
             imageWrapper.className = 'imageWrapper';
             note.img.forEach((img) => {
@@ -44,7 +44,7 @@ if(allNotes !== null){
 // Giving (title, text, date, isfavorite) values to each note
 for(let i = 0; i < note.length; i++){
     note[i].noteTitle = note[i].getElementsByTagName('h3')[0].textContent;
-    note[i].date = note[i].getElementsByTagName('p')[0].innerHTML.replaceAll('<br>', ', ');
+    note[i].date = note[i].getElementsByClassName('noteDate')[0].innerHTML;
     note[i].isFavorite = true;
 }
 
@@ -64,7 +64,7 @@ document.addEventListener('click', (evt) => {
         demoText.innerHTML = document.getElementById(evt.target.id + 'Text').innerHTML;
         demo.scrollTop = 0;
         demo.dataset.content = evt.target.date;
-        document.getElementById('noteDate').innerHTML = evt.target.noteDate;
+        document.getElementById('noteDate').innerHTML = evt.target.date;
         selectedItem(evt.target.id);
     }
     else if(evt.target.id == 'demo'){
