@@ -218,4 +218,12 @@ input[type="range"]{
     #transparencyText{
         align-self: flex-start;
     }
+    section{
+        width: 100%;
+        padding: 30px 0;
+    }
+    #resetSettings{
+        transform: translateY(0%);
+        margin-top: 0;
+    }
 }

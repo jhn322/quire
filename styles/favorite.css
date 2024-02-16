@@ -53,7 +53,7 @@
 }
 #noteDate{
     position: absolute;
-    top: 120px;
+    top: 100px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -77,13 +77,22 @@
         height: 75%;
         padding: 0;
     }
+    #notesColumn{
+        box-shadow: unset;
+    }
+    #demo{
+        margin-top: 100px;
+        height: 70%;
+    }
     #demo::before, .noteDate{
         display: none;
     }
     #demoTitle{
         top: 3px;
     }
-
+    #noteDate{
+        top: 50px;
+    }
 }
 /* print media */
 @media print {
