@@ -91,7 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
     title.value = "";
     noteField.textContent = "";
     activeNote = new Note(title.value, noteField.value);
-    console.log(activeNote);
     const selectTextType = document.getElementById("text-type");
     
     //function to set all tools in toolbar to default values
@@ -208,9 +207,8 @@ document.addEventListener('click', (evt) => {
   else if(evt.target.id == 'note-field'
   || evt.target.id == 'title'
   || evt.target.parentNode.id == 'note-field'){
-    if(JSON.parse(localStorage.getItem("allNotes")) === null){
-      alert("Please press the note creation button.")
-      console.log("Wut")
+    if(JSON.parse(localStorage.getItem("allNotes")) === null && isNewNote === false){
+      alert("Please press the note creation button.");
       return;
     }
     addOrEditMode();

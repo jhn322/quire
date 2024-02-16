@@ -19,7 +19,7 @@ main{
     position: relative;
 }
 section{
-    width: 100%;
+    width: 78%;
     height: 100%;
     user-select: none;
     overflow-y: scroll;

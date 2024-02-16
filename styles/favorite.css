@@ -4,6 +4,10 @@
     overflow: hidden;
     margin-top: 10px;
 }
+
+.content>img{
+    display: none;
+}
 #resultWrapper{
     position: relative;
     width: 78%;

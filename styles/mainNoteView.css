@@ -57,6 +57,8 @@
     overflow-y: scroll;
     outline: none;
     min-height: 65vh;
+    overflow: hidden;
+    
   }
   #note-field::-webkit-scrollbar {
     display: none;
@@ -68,8 +70,11 @@
 /* Styling for images */
 #note-field img {
     margin: 10px 0;
-    min-width: 100%;
+    width: 100%;
+    min-width: 170px;
+    height: 100%;
     display: block;
+    object-fit: contain;
 }
 
 /* SAVE NOTE BUTTON */

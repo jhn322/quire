@@ -4,7 +4,8 @@
 }
 
 .search-container {
-  margin: auto;
+  width: 78%;
+  margin: auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
