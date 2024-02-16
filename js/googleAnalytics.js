@@ -49,7 +49,6 @@
 //gtag for fav button - Mustafa
   const favoriteBtn = document.getElementById("gtag-favorite");
   
-  
   //custom gtag event when mark a note as fav
   favoriteBtn.addEventListener("click", function () {
     gtag("event", "FavoriteBtn", {
