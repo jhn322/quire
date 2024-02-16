@@ -102,7 +102,7 @@
   font-family: Arial, Helvetica, sans-serif;
   display: none;
   position: fixed;
-  z-index: 10;
+  z-index: 5;
   left: 0;
   top: 0;
   width: 100%;
@@ -214,4 +214,10 @@
   background-color: #005392;
   border: none;
   color: #fff;
+}
+
+@media (max-width: 1024px){
+  .showToolbar {
+    display: none;
+  }
 }

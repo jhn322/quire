@@ -1,31 +1,34 @@
-function getNoteAge(noteDate){
-    let monthsList = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
+const navButton = document.getElementById('navButton');
+let navClicked = false;
 
-    let noteDayTemp = noteDate.split(',')[0];
-    let noteDay = noteDayTemp.split(' ')[1]; // ex. 1
+// function getNoteAge(noteDate){
+//     let monthsList = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
 
-    let noteMonthName = noteDate.split(' ')[0]; // ex. juni
-    let noteMonth = monthsList.indexOf(noteMonthName) + 1; // ex. 6
+//     let noteDayTemp = noteDate.split(',')[0];
+//     let noteDay = noteDayTemp.split(' ')[1]; // ex. 1
 
-    let noteYear = noteDate.split(' ')[2]; // ex. 2024
+//     let noteMonthName = noteDate.split(' ')[0]; // ex. juni
+//     let noteMonth = monthsList.indexOf(noteMonthName) + 1; // ex. 6
 
-    let nowDay = new Date().getDate();
-    let nowMonth = new Date().getMonth() + 1; // Since January is 0
-    let nowYear = new Date().getFullYear();
+//     let noteYear = noteDate.split(' ')[2]; // ex. 2024
 
-    //Get exactly how many days the note is old
-    let nmOfDays = ((nowDay - noteDay) + ((nowMonth - noteMonth)*30) + ((nowYear - noteYear)*365));
+//     let nowDay = new Date().getDate();
+//     let nowMonth = new Date().getMonth() + 1; // Since January is 0
+//     let nowYear = new Date().getFullYear();
 
-    if (nmOfDays >= 365)
-        nmOfDays = Math.floor(nmOfDays/365) + ' year old note';
-    else if (nmOfDays >= 30)
-        nmOfDays = Math.floor(nmOfDays/30) + ' month old note';
-    else if (nmOfDays < 30 && nmOfDays > 0)
-        nmOfDays = nmOfDays + ' day old note';
-    else if(nmOfDays == 0)
-        nmOfDays = 'Note is created today';
-    return nmOfDays;
-}
+//     //Get exactly how many days the note is old
+//     let nmOfDays = ((nowDay - noteDay) + ((nowMonth - noteMonth)*30) + ((nowYear - noteYear)*365));
+
+//     if (nmOfDays >= 365)
+//         nmOfDays = Math.floor(nmOfDays/365) + ' year old note';
+//     else if (nmOfDays >= 30)
+//         nmOfDays = Math.floor(nmOfDays/30) + ' month old note';
+//     else if (nmOfDays < 30 && nmOfDays > 0)
+//         nmOfDays = nmOfDays + ' day old note';
+//     else if(nmOfDays == 0)
+//         nmOfDays = 'Note is created today';
+//     return nmOfDays;
+// }
 
 let settingsObj = [
     {
@@ -87,21 +90,23 @@ fetchStorageData();
 
 navButton.addEventListener('click', () => {
     if (navClicked === false){
-        document.querySelector('.side').style.display = 'flex';
+        for(let i = 1; i < document.querySelector('.nav').getElementsByTagName('a').length; i++)
+        document.querySelector('.nav').getElementsByTagName('a')[i].style.display = 'block';
+        document.querySelector('.nav').getElementsByClassName('menu-icon fa-solid fa-question')[0].style.display = 'block';
         navClicked = true;
-        navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)', 'white'); // Change the shape of the mobile nav button from 3 lines to cross
+        navButtonShape('translate(10%, 100%) rotate(45deg)', 'none', 'translate(10%, -100%) rotate(-45deg)'); // Change the shape of the mobile nav button from 3 lines to cross
     } else {
-        document.querySelector('.side').style.display = 'none';
+        for(let i = 1; i < document.querySelector('.nav').getElementsByTagName('a').length; i++)
+        document.querySelector('.nav').getElementsByTagName('a')[i].style.display = 'none';
+        document.querySelector('.nav').getElementsByClassName('menu-icon fa-solid fa-question')[0].style.display = 'none';
         navClicked = false;
-        navButtonShape('rotate(0deg) translate(0%, 0%)', 'block', 'rotate(0deg) translate(0%, 0%)', 'black'); // Change the shape of the mobile nav button from cross to 3 lines
+        navButtonShape('rotate(0deg) translate(0%, 0%)', 'block', 'rotate(0deg) translate(0%, 0%)'); // Change the shape of the mobile nav button from cross to 3 lines
     }
 })
 
-function navButtonShape(f, s, t, color){
+function navButtonShape(f, s, t){
     let div = navButton.getElementsByTagName('div');
     div[0].style.transform = f;
     div[1].style.display = s;
     div[2].style.transform = t;
-    for(let i = 0; i < div.length; i++)
-        div[i].style.background = color;
 }

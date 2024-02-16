@@ -20,7 +20,6 @@
   #title {
     background: linear-gradient(to right, #00000000, #00000022, #00000000);
     text-align: center;
-    padding: 10px;
     color: #000000;
     font-size: 1.8rem;
     width: 40vw;
@@ -44,10 +43,8 @@
     margin-top: 0.5em;
     overflow-y: scroll;
     border: solid 30px #fff;
-    border-right: solid 15px #fff;
     box-shadow: 0 0 10px #00000044;
     border-radius: 15px;
-    padding-right: 5px;
   }
 
   /* NOTEFIELD*/
@@ -60,6 +57,8 @@
     overflow-y: scroll;
     outline: none;
     min-height: 65vh;
+    overflow: hidden;
+    
   }
   #note-field::-webkit-scrollbar {
     display: none;
@@ -71,8 +70,11 @@
 /* Styling for images */
 #note-field img {
     margin: 10px 0;
-    min-width: 100%;
+    width: 100%;
+    min-width: 170px;
+    height: 100%;
     display: block;
+    object-fit: contain;
 }
 
 /* SAVE NOTE BUTTON */
@@ -93,67 +95,43 @@
   .hide-btn {
     display: none;
   }
-  
 
-/* MAKE NEW NOTE  */
-/* icon for adding a new note */
-.add-note {
-    background-color: #005392;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 1em;
-    right: 1em;
-    cursor: pointer;
-  }
-  .add-note > i {
-    pointer-events: none;
-  }
-  
-  .add-note:hover {
-    transform: scale(1.2);
-    box-shadow: 3px 3px 5px #ccc;
-  }
-  
+  /* MAKE NEW NOTE & PRINT BUTTONS */  
+.user-buttons {
+  display: flex;
+  gap: 1em;
+  position: fixed;
+  bottom: 2em;
+  right: 5em;
+}
+
   .fa-pen-to-square {
     color: white;
     font-size: 1.5rem;
   }
+
+  #printPage{
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    border-style: none;
+    padding-top: .5em;
+  }
   
-/* PRINTING */
-/* icon for printing active note */
-  .printPage {
+  .add_PrintButton {
     background-color: #005392;
     width: 60px;
     height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 1em;
-    right: 5.1em;
+    border-radius: 50%;   
     cursor: pointer;
   }
-  
-  .printPage > i {
-    pointer-events: none;
-    border-style: none;
-    padding-top: .4em;
-  }
-  
-  .printPage:hover{
+
+  .add_PrintButton:hover {
     transform: scale(1.2);
     box-shadow: 3px 3px 5px #ccc;
-  }
-  
-  #printPage{
-    color: white;
-    font-size: 1.5rem;
   }
   
   /* print media */
@@ -163,14 +141,64 @@
     #note-field,
     .mainText{
       min-width: 100%;
+      border: none;
+    }
+
+    .note-section{
+      border-style: none;
+      border: none;
     }
   
     .side,
     .notes-column, 
     #toolbar,
     .add-note,
-    .printPage{
+    .printPage,
+    #noteDate{
       display: none;
     }
   
+    .user-buttons {
+      display: none;
   }
+}
+
+/* ---- MEDIA QUERY ---- */
+@media (max-width: 1024px){
+  .mainText {
+    width: 100%;
+    padding: 0.5em;
+  }
+  
+  #title {
+    font-size: 1rem;
+    padding: 0.1em;
+  }
+  
+  #noteDate {
+    margin-top: 5px;
+    font-size: 0.9rem;
+  }
+
+  .note-section {
+    width: 100%;
+    height: 60vh;
+    border: solid 20px #fff;
+    border-bottom: solid 2px #fff;
+    margin-bottom: 1em;
+    margin-top: 0em;
+  }
+
+  #note-field {
+    min-height: 47vh;
+    margin-bottom: 0.8em;
+  }
+
+  .user-buttons {
+    width: 100%;
+    gap: 1em;
+    position: unset;
+    justify-content: center;
+    padding-bottom: 15px;
+  }
+}

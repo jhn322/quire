@@ -19,24 +19,27 @@ main{
     position: relative;
 }
 section{
-    width: 100%;
+    width: 78%;
     height: 100%;
     user-select: none;
     overflow-y: scroll;
     padding: 100px 0;
 }
 #resetSettings{
-    position: absolute;
-    right: 10px;
-    bottom: var(--commonSize);
-    padding: 15px 10px;
-    cursor: pointer;
+    padding: 0.5em 5em;
+    background-color: #005392;
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
     border: none;
-    background-color: #ffffff00;
+    cursor: pointer;
+    transform: translateY(-20%);
+    margin-top: 5em;
 }
+
 #resetSettings:hover{
-    color: #f00;
+    background-color: #0f77c7;
 }
+
 #containerMainWrapper{
     display: flex;
     flex-direction: column;
@@ -90,12 +93,19 @@ label{
     display: none;
     padding: 0 var(--commonSize);
 }
+
 .backColorWrapper > div{
     display: flex;
     align-items: center;
 }
+
+.color-row {
+    margin-top: 1em;
+}
+
 #navColorWrapper{
     display: flex;
+    flex-wrap: wrap;
 }
 
 .rangeWrapper{
@@ -120,7 +130,7 @@ input[type="range"]{
     flex-direction: column;
     gap: 5px;
     color: var(--mediumGrey);
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 #noteColorText{
     margin-bottom: var(--commonSize);
@@ -168,4 +178,44 @@ input[type="range"]{
     padding-top: var(--commonSize);
     margin-top: var(--commonSize);
     border-top: solid 1px var(--lightGrey);
+}
+
+@media (max-width: 730px){
+    #containerMainWrapper{
+        width: 95%; 
+    }
+
+    .color-row {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 1em;
+    }
+
+    .color-row > div {
+        width: 90px;
+    }
+
+    #borderSettingsSmall{
+        flex-direction: column;
+        align-items: start;
+        gap: 2.5em;
+    }
+    #borderSettingsSmall > div > input{
+        min-width: 100%;
+    }
+
+    .rangeWrapper{
+        flex-direction: column;
+    }
+    
+    #borderRangeWrapper{
+        display: flex;
+        flex-direction: column;
+        color: var(--darkBlue);
+        width: 100%;
+    }
+    #transparencyText{
+        align-self: flex-start;
+    }
 }

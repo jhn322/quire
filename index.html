@@ -2,19 +2,19 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="./styles/style.css" />
-  <link rel="stylesheet" href="./styles/toolbar.css">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./styles/style.css">
   <link rel="stylesheet" href="./styles/modal.css">
   <link rel="stylesheet" href="./styles/mainNoteView.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles/toolbar.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Quire's homepage">
   <!-- google fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Dosis:wght@400;700&family=Merienda:wght@400;700&family=Raleway:wght@400;700&family=Teko:wght@400;700&display=swap"
-    rel="stylesheet" />
+    rel="stylesheet">
 
   <title>Quire</title>
 
@@ -36,15 +36,15 @@
     <aside class="side">
       <nav class="nav">
         <div class="logo-div">
-          <i class="logo fa-brands fa-quora"></i>
+          <a href="#"><i class="logo fa-brands fa-quora"></i></a>
         </div>
         <a href="./search.html"><i class="menu-icon fa-solid fa-magnifying-glass"></i></a>
-        <a href="favorite.html"><i class="menu-icon fa-solid fa-star"></i></a>
+        <a id="gtag-favorite" href="favorite.html"><i class="menu-icon fa-solid fa-star"></i></a>
         <a href="https://analytics.google.com/analytics/web/?utm_source=marketingplatform.google.com&utm_medium=et&utm_campaign=marketingplatform.google.com%2Fabout%2Fanalytics%2F#/p425831211/reports/intelligenthome"
           target="_blank" rel="noopener noreferrer">
           <i class="menu-icon fa-solid fa-chart-column"></i>
         </a>
-        <a href="./settings.html"><i class="menu-icon fa-solid fa-gear"></i></a>
+        <a id="gtag-settings" href="./settings.html"><i class="menu-icon fa-solid fa-gear"></i></a>
         <i class="menu-icon fa-solid fa-question"></i>
       </nav>
     </aside>
@@ -56,19 +56,19 @@
     <section class="mainText">
       <!-- title-section -->
       <div class="title-section">
-        <input type="text" name="title" id="title" placeholder="Titel..." />
+        <input type="text" name="title" id="title" placeholder="Title...">
         <p id="noteDate"></p>
       </div>
       <!-- toolbar-section  -->
       <div id="toolbar" class="toolbar toolbar-hidden">
         <select name="text-type" id="text-type">
-          <option class="h1-option" value="h1">Rubrik 1</option>
-          <option class="h2-option" value="h2">Rubrik 2</option>
-          <option class="h3-option" value="h3">Rubrik 3</option>
-          <option class="h4-option" value="h4">Rubrik 4</option>
-          <option class="h5-option" value="h5">Rubrik 5</option>
-          <option class="h6-option" value="h6">Rubrik 6</option>
-          <option value="p" selected>Vanlig text</option>
+          <option class="h1-option" value="h1">Heading 1</option>
+          <option class="h2-option" value="h2">Heading 2</option>
+          <option class="h3-option" value="h3">Heading 3</option>
+          <option class="h4-option" value="h4">Heading 4</option>
+          <option class="h5-option" value="h5">Heading 5</option>
+          <option class="h6-option" value="h6">Heading 6</option>
+          <option value="p" selected>Normal</option>
         </select>
         <select name="font-family" id="font-family">
           <option class="font-arial" value="Arial">Arial</option>
@@ -104,21 +104,29 @@
       <!-- note section -->
       <div class="note-section">
         <div id="note-field" contenteditable="true" spellcheck="false"></div>
-        <button id="save-notes">Spara</button>
+        <button id="save-notes">Save</button>
       </div>
     </section>
 
-    <div class="add-note">
-      <i class="fa-regular fa-pen-to-square"></i>
-    </div>
-    <div class="printPage">
-      <i id="printPage" class="fa-solid fa-print tool-icon"></i>
+    <div class="user-buttons">
+      <div class="add_PrintButton add-button">
+        <i class="fa-regular fa-pen-to-square"></i>
+      </div>
+      <div class="add_PrintButton printButton">
+        <i id="printPage" class="fa-solid fa-print tool-icon"></i>
+      </div>
     </div>
   </main>
 
+  <div id="navButton">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
   <!-- Scripts -->
   <script src="https://kit.fontawesome.com/dfb17be9bd.js" crossorigin="anonymous"></script>
-  <script src="js/main.js"></script>
+  <script src="js/print.js"></script>
   <script src="js/modalWindow.js"></script>
   <script src="js/commonFunctions.js"></script>
   <script src="js/create-notes.js"></script>

@@ -38,7 +38,7 @@ function redirectToIndex(id) {
   allStoredNotes.forEach((note) => {
     if (note.id == id) {
       localStorage.setItem("notes", JSON.stringify(note));
-      window.location.href = "/index.html";
+      window.location.href = "./index.html";
     }
   });
 }

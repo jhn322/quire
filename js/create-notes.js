@@ -20,13 +20,14 @@ function createTumbnail(noteObject) {
   newTitle.className = "noteTitle";
   newContent.innerHTML = noteObject.content;
   newContent.className = "noteContent";
-
   favorite.innerHTML = '<i class="fas fa-star"></i>';
   newDate.className = "noteDate";
   const savedDate = document.createElement("span");
-  savedDate.textContent = `skapat ${noteObject.savedDate}`;
+  savedDate.style.display = "block"
+  savedDate.textContent = `Created: ${noteObject.savedDate}`;
   const editDate = document.createElement("span");
-  editDate.textContent = `senaste ändring ${noteObject.editedDate}`;
+  editDate.textContent = `Last edited: ${noteObject.editedDate}`;
+  editDate.style.display = "block"
   newDate.appendChild(savedDate);
   newDate.appendChild(editDate);
 

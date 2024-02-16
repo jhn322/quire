@@ -45,8 +45,10 @@ a:visited {
 }
 
 a{
-  color: #fff;
   text-decoration: none;
+  width: 100%;
+  text-align: center;
+  color: white;
 }
 
 .menu-icon {
@@ -123,8 +125,7 @@ a{
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
-  margin: 10px 0;
-  margin: 15px 0 30px 0;
+  margin: 15px 0 45px 0;
 }
 
 .imageWrapper > img {
@@ -170,7 +171,6 @@ a{
 }
 
 .deleteNote {
-  position: absolute;
   top: 45px;
   right: 24px;
   color: #920000;
@@ -228,17 +228,113 @@ a{
   white-space: nowrap;
 }
 
-.content{
-  overflow: hidden;
-  max-height: 50px;
-  overflow-y: scroll;
-}
-
-.content::-webkit-scrollbar{
+#navButton{
+  z-index: 6;
+  position: absolute;
+  right: 2%;
+  top: 0%;
+  padding: 27px 15px 30px 30px;
   display: none;
+  justify-content: center;
+  gap: 4px;
+  flex-direction: column;
+}
+#navButton > div{
+  width: 25px;
+  height: 4px;
+  background: #fff;
+  pointer-events: none;
+  transition: transform 0.3s ease-in-out;
 }
 
-.content > img{
-  display: none;
-}
+/* ---- MEDIA QUERY ---- */
+@media (max-width: 1024px){
+  main {
+    flex-direction: column;
+  }
 
+  .side {
+    width: 100%;
+    background-color: #005392;
+    z-index: 2;
+  }
+
+  .nav > a, .nav > i{
+    display: none;
+  }
+
+  .logo-div {
+    width: 100%;
+    color: white;
+    background-color: #00000050;
+    text-align: left;
+    padding: 0.8em 1.5em;
+  }
+  
+  .logo {
+    font-size: 3rem;
+  }
+
+  .notes-column {
+    width: 100%;
+    min-height: 7em;
+    padding: 5px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .note-list {
+    flex-direction: row;
+    overflow: scroll;
+  }
+
+  .note {
+    min-width: 10em;
+    height: 6em;
+    padding: 10px;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .selectedNote {
+    box-shadow: none;
+  }
+
+  .star {
+  top: 1px;
+  right: 10px;
+  }
+
+  .deleteNote {
+    top: unset;
+    bottom: 10px;
+    right: 12px;
+  }
+
+  .noteDate{
+    display: none;
+  }
+  .noteTitle{
+    padding: 0;
+  }
+  .noteContent {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .imageWrapper {
+    display: none;
+  }
+
+  #navButton{
+    display: flex;
+  }
+}
