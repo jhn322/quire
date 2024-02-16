@@ -178,7 +178,6 @@ input[type="range"]{
     padding-top: var(--commonSize);
     margin-top: var(--commonSize);
     border-top: solid 1px var(--lightGrey);
-    margin-bottom: 20px;
 }
 
 @media (max-width: 730px){

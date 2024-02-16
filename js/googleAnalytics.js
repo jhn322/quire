@@ -28,7 +28,8 @@
 // ------------------------------------------------------
 
   //Gtag Alexander Kuiper
-  const settings = document.querySelector(".fa-gear");
+  const settings = document.getElementById("gtag-settings");
+  
 
   //Custom Gtag event to track settings
   settings.addEventListener("click", function(){
@@ -46,7 +47,8 @@
 // ------------------------------------------------------
 
 //gtag for fav button - Mustafa
-  const favoriteBtn = document.querySelector(".fa-star");
+  const favoriteBtn = document.getElementById("gtag-favorite");
+  
   
   //custom gtag event when mark a note as fav
   favoriteBtn.addEventListener("click", function () {
